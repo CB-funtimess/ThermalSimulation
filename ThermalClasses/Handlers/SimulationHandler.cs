@@ -181,22 +181,24 @@ public class SimulationHandler : Handler
                         polygonList[i].colliding = true;
                         polygonList[j].CollisionParticleUpdate(polygonList[i]);
                         polygonList[j].colliding = true;
+                        Console.WriteLine($"Colliding w particle"); // This bit is triggering
+                        
                         // Move particles back into original lists
                         if (polygonList[i].Type == "Small")
                         {
-                            activeSmallParticles[polygonList[i].Identifier] = polygonList[i];
+                            activeSmallParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j]);
                         }
                         else
                         {
-                            activeLargeParticles[polygonList[i].Identifier] = polygonList[i];
+                            activeLargeParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j]);
                         }
                         if (polygonList[j].Type == "Small")
                         {
-                            activeSmallParticles[polygonList[j].Identifier] = polygonList[j];
+                            activeSmallParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i]);
                         }
                         else
                         {
-                            activeLargeParticles[polygonList[j].Identifier] = polygonList[j];
+                            activeLargeParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i]);
                         }
                     }
                 }
@@ -212,10 +214,12 @@ public class SimulationHandler : Handler
                 if (CollisionFunctions.IsBoundaryXCollision(particle, renderRectangle))
                 {
                     particle.CollisionBoundaryUpdate(true);
+                    Console.WriteLine($"Colliding w wall");
                 }
                 else if (CollisionFunctions.IsBoundaryYCollision(particle, renderRectangle))
                 {
                     particle.CollisionBoundaryUpdate(false);
+                    Console.WriteLine($"Colliding w wall");
                 }
 
                 // Move particles back into original lists
@@ -268,7 +272,7 @@ public class SimulationHandler : Handler
             allParticles[i].Position = insertPosition;
             allParticles[i].ChangeVelocityTo(insertionVelocity);
             activeParticles.Add(allParticles[i]);
-            insertPosition.Y += 10; // Inserts next particle into a space below previous particle
+            insertPosition.Y += 20; // Inserts next particle into a space below previous particle
             theta += (float)Math.PI / 2 / amount; // Modifies angle at which the magnitude of the velocity acts in
         }
     }

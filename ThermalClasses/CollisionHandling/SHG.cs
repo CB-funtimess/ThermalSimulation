@@ -20,17 +20,17 @@ namespace ThermalClasses.CollisionHandling
         {
             this.simHeight = simHeight;
             this.simWidth = simWidth;
+
             // Bucket dimensions should be roughly double the size of a particle
             cellHeight = Convert.ToInt32(Math.Ceiling(avgParticleSize * 2));
             cellWidth = Convert.ToInt32(Math.Ceiling(avgParticleSize * 2));
 
             spatialHashGrid = new Dictionary<Vector2, List<Polygon>>();
             // Initialising all buckets in the grid
-            for (int i = 0; i < Hash(new Vector2(simWidth, simHeight)).X; i+=cellWidth)
+            for (int i = 0; i < Hash(new Vector2(simWidth, simHeight)).X; i++)
             {
-                for (int j = 0; j < Hash(new Vector2(simWidth, simHeight)).Y; j+=cellHeight)
+                for (int j = 0; j < Hash(new Vector2(simWidth, simHeight)).Y; j++)
                 {
-                    System.Console.WriteLine($"X: {i}, Y: {j}");
                     spatialHashGrid.Add(new Vector2(i, j), new List<Polygon>());
                 }
             }
@@ -58,9 +58,12 @@ namespace ThermalClasses.CollisionHandling
             foreach (var point in points)
             {
                 Vector2 key = Hash(point);
-                if (!spatialHashGrid[key].Contains(particle))
+                if (key.X < Hash(new Vector2(simWidth, simHeight)).X && key.Y < Hash(new Vector2(simWidth, simHeight)).Y)
                 {
-                    spatialHashGrid[key].Add(particle);
+                    if (!spatialHashGrid[key].Contains(particle))
+                    {
+                        spatialHashGrid[key].Add(particle);
+                    }
                 }
             }
         }
