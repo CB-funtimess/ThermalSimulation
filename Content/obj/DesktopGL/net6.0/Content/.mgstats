@@ -1,5 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "/home/kayla/Documents/GitHub/ThermalSimulation/Content/BlueParticle.png","/home/kayla/Documents/GitHub/ThermalSimulation/Content/bin/DesktopGL/Content/BlueParticle.xnb","TextureProcessor","Texture2DContent",1427,40889,0.1557666
-"/home/kayla/Documents/GitHub/ThermalSimulation/Content/FixedBox.png","/home/kayla/Documents/GitHub/ThermalSimulation/Content/bin/DesktopGL/Content/FixedBox.xnb","TextureProcessor","Texture2DContent",564,20821,0.0013173
+"/home/kayla/Documents/GitHub/ThermalSimulation/Content/FixedBox.png","/home/kayla/Documents/GitHub/ThermalSimulation/Content/bin/DesktopGL/Content/FixedBox.xnb","TextureProcessor","Texture2DContent",962,83029,0.095283
 "/home/kayla/Documents/GitHub/ThermalSimulation/Content/MovingBox.png","/home/kayla/Documents/GitHub/ThermalSimulation/Content/bin/DesktopGL/Content/MovingBox.xnb","TextureProcessor","Texture2DContent",358,4085,0.0008267
 "/home/kayla/Documents/GitHub/ThermalSimulation/Content/YellowParticle.png","/home/kayla/Documents/GitHub/ThermalSimulation/Content/bin/DesktopGL/Content/YellowParticle.xnb","TextureProcessor","Texture2DContent",1464,40889,0.0019167

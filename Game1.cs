@@ -41,6 +41,7 @@ public class Game1 : Game
         // Other basic statements used in the Init() function
         IsMouseVisible = true;
         _graphics.PreferMultiSampling = false;
+        GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
         base.Initialize();
     }
 
@@ -74,7 +75,10 @@ public class Game1 : Game
         _graphics.GraphicsDevice.SetRenderTarget(null);
 
         // Draw render target to back buffer
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(SpriteSortMode.Deferred,
+        BlendState.AlphaBlend,
+        SamplerState.PointClamp,
+        null, null, null, null); // Sets SamplerState to PointClamp - no colour interpolation, just pixel scaling
         _spriteBatch.Draw(window, renderRectangle, Color.White);
         simulationHandler.Draw(gameTime, _spriteBatch);
 
