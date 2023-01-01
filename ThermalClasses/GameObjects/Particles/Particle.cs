@@ -46,15 +46,15 @@ public class Particle : GameObject
     }
 
     // This function calculates the new velocity of the particle after a collision with another particle
-    public void CollisionUpdate(Particle collidingMass)
+    public void CollisionParticleUpdate(Particle collidingMass)
     {
         CurrentVelocity = CollisionHandling.CollisionFunctions.NewCollisionVelocities(this, collidingMass);
     }
 
     // This function calculates the new velocity of the particle after a collision with a boundary
-    public void BoundaryUpdate(bool xCollision)
+    public void CollisionBoundaryUpdate(bool xCollision)
     {
-        if (xCollision)
+        if (xCollision) // If colliding with the left or right walls
         {
             CurrentVelocity = new Vector2(-1 * CurrentVelocity.X, CurrentVelocity.Y);
         }
@@ -62,6 +62,11 @@ public class Particle : GameObject
         {
             CurrentVelocity = new Vector2(CurrentVelocity.X, -1 * CurrentVelocity.Y);
         }
+    }
+
+    public void ChangeVelocityTo(Vector2 newVelocity)
+    {
+        CurrentVelocity = newVelocity;
     }
     #endregion
 }

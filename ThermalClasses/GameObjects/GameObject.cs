@@ -16,7 +16,7 @@ public class GameObject
 
     #region Properties
     public bool Enabled;
-    public Vector2 Position { get { return position; } }
+    public Vector2 Position { get { return position; } set { position = value; } }
     public Vector2 TopLeftPoint { get; private set; }
     public float XRadius { get; }
     public float YRadius { get; }
@@ -81,14 +81,9 @@ public class GameObject
 
     public virtual void Update(GameTime gameTime) { }
 
-    public void ChangePosition(Vector2 changeBy)
+    public void ChangePositionBy(Vector2 changeBy)
     {
         position = Vector2.Add(position, changeBy);
-    }
-
-    public void ChangePosition(int changeToX, int changeToY)
-    {
-        position = new Vector2(changeToX, changeToY);
     }
     #endregion
 }

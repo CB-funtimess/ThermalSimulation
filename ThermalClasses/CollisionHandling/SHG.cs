@@ -8,7 +8,7 @@ namespace ThermalClasses
     {
         #region Attributes
         private Dictionary<Microsoft.Xna.Framework.Vector2, List<Polygon>> spatialHashGrid;
-        private int cellHeight, cellWidth;
+        private int cellHeight, cellWidth, simHeight, simWidth;
         #endregion
 
         #region Properties
@@ -18,6 +18,8 @@ namespace ThermalClasses
         // Constructor: Create dictionary (a new dictionary is created every frame)
         public SHG(int simHeight, int simWidth, double avgParticleSize)
         {
+            this.simHeight = simHeight;
+            this.simWidth = simWidth;
             // Bucket dimensions should be roughly double the size of a particle
             cellHeight = Convert.ToInt32(Math.Ceiling(avgParticleSize * 2));
             cellWidth = Convert.ToInt32(Math.Ceiling(avgParticleSize * 2));
@@ -44,12 +46,11 @@ namespace ThermalClasses
         public void Insert(Polygon particle)
         {
             // Create a bounding box - largest possible area of the shape
-            Rectangle boundingBox = particle.BoundingBox;
             Vector2[] points = {
-                new Vector2(boundingBox.Left, boundingBox.Top),
-                new Vector2(boundingBox.Right, boundingBox.Top),
-                new Vector2(boundingBox.Right, boundingBox.Bottom),
-                new Vector2(boundingBox.Left, boundingBox.Bottom)
+                new Vector2(particle.BoundingBox.Left, particle.BoundingBox.Top),
+                new Vector2(particle.BoundingBox.Right, particle.BoundingBox.Top),
+                new Vector2(particle.BoundingBox.Right, particle.BoundingBox.Bottom),
+                new Vector2(particle.BoundingBox.Left, particle.BoundingBox.Bottom)
             };
 
             // Assign each corner of the rectangle to a bucket (while this is an approximation, it is an overestimate so it is guaranteed that all collisions will be accommodated)
@@ -73,7 +74,7 @@ namespace ThermalClasses
         }
 
         // This function returns all buckets with potentially colliding buckets to end the broad phase
-        public List<List<Polygon>> ReturnCollisions()
+        public List<List<Polygon>> ReturnParticleCollisions()
         {
             List<List<Polygon>> collidingBuckets = new();
             foreach (var bucket in spatialHashGrid)
@@ -85,6 +86,21 @@ namespace ThermalClasses
             }
 
             return collidingBuckets;
+        }
+
+        // This function returns all buckets that border the rectangle for checking for boundary collisions
+        public List<List<Polygon>> ReturnBoundaryCollisions()
+        {
+            List<List<Polygon>> outsideBuckets = new List<List<Polygon>>();
+            Vector2 maxBucket = Hash(new Vector2(simWidth, simHeight));
+            foreach (var bucket in spatialHashGrid)
+            {
+                if (bucket.Key.X == 0 || bucket.Key.Y == 0 || bucket.Key.X == maxBucket.X || bucket.Key.Y == maxBucket.Y)
+                {
+                    outsideBuckets.Add(bucket.Value);
+                }
+            }
+            return outsideBuckets;
         }
         #endregion
     }

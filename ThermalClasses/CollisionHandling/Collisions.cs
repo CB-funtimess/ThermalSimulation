@@ -63,7 +63,7 @@ namespace ThermalClasses.CollisionHandling
 
         // Method for handling the velocities of colliding objects
         /// <summary>
-        /// Returns the updated velocity for 
+        /// Returns the updated velocity for particle 1 after a collision with another particle; only for use in the particle class
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -78,6 +78,28 @@ namespace ThermalClasses.CollisionHandling
             updatedVelocity.Y = p1.CurrentVelocity.Y - (massConst * velocityDiff * postionDiff.Y);
 
             return updatedVelocity;
+        }
+
+        /// <summary>
+        /// Identifies whether the polygon is colliding with the boundary in the x component
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="border"></param>
+        /// <returns></returns>
+        public static bool IsBoundaryXCollision(Polygon polygon, Rectangle border)
+        {
+            return polygon.BoundingBox.Left < border.Left || polygon.BoundingBox.Right > border.Right;
+        }
+
+        /// <summary>
+        /// Identifies whether the polygon is colliding with the boundary in the y component
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="border"></param>
+        /// <returns></returns>
+        public static bool IsBoundaryYCollision(Polygon polygon, Rectangle border)
+        {
+            return polygon.BoundingBox.Top > border.Top || polygon.BoundingBox.Bottom < border.Bottom;
         }
     }
 }

@@ -24,6 +24,7 @@ public class Polygon : Particle
         Points = new Vector2[sides];
         unitPoints = new Vector2[sides];
         InitialisePoints();
+        InitBoundingBox();
     }
 
     // Method to initialise all points
@@ -58,6 +59,19 @@ public class Polygon : Particle
         {
             points[i] = Vector2.Add(points[i], translator);
         }
+    }
+
+    private void InitBoundingBox()
+    {
+        Point bottomLeft = new Point(int.MaxValue);
+        Point topRight = new Point(int.MinValue);
+        foreach (var point in Points)
+        {
+            // Find the smallest x/y value to get Left/Bottom, largest for Right/Top
+            topRight = new Point((int)Math.Max(topRight.X, point.X), (int)Math.Max(topRight.Y, point.Y));
+            bottomLeft = new Point((int)Math.Min(bottomLeft.X, point.X), (int)Math.Min(bottomLeft.Y, point.Y));
+        }
+        BoundingBox = new Rectangle(bottomLeft.X, topRight.Y, topRight.X - bottomLeft.X, topRight.Y - bottomLeft.Y);
     }
 
     public override void Update(GameTime gameTime)

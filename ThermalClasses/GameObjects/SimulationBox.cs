@@ -38,7 +38,7 @@ public class SimulationBox : GameComponent
         int movingBoxLeftX = (int)(movingBox.Position.X + movingBox.XRadius);
         if (movingBoxLeftX <= maxMovingX && movingBoxLeftX >= minMovingX)
         {
-            movingBox.ChangePosition(new Vector2(-changeByX, 0));
+            movingBox.Position = new Vector2(-changeByX, 0);
             // Change the position of the rectangle
             UpdateRectangle();
         }
