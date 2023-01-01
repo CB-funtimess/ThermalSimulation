@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Xml.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -22,10 +23,10 @@ public class GameObject
         set
         {
             position = value;
-            TopLeftPoint = new Vector2(position.X - xRadius, position.Y - yRadius);
         }
     }
-    public Vector2 TopLeftPoint { get; private set; }
+    public Vector2 TopLeftPoint { get { return new Vector2(position.X - xRadius, position.Y - yRadius); } }
+    public Rectangle ObjectRectangle { get { return new Rectangle((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y); } }
     public float XRadius { get; }
     public float YRadius { get; }
     #endregion
@@ -40,19 +41,17 @@ public class GameObject
         xRadius = dimensions.X / 2;
         yRadius = dimensions.Y / 2;
         Enabled = true;
-        TopLeftPoint = new Vector2(position.X - xRadius, position.Y - yRadius);
     }
 
     public GameObject(Texture2D texture, Color colour, Rectangle size)
     {
         dimensions = size.Size;
         this.texture = texture;
-        TopLeftPoint = new Vector2(size.Left, size.Top);
         this.colour = colour;
         xRadius = dimensions.X / 2;
         yRadius = dimensions.Y / 2;
         Enabled = true;
-        position = new Vector2(TopLeftPoint.X + xRadius, TopLeftPoint.Y + yRadius);
+        position = new Vector2(size.Left + xRadius, size.Top + yRadius);
     }
 
     // Initialises a basic GameObject

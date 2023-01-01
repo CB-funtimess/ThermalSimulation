@@ -18,6 +18,8 @@ public class Particle : GameObject
     public bool paused;
     public float Mass { get; }
     public Vector2 CurrentVelocity { get; private set; }
+    public string Type { get; set; } // Type of ball ("Small" and "Large")
+    public int Identifier { get; set; } // Unique identifier for the ball type that describes its position in the array
     #endregion
 
     #region Methods
@@ -31,7 +33,7 @@ public class Particle : GameObject
 
     public override void Update(GameTime gameTime)
     {
-        if(Enabled && !paused)
+        if (Enabled && !paused)
         {
             prevPos = position;
             // If there is no collision, the position is the only thing that changes

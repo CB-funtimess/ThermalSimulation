@@ -26,10 +26,11 @@ namespace ThermalClasses.CollisionHandling
 
             spatialHashGrid = new Dictionary<Vector2, List<Polygon>>();
             // Initialising all buckets in the grid
-            for (int i = 0; i < Hash(new Vector2(simHeight, simWidth)).X; i++)
+            for (int i = 0; i < Hash(new Vector2(simWidth, simHeight)).X; i+=cellWidth)
             {
-                for (int j = 0; j < Hash(new Vector2(simHeight, simWidth)).Y; j++)
+                for (int j = 0; j < Hash(new Vector2(simWidth, simHeight)).Y; j+=cellHeight)
                 {
+                    System.Console.WriteLine($"X: {i}, Y: {j}");
                     spatialHashGrid.Add(new Vector2(i, j), new List<Polygon>());
                 }
             }
@@ -47,10 +48,10 @@ namespace ThermalClasses.CollisionHandling
         {
             // Create a bounding box - largest possible area of the shape
             Vector2[] points = {
-                new Vector2(particle.BoundingBox.Left, particle.BoundingBox.Top),
-                new Vector2(particle.BoundingBox.Right, particle.BoundingBox.Top),
-                new Vector2(particle.BoundingBox.Right, particle.BoundingBox.Bottom),
-                new Vector2(particle.BoundingBox.Left, particle.BoundingBox.Bottom)
+                new Vector2(particle.ObjectRectangle.Left, particle.ObjectRectangle.Top),
+                new Vector2(particle.ObjectRectangle.Right, particle.ObjectRectangle.Top),
+                new Vector2(particle.ObjectRectangle.Right, particle.ObjectRectangle.Bottom),
+                new Vector2(particle.ObjectRectangle.Left, particle.ObjectRectangle.Bottom)
             };
 
             // Assign each corner of the rectangle to a bucket (while this is an approximation, it is an overestimate so it is guaranteed that all collisions will be accommodated)

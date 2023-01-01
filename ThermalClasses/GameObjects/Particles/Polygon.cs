@@ -14,7 +14,6 @@ public class Polygon : Particle
     #region Properties
     public int Sides { get { return sides; } }
     public Vector2[] Points { get; } // Vectors of the vertices; Index 0 represents the most top right point
-    public Rectangle BoundingBox { get; private set; }
     #endregion
 
     #region Methods
@@ -71,7 +70,6 @@ public class Polygon : Particle
             topRight = new Point((int)Math.Max(topRight.X, point.X), (int)Math.Max(topRight.Y, point.Y));
             bottomLeft = new Point((int)Math.Min(bottomLeft.X, point.X), (int)Math.Min(bottomLeft.Y, point.Y));
         }
-        BoundingBox = new Rectangle(bottomLeft.X, topRight.Y, topRight.X - bottomLeft.X, topRight.Y - bottomLeft.Y);
     }
 
     public override void Update(GameTime gameTime)

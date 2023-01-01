@@ -42,29 +42,35 @@ public class SimulationHandler : Handler
         rmsVelocity = 100;
     }
 
+    #region Initialisation
+
     #region Particle Initialisation
     private void InitialiseParticles()
     {
         for (var i = 0; i < smallParticles.Length; i++)
         {
-            smallParticles[i] = NewSmallCircle();
-            largeParticles[i] = NewLargeCircle();
+            smallParticles[i] = NewSmallCircle(i);
+            largeParticles[i] = NewLargeCircle(i);
         }
     }
 
-    private Polygon NewSmallCircle()
+    private Polygon NewSmallCircle(int identifier)
     {
         return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 100, 50, Color.White, new Point(10, 10))
         {
             Enabled = false,
+            Type = "Small",
+            Identifier = identifier,
         };
     }
 
-    private Polygon NewLargeCircle()
+    private Polygon NewLargeCircle(int identifier)
     {
         return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 50, Color.White, new Point(20, 20))
         {
             Enabled = false,
+            Type = "Large",
+            Identifier = identifier,
         };
     }
     #endregion
@@ -115,28 +121,32 @@ public class SimulationHandler : Handler
         AddSmallParticles(1);
     }
 
+    #endregion
+
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
         UpdateParticles(gameTime);
+        for (var i = 0; i < activeSmallParticles.Count; i++)
+        {
+            //activeSmallParticles[i].Update(gameTime);
+        }
         testButton.Update(gameTime);
     }
 
     // Calls the draw methods of all GameObjects
     public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
     {
-        Console.WriteLine($"Particle 1:\nPosition: {activeSmallParticles[0].Position}");
-        Console.WriteLine($"Particle 2:\nPosition: {activeSmallParticles[1].Position}");
         simulationBox.Draw(_spriteBatch);
         testButton.Draw(_spriteBatch);
         // Drawing all active particles to screen
         for (var i = 0; i < activeSmallParticles.Count; i++)
         {
-            activeSmallParticles[i].ScaleDraw(_spriteBatch);
+            activeSmallParticles[i].Draw(_spriteBatch);
         }
         for (var x = 0; x < activeLargeParticles.Count; x++)
         {
-            activeLargeParticles[x].ScaleDraw(_spriteBatch);
+            activeLargeParticles[x].Draw(_spriteBatch);
         }
     }
 
@@ -153,7 +163,7 @@ public class SimulationHandler : Handler
             particle.colliding = false;
         }
 
-        spatialHashGrid = new SHG(renderRectangle.Height, simulationBox.BoxRect.Width, 15);
+        spatialHashGrid = new SHG(simulationBox.BoxRect.Height, simulationBox.BoxRect.Width, 15);
         spatialHashGrid.Insert(allParticles);
 
         // Narrow phase: confirm whether pairs of particles are actually colliding
@@ -171,6 +181,23 @@ public class SimulationHandler : Handler
                         polygonList[i].colliding = true;
                         polygonList[j].CollisionParticleUpdate(polygonList[i]);
                         polygonList[j].colliding = true;
+                        // Move particles back into original lists
+                        if (polygonList[i].Type == "Small")
+                        {
+                            activeSmallParticles[polygonList[i].Identifier] = polygonList[i];
+                        }
+                        else
+                        {
+                            activeLargeParticles[polygonList[i].Identifier] = polygonList[i];
+                        }
+                        if (polygonList[j].Type == "Small")
+                        {
+                            activeSmallParticles[polygonList[j].Identifier] = polygonList[j];
+                        }
+                        else
+                        {
+                            activeLargeParticles[polygonList[j].Identifier] = polygonList[j];
+                        }
                     }
                 }
             }
@@ -190,12 +217,26 @@ public class SimulationHandler : Handler
                 {
                     particle.CollisionBoundaryUpdate(false);
                 }
+
+                // Move particles back into original lists
+                if (particle.Type == "Small")
+                {
+                    activeSmallParticles[particle.Identifier] = particle;
+                }
+                else
+                {
+                    activeLargeParticles[particle.Identifier] = particle;
+                }
             }
         }
 
-        for (var i = 0; i < allParticles.Count; i++)
+        for (var i = 0; i < activeSmallParticles.Count; i++)
         {
-            allParticles[i].Update(gameTime);
+            activeSmallParticles[i].Update(gameTime);
+        }
+        for (var i = 0; i < activeLargeParticles.Count; i++)
+        {
+            activeLargeParticles[i].Update(gameTime);
         }
     }
 
@@ -215,20 +256,20 @@ public class SimulationHandler : Handler
     // Method to add particles to the list of active particles (called by event)
     private void AddParticles(int amount, ref List<Polygon> activeParticles, ref Polygon[] allParticles)
     {
-        Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top - 10);
+        Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top + 10);
         // Creating the input velocities
-        float theta = (90 / (float)amount) - 1;
+        float theta = (float)((Math.PI / 2 / amount) + 0.1);
         // Enabling particles to allow them to be drawn and updated
         int indexToEnable = activeParticles.Count;
         for (var i = indexToEnable; i < indexToEnable + amount; i++)
         {
-            Vector2 insertionVelocity = new Vector2((float)Math.Sin(theta) * rmsVelocity, (float)Math.Cos(theta) * rmsVelocity);
+            Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Cos(theta) * rmsVelocity);
             allParticles[i].Enabled = true;
             allParticles[i].Position = insertPosition;
             allParticles[i].ChangeVelocityTo(insertionVelocity);
             activeParticles.Add(allParticles[i]);
             insertPosition.Y += 10; // Inserts next particle into a space below previous particle
-            theta += 90 / (float)amount; // Modifies angle at which the magnitude of the velocity acts in
+            theta += (float)Math.PI / 2 / amount; // Modifies angle at which the magnitude of the velocity acts in
         }
     }
     #endregion

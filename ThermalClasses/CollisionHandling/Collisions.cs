@@ -94,7 +94,7 @@ namespace ThermalClasses.CollisionHandling
         /// <returns></returns>
         public static bool IsBoundaryXCollision(Polygon polygon, Rectangle border)
         {
-            return polygon.BoundingBox.Left < border.Left || polygon.BoundingBox.Right > border.Right;
+            return polygon.ObjectRectangle.Left < border.Left || polygon.ObjectRectangle.Right > border.Right;
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace ThermalClasses.CollisionHandling
         /// <returns></returns>
         public static bool IsBoundaryYCollision(Polygon polygon, Rectangle border)
         {
-            return polygon.BoundingBox.Top > border.Top || polygon.BoundingBox.Bottom < border.Bottom;
+            return polygon.ObjectRectangle.Top > border.Top || polygon.ObjectRectangle.Bottom < border.Bottom;
         }
     }
 }

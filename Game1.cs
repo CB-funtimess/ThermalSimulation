@@ -120,6 +120,7 @@ public class Game1 : Game
 
     protected override void Dispose(bool disposing)
     {
+        // Render targets need to be disposed of manually
         window.Dispose();
         base.Dispose(disposing);
     }

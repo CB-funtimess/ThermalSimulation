@@ -47,11 +47,9 @@ public class SimulationBox : GameComponent
     // Method to update the dimensions of the rectangle
     public void UpdateRectangle()
     {
-        int fixedBoxLeft = (int)(fixedBox.Position.X + fixedBox.XRadius);
-        int movingBoxLeft = (int)(movingBox.Position.X + movingBox.XRadius);
-        Point topRightPos = new((int)(movingBox.Position.X + movingBox.XRadius), (int)(movingBox.Position.Y + movingBox.YRadius));
-        Width = fixedBoxLeft - movingBoxLeft;
-        BoxRect = new Rectangle(topRightPos.X, topRightPos.Y, Width, Height);
+        Rectangle movingRect = movingBox.ObjectRectangle;
+        Rectangle fixedRect = fixedBox.ObjectRectangle;
+        BoxRect = new Rectangle(movingRect.Right, movingRect.Top, fixedRect.Width - movingRect.Width, movingRect.Height);
     }
 
     public void Draw(SpriteBatch _spriteBatch)
