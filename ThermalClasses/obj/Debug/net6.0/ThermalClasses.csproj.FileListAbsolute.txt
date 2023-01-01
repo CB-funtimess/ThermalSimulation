@@ -1,0 +1,12 @@
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.csproj.AssemblyReference.cache
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.GeneratedMSBuildEditorConfig.editorconfig
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.AssemblyInfoInputs.cache
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.AssemblyInfo.cs
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.csproj.CoreCompileInputs.cache
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/bin/Debug/net6.0/ThermalClasses.deps.json
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/bin/Debug/net6.0/ThermalClasses.dll
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/bin/Debug/net6.0/ThermalClasses.pdb
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.dll
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/refint/ThermalClasses.dll
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.pdb
+/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ref/ThermalClasses.dll
