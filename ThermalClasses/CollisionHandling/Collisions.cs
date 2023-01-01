@@ -8,6 +8,12 @@ namespace ThermalClasses.CollisionHandling
     public static class CollisionFunctions
     {
         // The separating axis theorem function
+        /// <summary>
+        /// Finds whether two polygons are colliding; returns true if they collide
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
         public static bool SeparatingAxisTheorem(Polygon p1, Polygon p2)
         {
             Polygon a1 = p1;

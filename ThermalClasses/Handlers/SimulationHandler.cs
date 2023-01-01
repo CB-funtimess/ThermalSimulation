@@ -5,14 +5,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ThermalClasses.GameObjects;
 using ThermalClasses.GameObjects.Particles;
+using ThermalClasses.CollisionHandling;
 
 namespace ThermalClasses.Handlers;
 
 public class SimulationHandler : Handler
 {
     #region Fields
+    #region Particles
     private Polygon[] smallParticles, largeParticles; // Total particles present in simulation
     private List<Polygon> activeSmallParticles, activeLargeParticles; // All enabled particles
+    private SHG spatialHashGrid;
+    #endregion
     private SimulationBox simulationBox;
     private int volume, maxVolume; // Measured in metres cubed
     private float temperature, pressure, rmsVelocity; // Measured in Kelvin, Pascals, metres per second
@@ -96,15 +100,7 @@ public class SimulationHandler : Handler
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
-        // Updating all active particles
-        for (var i = 0; i < activeSmallParticles.Count; i++)
-        {
-            activeSmallParticles[i].Update(gameTime);
-        }
-        for (var i = 0; i < activeLargeParticles.Count; i++)
-        {
-            activeLargeParticles[i].Update(gameTime);
-        }
+        UpdateParticles(gameTime);
     }
 
     // Calls the draw methods of all GameObjects
@@ -120,6 +116,65 @@ public class SimulationHandler : Handler
         for (var x = 0; x < activeLargeParticles.Count; x++)
         {
             activeLargeParticles[x].Draw(_spriteBatch);
+        }
+    }
+
+    private void UpdateParticles(GameTime gameTime)
+    {
+        // Broad phase: generate a spatial hash grid containing all particles
+        List<Polygon> allParticles = new List<Polygon>();
+        allParticles.AddRange(activeSmallParticles);
+        allParticles.AddRange(activeLargeParticles);
+
+        // Reset all particles so that colliding = false
+        foreach (var particle in allParticles)
+        {
+            particle.colliding = false;
+        }
+
+        spatialHashGrid = new SHG(renderRectangle.Height, renderRectangle.Width, 15);
+        spatialHashGrid.Insert(allParticles);
+
+        // Narrow phase: confirm whether pairs of particles are actually colliding
+        foreach (var polygonList in spatialHashGrid.ReturnParticleCollisions())
+        {
+            // Check whether each polygon in bucket is colliding with every other polygon
+            for (var i = 0; i < polygonList.Count - 1; i++)
+            {
+                for (var j = i+1; j < polygonList.Count; j++)
+                {
+                    if (CollisionFunctions.SeparatingAxisTheorem(polygonList[i], polygonList[j]))
+                    {
+                        // Collision handling: adjust the particles' velocities
+                        polygonList[i].CollisionParticleUpdate(polygonList[j]);
+                        polygonList[i].colliding = true;
+                        polygonList[j].CollisionParticleUpdate(polygonList[i]);
+                        polygonList[j].colliding = true;
+                    }
+                }
+            }
+        }
+
+        // Broad phase pt2: find all particles potentially colliding with the border
+        foreach (var polygonList in spatialHashGrid.ReturnBoundaryCollisions())
+        {
+            // Check whether each polygon in bucket is colliding with the wall
+            foreach (var particle in polygonList)
+            {
+                if (CollisionFunctions.IsBoundaryXCollision(particle, renderRectangle))
+                {
+                    particle.CollisionBoundaryUpdate(true);
+                }
+                else if (CollisionFunctions.IsBoundaryYCollision(particle, renderRectangle))
+                {
+                    particle.CollisionBoundaryUpdate(false);
+                }
+            }
+        }
+
+        for (var i = 0; i < allParticles.Count; i++)
+        {
+            allParticles[i].Update(gameTime);
         }
     }
 

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ThermalClasses.GameObjects.Particles;
-namespace ThermalClasses
+namespace ThermalClasses.CollisionHandling
 {
     public class SHG
     {
@@ -64,13 +64,19 @@ namespace ThermalClasses
             }
         }
 
-        // This function reads in a set of particles and inserts all of them into the grid
+        // Inserts an array of particles
         public void Insert(Polygon[] particles)
         {
             foreach (var polygon in particles)
             {
                 Insert(polygon);
             }
+        }
+
+        // Inserts a list of particles
+        public void Insert(List<Polygon> particles)
+        {
+            Insert(particles.ToArray());
         }
 
         // This function returns all buckets with potentially colliding buckets to end the broad phase

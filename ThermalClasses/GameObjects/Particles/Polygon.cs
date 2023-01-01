@@ -76,7 +76,7 @@ public class Polygon : Particle
 
     public override void Update(GameTime gameTime)
     {
-        if(Enabled)
+        if(Enabled && !paused)
         {
             base.Update(gameTime);
             TranslatePoints(unitPoints, position);
