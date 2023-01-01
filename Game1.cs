@@ -27,7 +27,6 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
 
         Content.RootDirectory = "Content";
-
     }
 
     protected override void Initialize()
@@ -66,10 +65,14 @@ public class Game1 : Game
         GraphicsDevice.Clear(backgroundColor);
 
         _graphics.GraphicsDevice.SetRenderTarget(window);
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(SpriteSortMode.Deferred,
+        BlendState.AlphaBlend,
+        SamplerState.PointClamp,
+        null, null, null, null);
 
         // Draw everything onto the render target
         // Calling the Draw methods of my handlers
+        simulationHandler.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
         _graphics.GraphicsDevice.SetRenderTarget(null);
@@ -80,7 +83,6 @@ public class Game1 : Game
         SamplerState.PointClamp,
         null, null, null, null); // Sets SamplerState to PointClamp - no colour interpolation, just pixel scaling
         _spriteBatch.Draw(window, renderRectangle, Color.White);
-        simulationHandler.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
 
@@ -113,12 +115,13 @@ public class Game1 : Game
         {
             renderRectangle = new(0, 0, windowWidth, windowHeight);
         }
-        // <----- TESTING PURPOSES ----->
-        System.Console.WriteLine($"Screen dimensions: \nWidth: {windowWidth}\nHeight: {windowHeight}");
-        System.Console.WriteLine($"Render Target Dimensions:\nStart point: {renderRectangle.X}, {renderRectangle.Y}");
-        System.Console.WriteLine($"Width: {renderRectangle.Width}\nHeight: {renderRectangle.Height}");
-        // <---------------------------->
         window = new RenderTarget2D(GraphicsDevice, windowWidth, windowHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat, GraphicsDevice.PresentationParameters.DepthStencilFormat);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        window.Dispose();
+        base.Dispose(disposing);
     }
     #endregion
 }

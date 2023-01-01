@@ -14,16 +14,17 @@ public class Button : GameObject
 
     #region Properties
     public EventHandler Click;
-    public bool Clicked {get; private set;}
-    // Rectangle to mathematically represent the space the button takes up
-    public Rectangle Rectangle
+    public bool Clicked { get; private set; }
+    public Rectangle Rectangle // Rectangle to mathematically represent the space the button takes up
     {
-        get {
+        get
+        {
             return new Rectangle((int)position.X, (int)position.Y, dimensions.X, dimensions.Y);
         }
     }
-    public string Text{get;set;}
-    public Color PenColor{get;set;}
+    public string Text { get; set; }
+    public Color PenColor { get; set; }
+    public Color HoverColour { get; set; }
     #endregion
 
     #region Methods
@@ -36,22 +37,23 @@ public class Button : GameObject
 
     public override void Draw(SpriteBatch _spriteBatch)
     {
-        if(Enabled)
+        if (Enabled)
         {
+            Color tempColour = colour;
             // If the mouse is hovering over the button
             if (isHovering)
             {
-                colour = Color.Black;
+                tempColour = HoverColour;
             }
 
-            _spriteBatch.Draw(texture, Rectangle, colour);
+            _spriteBatch.Draw(texture, Rectangle, tempColour);
 
             if (!String.IsNullOrEmpty(Text))
             {
                 var x = Rectangle.X + (Rectangle.Width / 2) - (font.MeasureString(Text).X / 2);
                 var y = Rectangle.Y + (Rectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
 
-                _spriteBatch.DrawString(font, Text, new Vector2(x,y), PenColor);
+                _spriteBatch.DrawString(font, Text, new Vector2(x, y), PenColor);
             }
         }
     }
@@ -73,7 +75,7 @@ public class Button : GameObject
 
             if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
             {
-                Click?.Invoke(this, new EventArgs());
+                Click?.Invoke(this, EventArgs.Empty);
                 Clicked = true;
             }
         }

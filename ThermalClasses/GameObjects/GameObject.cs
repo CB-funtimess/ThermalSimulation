@@ -16,7 +16,15 @@ public class GameObject
 
     #region Properties
     public bool Enabled;
-    public Vector2 Position { get { return position; } set { position = value; } }
+    public Vector2 Position
+    {
+        get { return position; }
+        set
+        {
+            position = value;
+            TopLeftPoint = new Vector2(position.X - xRadius, position.Y - yRadius);
+        }
+    }
     public Vector2 TopLeftPoint { get; private set; }
     public float XRadius { get; }
     public float YRadius { get; }

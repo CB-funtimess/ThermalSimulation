@@ -6,18 +6,22 @@ using Microsoft.Xna.Framework.Input;
 using ThermalClasses.GameObjects;
 using ThermalClasses.GameObjects.Particles;
 using ThermalClasses.CollisionHandling;
+using ThermalClasses.PhysicsLaws;
 
 namespace ThermalClasses.Handlers;
 
 public class SimulationHandler : Handler
 {
     #region Fields
+    #region Objects
     #region Particles
     private Polygon[] smallParticles, largeParticles; // Total particles present in simulation
     private List<Polygon> activeSmallParticles, activeLargeParticles; // All enabled particles
     private SHG spatialHashGrid;
     #endregion
     private SimulationBox simulationBox;
+    private Button testButton;
+    #endregion
     private int volume, maxVolume; // Measured in metres cubed
     private float temperature, pressure, rmsVelocity; // Measured in Kelvin, Pascals, metres per second
 
@@ -35,6 +39,7 @@ public class SimulationHandler : Handler
         temperature = 273;
         pressure = 100;
         maxVolume = 300;
+        rmsVelocity = 100;
     }
 
     #region Particle Initialisation
@@ -49,7 +54,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewSmallCircle()
     {
-        return new Polygon(content.Load<Texture2D>("YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 100, 50, new Color(10, 10, 10), new Point(10, 10))
+        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 100, 50, Color.White, new Point(10, 10))
         {
             Enabled = false,
         };
@@ -57,7 +62,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle()
     {
-        return new(content.Load<Texture2D>("BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 50, new Color(10, 10, 10), new Point(20, 20))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 50, Color.White, new Point(20, 20))
         {
             Enabled = false,
         };
@@ -73,8 +78,8 @@ public class SimulationHandler : Handler
         Rectangle fixedRect = new(fixedMovingStart, fixedSize);
         Rectangle movingRect = new(fixedMovingStart, movingSize);
 
-        GameObject fixedBox = new GameObject(content.Load<Texture2D>("FixedBox"), Color.White, fixedRect);
-        GameObject movingBox = new GameObject(content.Load<Texture2D>("MovingBox"), Color.White, movingRect);
+        GameObject fixedBox = new GameObject(content.Load<Texture2D>("SimulationAssets/FixedBox"), Color.White, fixedRect);
+        GameObject movingBox = new GameObject(content.Load<Texture2D>("SimulationAssets/MovingBox"), Color.White, movingRect);
 
         simulationBox = new SimulationBox(game, fixedBox, movingBox, (int)(renderRectangle.Width * 0.6), (int)(renderRectangle.Width * 0.05));
     }
@@ -95,27 +100,43 @@ public class SimulationHandler : Handler
 
         // GameObject Initialisation
         InitSimBox();
+        testButton = new Button(content.Load<Texture2D>("GeneralAssets/Button"), content.Load<SpriteFont>("GeneralAssets/Arial"), new Vector2(0,0), Color.White, Color.Black, new Point(200, 50))
+        {
+            Text = "Add small particles",
+            HoverColour = Color.Gray,
+        };
+        testButton.Click += TestButton_Click;
+
+        AddSmallParticles(2);
+    }
+
+    private void TestButton_Click(object sender, EventArgs e)
+    {
+        AddSmallParticles(1);
     }
 
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
         UpdateParticles(gameTime);
+        testButton.Update(gameTime);
     }
 
     // Calls the draw methods of all GameObjects
     public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
     {
-        // Drawing the simulation box to screen
+        Console.WriteLine($"Particle 1:\nPosition: {activeSmallParticles[0].Position}");
+        Console.WriteLine($"Particle 2:\nPosition: {activeSmallParticles[1].Position}");
         simulationBox.Draw(_spriteBatch);
+        testButton.Draw(_spriteBatch);
         // Drawing all active particles to screen
         for (var i = 0; i < activeSmallParticles.Count; i++)
         {
-            activeSmallParticles[i].Draw(_spriteBatch);
+            activeSmallParticles[i].ScaleDraw(_spriteBatch);
         }
         for (var x = 0; x < activeLargeParticles.Count; x++)
         {
-            activeLargeParticles[x].Draw(_spriteBatch);
+            activeLargeParticles[x].ScaleDraw(_spriteBatch);
         }
     }
 
@@ -132,7 +153,7 @@ public class SimulationHandler : Handler
             particle.colliding = false;
         }
 
-        spatialHashGrid = new SHG(renderRectangle.Height, renderRectangle.Width, 15);
+        spatialHashGrid = new SHG(renderRectangle.Height, simulationBox.BoxRect.Width, 15);
         spatialHashGrid.Insert(allParticles);
 
         // Narrow phase: confirm whether pairs of particles are actually colliding
@@ -181,20 +202,22 @@ public class SimulationHandler : Handler
     #region Adding Particles
     private void AddSmallParticles(int amount)
     {
-        AddParticles(amount, activeSmallParticles, smallParticles);
+        AddParticles(amount, ref activeSmallParticles, ref smallParticles);
+        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
     }
 
     private void AddLargeParticles(int amount)
     {
-        AddParticles(amount, activeLargeParticles, largeParticles);
+        AddParticles(amount, ref activeLargeParticles, ref largeParticles);
+        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
     }
 
     // Method to add particles to the list of active particles (called by event)
-    private void AddParticles(int amount, List<Polygon> activeParticles, Polygon[] allParticles)
+    private void AddParticles(int amount, ref List<Polygon> activeParticles, ref Polygon[] allParticles)
     {
-        Vector2 insertPosition = new Vector2(renderRectangle.Left + 5, renderRectangle.Top + 5);
+        Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top - 10);
         // Creating the input velocities
-        float theta = 90 / (float)amount;
+        float theta = (90 / (float)amount) - 1;
         // Enabling particles to allow them to be drawn and updated
         int indexToEnable = activeParticles.Count;
         for (var i = indexToEnable; i < indexToEnable + amount; i++)
@@ -213,16 +236,18 @@ public class SimulationHandler : Handler
     #region Removing Particles
     private void RemoveSmallParticles(int amount)
     {
-        RemoveParticles(amount, activeSmallParticles, smallParticles);
+        RemoveParticles(amount, ref activeSmallParticles, ref smallParticles);
+        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
     }
 
     private void RemoveLargeParticles(int amount)
     {
-        RemoveParticles(amount, activeLargeParticles, largeParticles);
+        RemoveParticles(amount, ref activeLargeParticles, ref largeParticles);
+        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
     }
 
     // Method to remove particles from the list of active particles (called by event)
-    private void RemoveParticles(int amount, List<Polygon> activeList, Polygon[] allParticles)
+    private void RemoveParticles(int amount, ref List<Polygon> activeList, ref Polygon[] allParticles)
     {
         int indexToDisable = activeList.Count - 1;
         for (var i = indexToDisable; i > indexToDisable - amount ; i--)

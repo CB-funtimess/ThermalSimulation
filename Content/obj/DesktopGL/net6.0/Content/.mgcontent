@@ -4,12 +4,16 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/BlueParticle.png</File>
-    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/FixedBox.png</File>
-    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/MovingBox.png</File>
-    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/YellowParticle.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/Button.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/File.spritefont</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/BlueParticle.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/FixedBox.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/MovingBox.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/YellowParticle.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File>GeneralAssets/Arial.spritefont</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

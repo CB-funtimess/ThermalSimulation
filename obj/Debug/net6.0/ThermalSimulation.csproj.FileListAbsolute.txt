@@ -29,10 +29,6 @@
 /home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/bin/Debug/net6.0/Content/FixedBox.xnb
 /home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/bin/Debug/net6.0/Content/MovingBox.xnb
 /home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/bin/Debug/net6.0/Content/YellowParticle.xnb
-/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/BlueParticle.xnb
-/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/FixedBox.xnb
-/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/MovingBox.xnb
-/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/YellowParticle.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ThermalSimulation
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ThermalSimulation.deps.json
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ThermalSimulation.runtimeconfig.json
@@ -60,3 +56,9 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ThermalSimulation.pdb
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ThermalSimulation.genruntimeconfig.cache
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ref/ThermalSimulation.dll
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/Button.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/SimulationAssets/BlueParticle.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/SimulationAssets/FixedBox.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/SimulationAssets/MovingBox.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/SimulationAssets/YellowParticle.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/Arial.xnb
