@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {}
+    "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {}
   },
   "projects": {
-    "/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
+    "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
+        "projectUniqueName": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
         "projectName": "ThermalClasses",
-        "projectPath": "/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
+        "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
         "packagesPath": "/home/kayla/.nuget/packages/",
-        "outputPath": "/home/kayla/Documents/Hills/Comp Sci/NEA/ThermalSimulation/ThermalClasses/obj/",
+        "outputPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/kayla/.nuget/NuGet/NuGet.Config"
