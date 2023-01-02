@@ -175,48 +175,50 @@ public class SimulationHandler : Handler
         spatialHashGrid = new SHG(simulationBox.BoxRect, 15);
         spatialHashGrid.Insert(allParticles);
 
+        // Handling particle-particle collisions
         // Narrow phase: confirm whether pairs of particles are actually colliding
-        foreach (var polygonList in spatialHashGrid.ReturnParticleCollisions())
+        foreach (var polygonList1 in spatialHashGrid.ReturnParticleCollisions())
         {
             // Check whether each polygon in bucket is colliding with every other polygon
-            for (var i = 0; i < polygonList.Count - 1; i++)
+            for (var i = 0; i < polygonList1.Count - 1; i++)
             {
-                for (var j = i+1; j < polygonList.Count; j++)
+                for (var j = i+1; j < polygonList1.Count; j++)
                 {
-                    if (CollisionFunctions.SeparatingAxisTheorem(polygonList[i], polygonList[j]))
+                    if (CollisionFunctions.SeparatingAxisTheorem(polygonList1[i], polygonList1[j]))
                     {
                         // Collision handling: adjust the particles' velocities
                         Console.WriteLine("Colliding w particle");
 
                         // Move particles back into original lists
-                        if (polygonList[i].Type == "Small")
+                        if (polygonList1[i].Type == "Small")
                         {
-                            activeSmallParticles[polygonList[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList[i], polygonList[j], gameTime);
-                            activeSmallParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j], gameTime);
+                            activeSmallParticles[polygonList1[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList1[i], polygonList1[j], gameTime);
+                            activeSmallParticles[polygonList1[i].Identifier].CollisionParticleUpdate(polygonList1[j], gameTime);
                         }
                         else
                         {
-                            activeLargeParticles[polygonList[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList[i], polygonList[j], gameTime);
-                            activeLargeParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j], gameTime);
+                            activeLargeParticles[polygonList1[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList1[i], polygonList1[j], gameTime);
+                            activeLargeParticles[polygonList1[i].Identifier].CollisionParticleUpdate(polygonList1[j], gameTime);
                         }
-                        if (polygonList[j].Type == "Small")
+                        if (polygonList1[j].Type == "Small")
                         {
-                            activeSmallParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i], gameTime);
+                            activeSmallParticles[polygonList1[j].Identifier].CollisionParticleUpdate(polygonList1[i], gameTime);
                         }
                         else
                         {
-                            activeLargeParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i], gameTime);
+                            activeLargeParticles[polygonList1[j].Identifier].CollisionParticleUpdate(polygonList1[i], gameTime);
                         }
                     }
                 }
             }
         }
 
+        // Handling particle-border collisions
         // Broad phase pt2: find all particles potentially colliding with the border
-        foreach (var polygonList in spatialHashGrid.ReturnBoundaryCollisions())
+        var polygonList = spatialHashGrid.ReturnBoundaryCollisions();
+        for (var i = 0; i < polygonList.Count; i++)
         {
-            // Check whether each polygon in bucket is colliding with the wall
-            foreach (var particle in polygonList)
+            foreach (var particle in polygonList[i])
             {
                 Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect, gameTime);
 

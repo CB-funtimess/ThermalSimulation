@@ -116,17 +116,50 @@ namespace ThermalClasses.CollisionHandling
         /// <returns></returns>
         public static Polygon BoundaryCollisionHandling(Polygon polygon, Rectangle border, GameTime gameTime)
         {
-            if (polygon.Position.Y < border.Top || polygon.Position.Y > border.Bottom)
+            BorderCollisions borderCollisions = new BorderCollisions();
+            if (polygon.Position.Y < border.Top)
             {
+                borderCollisions.top = true;
                 Console.WriteLine($"Y Collision");
-                polygon.CollisionBoundaryUpdate(false, gameTime);
             }
-            else if (polygon.Position.X < border.Left || polygon.Position.X > border.Right)
+            else if (polygon.Position.Y > border.Bottom)
             {
-                Console.WriteLine($"X Collision");
-                polygon.CollisionBoundaryUpdate(true, gameTime);
+                borderCollisions.bottom = true;
+                Console.WriteLine($"Y Collision");
             }
+            if (polygon.Position.X < border.Left)
+            {
+                borderCollisions.left = true;
+                Console.WriteLine($"X Collision");
+            }
+            else if (polygon.Position.X > border.Right)
+            {
+                borderCollisions.right = true;
+                Console.WriteLine($"X Collision");
+            }
+
+            polygon.CollisionBoundaryUpdate(borderCollisions, gameTime);
             return polygon;
+        }
+
+        public struct BorderCollisions
+        {
+            public bool left;
+            public bool right;
+            public bool top;
+            public bool bottom;
+            public BorderCollisions(bool left, bool right, bool top, bool bottom)
+            {
+                this.left = left;
+                this.right = right;
+                this.top = top;
+                this.bottom = bottom;
+            }
+
+            public BorderCollisions()
+            {
+                left = right = top = bottom = false;
+            }
         }
     }
 }

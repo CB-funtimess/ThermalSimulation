@@ -10,6 +10,7 @@ namespace ThermalClasses.CollisionHandling
         private Dictionary<Microsoft.Xna.Framework.Vector2, List<Polygon>> spatialHashGrid;
         private int cellHeight, cellWidth;
         private Rectangle simBox;
+        private List<Polygon> notInSHG;
         #endregion
 
         #region Properties
@@ -33,6 +34,7 @@ namespace ThermalClasses.CollisionHandling
                     spatialHashGrid.Add(new Vector2(i, j), new List<Polygon>());
                 }
             }
+            notInSHG = new List<Polygon>();
         }
 
         // Hash function will return the bucket's vector index for hashing a value
@@ -56,6 +58,7 @@ namespace ThermalClasses.CollisionHandling
             // Assign each corner of the rectangle to a bucket (while this is an approximation since the bounding box != shape, it is an overestimate so it is guaranteed that all collisions will be accommodated)
             foreach (var point in points)
             {
+                bool allInserted = true;
                 Vector2 key = Hash(point);
                 Vector2 keyBounds = Hash(new Vector2(simBox.Right, simBox.Bottom));
                 if (key.X <= keyBounds.X && key.Y <= keyBounds.Y && key.X >= 0 && key.Y >= 0)
@@ -63,6 +66,17 @@ namespace ThermalClasses.CollisionHandling
                     if (!spatialHashGrid[key].Contains(particle))
                     {
                         spatialHashGrid[key].Add(particle);
+                    }
+                }
+                else
+                {
+                    allInserted = false;
+                }
+                if(!allInserted)
+                {
+                    if (!notInSHG.Contains(particle))
+                    {
+                        notInSHG.Add(particle);
                     }
                 }
             }
@@ -110,6 +124,7 @@ namespace ThermalClasses.CollisionHandling
                     outsideBuckets.Add(bucket.Value);
                 }
             }
+            outsideBuckets.Add(notInSHG);
             return outsideBuckets;
         }
         #endregion

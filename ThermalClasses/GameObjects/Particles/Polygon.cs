@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ThermalClasses.CollisionHandling;
 namespace ThermalClasses.GameObjects.Particles;
 
 // Subclass to deal with the mathematical properties of the particle
@@ -83,23 +84,22 @@ public class Polygon : Particle
     // This function calculates the new velocity of the particle after a collision with another particle
     public void CollisionParticleUpdate(Polygon collidingMass, GameTime gameTime)
     {
-        CurrentVelocity = CollisionHandling.CollisionFunctions.NewCollisionVelocity(this, collidingMass);
+        CurrentVelocity = CollisionFunctions.NewCollisionVelocity(this, collidingMass);
         Update(gameTime);
     }
 
     // This function calculates the new velocity of the particle after a collision with a boundary
-    public void CollisionBoundaryUpdate(bool xCollision, GameTime gameTime)
+    public void CollisionBoundaryUpdate(CollisionFunctions.BorderCollisions borderCollisions, GameTime gameTime)
     {
-        if (xCollision) // If colliding with the left or right walls
+        if ((borderCollisions.left && CurrentVelocity.X < 0) || (borderCollisions.right && CurrentVelocity.X > 0)) // If colliding with the left or right walls
         {
             CurrentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
-            Update(gameTime);
         }
-        else
+        if ((borderCollisions.top && CurrentVelocity.Y < 0) || (borderCollisions.bottom && CurrentVelocity.Y > 0))
         {
-            CurrentVelocity = new Vector2(CurrentVelocity.X, -1 * CurrentVelocity.Y);
-            Update(gameTime);
+            CurrentVelocity = new Vector2(CurrentVelocity.X, CurrentVelocity.Y * -1);
         }
+        Update(gameTime);
     }
     #endregion
 }

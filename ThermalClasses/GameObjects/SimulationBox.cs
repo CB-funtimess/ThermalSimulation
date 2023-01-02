@@ -15,7 +15,12 @@ public class SimulationBox : GameComponent
     public int Height { get; }
     public int Width { get; private set; }
     public int Depth { get; }
-    public Rectangle BoxRect { get; private set; }
+    public Rectangle BoxRect { get
+    {
+        Rectangle movingRect = movingBox.ObjectRectangle;
+        Rectangle fixedRect = fixedBox.ObjectRectangle;
+        return new Rectangle(movingRect.Right + 3, movingRect.Top + 10, fixedRect.Width - movingRect.Width - 10, movingRect.Height - 20);
+    }}
     #endregion
 
     #region Methods
@@ -28,7 +33,6 @@ public class SimulationBox : GameComponent
         maxMovingX = rightBoundaryX - maxWidth;
         minMovingX = rightBoundaryX - minWidth;
         Height = (int)(fixedBox.YRadius * 2);
-        UpdateRectangle();
     }
 
     // Method to change the 'volume' of the box
@@ -40,16 +44,7 @@ public class SimulationBox : GameComponent
         {
             movingBox.Position = new Vector2(-changeByX, 0);
             // Change the position of the rectangle
-            UpdateRectangle();
         }
-    }
-
-    // Method to update the dimensions of the rectangle
-    public void UpdateRectangle()
-    {
-        Rectangle movingRect = movingBox.ObjectRectangle;
-        Rectangle fixedRect = fixedBox.ObjectRectangle;
-        BoxRect = new Rectangle(movingRect.Right, movingRect.Top, fixedRect.Width - movingRect.Width, movingRect.Height);
     }
 
     public void Draw(SpriteBatch _spriteBatch)
