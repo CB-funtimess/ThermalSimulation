@@ -39,7 +39,7 @@ public class SimulationHandler : Handler
         temperature = 273;
         pressure = 100;
         maxVolume = 300;
-        rmsVelocity = 100;
+        rmsVelocity = 50;
     }
 
     #region Initialisation

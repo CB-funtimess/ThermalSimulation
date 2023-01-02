@@ -81,9 +81,9 @@ public class Polygon : Particle
     }
 
     // This function calculates the new velocity of the particle after a collision with another particle
-    public void CollisionParticleUpdate(Particle collidingMass, GameTime gameTime)
+    public void CollisionParticleUpdate(Polygon collidingMass, GameTime gameTime)
     {
-        CurrentVelocity = CollisionHandling.CollisionFunctions.NewCollisionVelocities(this, collidingMass);
+        CurrentVelocity = CollisionHandling.CollisionFunctions.NewCollisionVelocity(this, collidingMass);
         Update(gameTime);
     }
 

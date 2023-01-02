@@ -77,22 +77,12 @@ namespace ThermalClasses.CollisionHandling
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static void NewCollisionVelocities(ref Particle p1, ref Particle p2)
-        {
-            // Find minimum translation distance so that particles are just touching
-
-
-            // Update velocities based on new position
-            p1.ChangeVelocityTo(CollisionVelocity(p1, p2));
-            p2.ChangeVelocityTo(CollisionVelocity(p2, p1));
-        }
-
-        private static Vector2 CollisionVelocity(Particle p1, Particle p2)
+        public static Vector2 NewCollisionVelocity(Polygon p1, Polygon p2)
         {
             Vector2 updatedVelocity = new();
             float massConst = 2 * p2.Mass / (p1.Mass + p2.Mass);
-            Vector2 postionDiff = Vector2.Subtract(p1.Position, p2.Position);
-            float velocityDiff = Vector2.Dot(Vector2.Subtract(p1.CurrentVelocity, p2.CurrentVelocity), Vector2.Subtract(p1.Position, p2.Position)) / Vector2.Subtract(p1.Position, p2.Position).LengthSquared();
+            Vector2 postionDiff = p1.Position - p2.Position;
+            float velocityDiff = Vector2.Dot(p1.CurrentVelocity - p2.CurrentVelocity, p1.Position - p2.Position) / (p1.Position - p2.Position).LengthSquared();
             updatedVelocity.X = p1.CurrentVelocity.X - (massConst * velocityDiff * postionDiff.X);
             updatedVelocity.Y = p1.CurrentVelocity.Y - (massConst * velocityDiff * postionDiff.Y);
 
