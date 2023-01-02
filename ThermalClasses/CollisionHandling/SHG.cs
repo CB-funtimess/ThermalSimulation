@@ -9,6 +9,7 @@ namespace ThermalClasses.CollisionHandling
         #region Attributes
         private Dictionary<Microsoft.Xna.Framework.Vector2, List<Polygon>> spatialHashGrid;
         private int cellHeight, cellWidth, simHeight, simWidth;
+        private Rectangle simBox;
         #endregion
 
         #region Properties
@@ -16,10 +17,11 @@ namespace ThermalClasses.CollisionHandling
 
         #region Methods
         // Constructor: Create dictionary (a new dictionary is created every frame)
-        public SHG(int simHeight, int simWidth, double avgParticleSize)
+        public SHG(Rectangle simBox, double avgParticleSize)
         {
-            this.simHeight = simHeight;
-            this.simWidth = simWidth;
+            this.simBox = simBox;
+            simWidth = simBox.Width;
+            simHeight = simBox.Height;
 
             // Bucket dimensions should be roughly double the size of a particle
             cellHeight = Convert.ToInt32(Math.Ceiling(avgParticleSize * 2));
@@ -27,9 +29,9 @@ namespace ThermalClasses.CollisionHandling
 
             spatialHashGrid = new Dictionary<Vector2, List<Polygon>>();
             // Initialising all buckets in the grid
-            for (int i = 0; i < Hash(new Vector2(simWidth, simHeight)).X; i++)
+            for (int i = 0; i < Hash(new Vector2(simBox.Right, simBox.Bottom)).X; i++)
             {
-                for (int j = 0; j < Hash(new Vector2(simWidth, simHeight)).Y; j++)
+                for (int j = 0; j < Hash(new Vector2(simBox.Right, simBox.Bottom)).Y; j++)
                 {
                     spatialHashGrid.Add(new Vector2(i, j), new List<Polygon>());
                 }
@@ -40,7 +42,7 @@ namespace ThermalClasses.CollisionHandling
         private Vector2 Hash(Vector2 point)
         {
             // Maps point position to a bucket value
-            return new Vector2(Convert.ToInt32(Math.Ceiling(point.X / cellWidth)), Convert.ToInt32(Math.Ceiling(point.Y / cellHeight)));
+            return new Vector2(Convert.ToInt32(Math.Truncate((point.X - simBox.X) / cellWidth)), Convert.ToInt32(Math.Truncate((point.Y - simBox.Y) / cellHeight)));
         }
 
         // This function inserts a particle into the dictionary depending on its position

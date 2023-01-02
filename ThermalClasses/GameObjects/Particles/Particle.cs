@@ -58,7 +58,7 @@ public class Particle : GameObject
     {
         if (xCollision) // If colliding with the left or right walls
         {
-            CurrentVelocity = new Vector2(-1 * CurrentVelocity.X, CurrentVelocity.Y);
+            CurrentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
         }
         else
         {

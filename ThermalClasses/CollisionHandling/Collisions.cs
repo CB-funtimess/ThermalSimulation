@@ -87,25 +87,24 @@ namespace ThermalClasses.CollisionHandling
         }
 
         /// <summary>
-        /// Identifies whether the polygon is colliding with the boundary in the x component
+        /// Returns a polygon that may be colliding with the wall with a handled velocity
         /// </summary>
         /// <param name="polygon"></param>
         /// <param name="border"></param>
         /// <returns></returns>
-        public static bool IsBoundaryXCollision(Polygon polygon, Rectangle border)
+        public static Polygon BoundaryCollisionHandling(Polygon polygon, Rectangle border)
         {
-            return polygon.ObjectRectangle.Left < border.Left || polygon.ObjectRectangle.Right > border.Right;
-        }
-
-        /// <summary>
-        /// Identifies whether the polygon is colliding with the boundary in the y component
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="border"></param>
-        /// <returns></returns>
-        public static bool IsBoundaryYCollision(Polygon polygon, Rectangle border)
-        {
-            return polygon.ObjectRectangle.Top > border.Top || polygon.ObjectRectangle.Bottom < border.Bottom;
+            if (polygon.Position.Y < border.Top || polygon.Position.Y > border.Bottom)
+            {
+                Console.WriteLine($"Y Collision");
+                polygon.CollisionBoundaryUpdate(false);
+            }
+            else if (polygon.Position.X < border.Left || polygon.Position.X > border.Right)
+            {
+                Console.WriteLine($"X Collision");
+                polygon.CollisionBoundaryUpdate(true);
+            }
+            return polygon;
         }
     }
 }

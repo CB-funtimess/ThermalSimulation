@@ -13,7 +13,7 @@ public class Polygon : Particle
 
     #region Properties
     public int Sides { get { return sides; } }
-    public Vector2[] Points { get; } // Vectors of the vertices; Index 0 represents the most top right point
+    public Vector2[] Points { get; private set; } // Vectors of the vertices; Index 0 represents the most top right point
     #endregion
 
     #region Methods
@@ -22,6 +22,9 @@ public class Polygon : Particle
         sides = noSides;
         Points = new Vector2[sides];
         unitPoints = new Vector2[sides];
+        xRadius = dimensions.X / 2;
+        yRadius = dimensions.Y / 2;
+        position = centrePosition;
         InitialisePoints();
         InitBoundingBox();
     }
@@ -35,29 +38,24 @@ public class Polygon : Particle
             Points[i] = new();
         }
 
-        float theta = 360 / sides;
-        unitPoints[0] = new Vector2(0, yRadius);
+        float theta = (float)(2 * Math.PI / sides);
+        unitPoints[0] = new Vector2(0, -yRadius);
+        Points[0] = Vector2.Add(unitPoints[0], position);
+        Console.WriteLine($"Point 0: {Points[0]}");
 
         // 2-D Matrix transformation to generate points
         // Clockwise matrix rotation
         for (int i = 1; i < sides; i++)
         {
-            float x = (float)((unitPoints[i - 1].X * Math.Cos(theta)) + (unitPoints[i - 1].Y * Math.Sin(theta)));
-            float y = (float)(-(unitPoints[i - 1].X * Math.Sin(theta)) + (unitPoints[i - 1].Y * Math.Cos(theta)));
+            float x = (float)((unitPoints[i - 1].X * Math.Cos(theta)) - (unitPoints[i - 1].Y * Math.Sin(theta)));
+            float y = (float)((unitPoints[i - 1].X * Math.Sin(theta)) + (unitPoints[i - 1].Y * Math.Cos(theta)));
             unitPoints[i] = new Vector2(x, y);
-        }
 
-        // Translate all points to their correct location
-        TranslatePoints(Points, position);
-    }
-
-    // Translates all vertex points by a specific amount
-    private void TranslatePoints(Vector2[] points, Vector2 translator)
-    {
-        for (var i = 0; i < sides; i++)
-        {
-            points[i] = Vector2.Add(points[i], translator);
+            // Translate all points to their correct location
+            Points[i] = Vector2.Add(unitPoints[i], position);
+            Console.WriteLine($"Point {i}: {Points[i]}");
         }
+        Console.WriteLine("");
     }
 
     private void InitBoundingBox()
@@ -74,10 +72,13 @@ public class Polygon : Particle
 
     public override void Update(GameTime gameTime)
     {
-        if(Enabled && !paused)
+        if (Enabled && !paused)
         {
+            for (var i = 0; i < Points.Length; i++)
+            {
+                Points[i] = Vector2.Add(unitPoints[i], position);
+            }
             base.Update(gameTime);
-            TranslatePoints(unitPoints, position);
         }
     }
     #endregion

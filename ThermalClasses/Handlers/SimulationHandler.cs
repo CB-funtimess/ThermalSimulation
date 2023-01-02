@@ -56,7 +56,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewSmallCircle(int identifier)
     {
-        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 100, 50, Color.White, new Point(10, 10))
+        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(20, 20), new Vector2(0, 0), 100, 5, Color.White, new Point(10, 10))
         {
             Enabled = false,
             Type = "Small",
@@ -93,8 +93,8 @@ public class SimulationHandler : Handler
 
     public override void Initialize()
     {
-        smallParticles = new Polygon[500];
-        largeParticles = new Polygon[500];
+        smallParticles = new Polygon[2];
+        largeParticles = new Polygon[2];
         activeSmallParticles = new List<Polygon>();
         activeLargeParticles = new List<Polygon>();
     }
@@ -152,18 +152,26 @@ public class SimulationHandler : Handler
 
     private void UpdateParticles(GameTime gameTime)
     {
+        for (var i = 0; i < activeSmallParticles.Count; i++)
+        {
+            activeSmallParticles[i].Update(gameTime);
+        }
+        for (var i = 0; i < activeLargeParticles.Count; i++)
+        {
+            activeLargeParticles[i].Update(gameTime);
+        }
+
         // Broad phase: generate a spatial hash grid containing all particles
         List<Polygon> allParticles = new List<Polygon>();
         allParticles.AddRange(activeSmallParticles);
         allParticles.AddRange(activeLargeParticles);
 
-        // Reset all particles so that colliding = false
         foreach (var particle in allParticles)
         {
             particle.colliding = false;
         }
 
-        spatialHashGrid = new SHG(simulationBox.BoxRect.Height, simulationBox.BoxRect.Width, 15);
+        spatialHashGrid = new SHG(simulationBox.BoxRect, 15);
         spatialHashGrid.Insert(allParticles);
 
         // Narrow phase: confirm whether pairs of particles are actually colliding
@@ -181,8 +189,8 @@ public class SimulationHandler : Handler
                         polygonList[i].colliding = true;
                         polygonList[j].CollisionParticleUpdate(polygonList[i]);
                         polygonList[j].colliding = true;
-                        Console.WriteLine($"Colliding w particle"); // This bit is triggering
-                        
+                        Console.WriteLine("Colliding w particle");
+
                         // Move particles back into original lists
                         if (polygonList[i].Type == "Small")
                         {
@@ -211,36 +219,18 @@ public class SimulationHandler : Handler
             // Check whether each polygon in bucket is colliding with the wall
             foreach (var particle in polygonList)
             {
-                if (CollisionFunctions.IsBoundaryXCollision(particle, renderRectangle))
-                {
-                    particle.CollisionBoundaryUpdate(true);
-                    Console.WriteLine($"Colliding w wall");
-                }
-                else if (CollisionFunctions.IsBoundaryYCollision(particle, renderRectangle))
-                {
-                    particle.CollisionBoundaryUpdate(false);
-                    Console.WriteLine($"Colliding w wall");
-                }
+                Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect);
 
                 // Move particles back into original lists
                 if (particle.Type == "Small")
                 {
-                    activeSmallParticles[particle.Identifier] = particle;
+                    activeSmallParticles[myParticle.Identifier] = myParticle;
                 }
                 else
                 {
-                    activeLargeParticles[particle.Identifier] = particle;
+                    activeLargeParticles[myParticle.Identifier] = myParticle;
                 }
             }
-        }
-
-        for (var i = 0; i < activeSmallParticles.Count; i++)
-        {
-            activeSmallParticles[i].Update(gameTime);
-        }
-        for (var i = 0; i < activeLargeParticles.Count; i++)
-        {
-            activeLargeParticles[i].Update(gameTime);
         }
     }
 
