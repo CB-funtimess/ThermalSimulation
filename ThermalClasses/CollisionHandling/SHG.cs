@@ -89,7 +89,7 @@ namespace ThermalClasses.CollisionHandling
             List<List<Polygon>> collidingBuckets = new();
             foreach (var bucket in spatialHashGrid)
             {
-                if (bucket.Value.Count > 1)
+                if (bucket.Value.Count >= 2)
                 {
                     collidingBuckets.Add(bucket.Value);
                 }

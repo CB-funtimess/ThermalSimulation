@@ -13,14 +13,13 @@ public class Polygon : Particle
 
     #region Properties
     public int Sides { get { return sides; } }
-    public Vector2[] Points { get; private set; } // Vectors of the vertices; Index 0 represents the most top right point
+    public Vector2[] Points { get { return GeneratePoints(); } } // Vectors of the vertices; Index 0 represents the topmost middle point
     #endregion
 
     #region Methods
     public Polygon(Texture2D texture, Vector2 centrePosition, Vector2 velocity, float mass, int noSides, Color colour, Point dimensions) : base(texture, centrePosition, velocity, mass, colour, dimensions)
     {
         sides = noSides;
-        Points = new Vector2[sides];
         unitPoints = new Vector2[sides];
         xRadius = dimensions.X / 2;
         yRadius = dimensions.Y / 2;
@@ -40,7 +39,6 @@ public class Polygon : Particle
 
         float theta = (float)(2 * Math.PI / sides);
         unitPoints[0] = new Vector2(0, -yRadius);
-        Points[0] = Vector2.Add(unitPoints[0], position);
 
         // 2-D Matrix transformation to generate points
         // Clockwise matrix rotation
@@ -49,9 +47,6 @@ public class Polygon : Particle
             float x = (float)((unitPoints[i - 1].X * Math.Cos(theta)) - (unitPoints[i - 1].Y * Math.Sin(theta)));
             float y = (float)((unitPoints[i - 1].X * Math.Sin(theta)) + (unitPoints[i - 1].Y * Math.Cos(theta)));
             unitPoints[i] = new Vector2(x, y);
-
-            // Translate all points to their correct location
-            Points[i] = Vector2.Add(unitPoints[i], position);
         }
     }
 
@@ -71,12 +66,18 @@ public class Polygon : Particle
     {
         if (Enabled && !paused)
         {
-            for (var i = 0; i < Points.Length; i++)
-            {
-                Points[i] = Vector2.Add(unitPoints[i], position);
-            }
             base.Update(gameTime);
         }
+    }
+
+    private Vector2[] GeneratePoints()
+    {
+        Vector2[] points = new Vector2[sides];
+        for (var i = 0; i < points.Length; i++)
+        {
+            points[i] = Vector2.Add(unitPoints[i], position);
+        }
+        return points;
     }
 
     // This function calculates the new velocity of the particle after a collision with another particle

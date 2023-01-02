@@ -16,7 +16,7 @@ public class Particle : GameObject
     #region Properties
     public bool colliding;
     public bool paused;
-    public float Mass { get; }
+    public float Mass { get; protected set; }
     public Vector2 CurrentVelocity { get; protected set; }
     public string Type { get; set; } // Type of ball ("Small" and "Large")
     public int Identifier { get; set; } // Unique identifier for the ball type that describes its position in the array

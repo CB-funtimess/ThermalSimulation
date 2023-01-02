@@ -45,6 +45,7 @@ namespace ThermalClasses.CollisionHandling
                         minA1 = Math.Min(minA1, dotProd);
                         maxA1 = Math.Max(maxA1, dotProd);
                     }
+                    Console.WriteLine($"MinA1: {minA1}, MaxA1: {maxA1}");
 
                     // Mapping points on a2 to find the 'shadow' of the object in 1d
                     float minA2 = float.PositiveInfinity;
@@ -55,10 +56,12 @@ namespace ThermalClasses.CollisionHandling
                         minA2 = Math.Min(minA2, dotProd);
                         maxA2 = Math.Max(maxA2, dotProd);
                     }
+                    Console.WriteLine($"MinA2: {minA2}, MaxA2: {maxA2}");
 
                     // Comparing 1D shadows to find whether they intersect
-                    if (!(minA1 <= minA2 && maxA1 >= minA2))
+                    if (!((maxA1 >= maxA2 && maxA2 >= minA1) || (maxA1 >= minA2 && minA2 >= minA1)))
                     {
+                        System.Console.WriteLine($"Shape {shape}, side {side} failed");
                         return false;
                     }
                 }
@@ -74,7 +77,17 @@ namespace ThermalClasses.CollisionHandling
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static Vector2 NewCollisionVelocities(Particle p1, Particle p2)
+        public static void NewCollisionVelocities(ref Particle p1, ref Particle p2)
+        {
+            // Find minimum translation distance so that particles are just touching
+
+
+            // Update velocities based on new position
+            p1.ChangeVelocityTo(CollisionVelocity(p1, p2));
+            p2.ChangeVelocityTo(CollisionVelocity(p2, p1));
+        }
+
+        private static Vector2 CollisionVelocity(Particle p1, Particle p2)
         {
             Vector2 updatedVelocity = new();
             float massConst = 2 * p2.Mass / (p1.Mass + p2.Mass);

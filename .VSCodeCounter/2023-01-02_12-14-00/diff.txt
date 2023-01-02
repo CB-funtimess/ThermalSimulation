@@ -1,0 +1,82 @@
+Date : 2023-01-02 12:14:00
+Directory : /home/kayla/Documents/GitHub/ThermalSimulation
+Total : 33 files,  18315 codes, 38 comments, 44 blanks, all 18397 lines
+
+Languages
++--------------------------+------------+------------+------------+------------+------------+
+| language                 | files      | code       | comment    | blank      | total      |
++--------------------------+------------+------------+------------+------------+------------+
+| JSON                     |         10 |     17,973 |          0 |          0 |     17,973 |
+| C#                       |         16 |        256 |         36 |         36 |        328 |
+| XML                      |          5 |         61 |          0 |          5 |         66 |
+| MonoGame Content Builder |          1 |         15 |          2 |          2 |         19 |
+| Properties               |          1 |         10 |          0 |          1 |         11 |
++--------------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                  | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                     |         33 |     18,315 |         38 |         44 |     18,397 |
+| .config                                                                                                               |          1 |         36 |          0 |          0 |         36 |
+| Content                                                                                                               |          1 |         15 |          2 |          2 |         19 |
+| Tests                                                                                                                 |         13 |      8,381 |         11 |         16 |      8,408 |
+| Tests/bin                                                                                                             |          2 |      1,834 |          0 |          0 |      1,834 |
+| Tests/bin/Debug                                                                                                       |          2 |      1,834 |          0 |          0 |      1,834 |
+| Tests/bin/Debug/net6.0                                                                                                |          2 |      1,834 |          0 |          0 |      1,834 |
+| Tests/obj                                                                                                             |          8 |      6,514 |         11 |          8 |      6,533 |
+| Tests/obj/Debug                                                                                                       |          4 |         28 |         11 |          8 |         47 |
+| Tests/obj/Debug/net6.0                                                                                                |          4 |         28 |         11 |          8 |         47 |
+| ThermalClasses                                                                                                        |          9 |        218 |         26 |         26 |        270 |
+| ThermalClasses/CollisionHandling                                                                                      |          2 |         35 |         14 |          4 |         53 |
+| ThermalClasses/GameObjects                                                                                            |          5 |         23 |         -1 |          0 |         22 |
+| ThermalClasses/GameObjects/Particles                                                                                  |          2 |         19 |          0 |          1 |         20 |
+| ThermalClasses/Handlers                                                                                               |          1 |        151 |         13 |         20 |        184 |
+| ThermalClasses/PhysicsLaws                                                                                            |          1 |          9 |          0 |          2 |         11 |
+| bin                                                                                                                   |          3 |      3,550 |          0 |          0 |      3,550 |
+| bin/Debug                                                                                                             |          3 |      3,550 |          0 |          0 |      3,550 |
+| bin/Debug/net6.0                                                                                                      |          3 |      3,550 |          0 |          0 |      3,550 |
+| obj                                                                                                                   |          4 |      6,105 |          0 |          0 |      6,105 |
+| obj/Debug                                                                                                             |          1 |         -1 |          0 |          0 |         -1 |
+| obj/Debug/net6.0                                                                                                      |          1 |         -1 |          0 |          0 |         -1 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------+--------------------------+------------+------------+------------+------------+
+| filename                                                                                                              | language                 | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+--------------------------+------------+------------+------------+------------+
+| /home/kayla/Documents/GitHub/ThermalSimulation/.config/dotnet-tools.json                                              | JSON                     |         36 |          0 |          0 |         36 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Content/Content.mgcb                                                   | MonoGame Content Builder |         15 |          2 |          2 |         19 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs                                                               | C#                       |          9 |         -1 |          0 |          8 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj                                                     | XML                      |         21 |          0 |          5 |         26 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/UnitTest1.cs                                                     | C#                       |         12 |          0 |          2 |         14 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/Usings.cs                                                        | C#                       |          0 |          0 |          1 |          1 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/Tests.deps.json                                 | JSON                     |      1,825 |          0 |          0 |      1,825 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/Tests.runtimeconfig.json                        | JSON                     |          9 |          0 |          0 |          9 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs  | C#                       |          2 |          1 |          1 |          4 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.AssemblyInfo.cs                           | C#                       |          9 |          9 |          5 |         23 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.GeneratedMSBuildEditorConfig.editorconfig | Properties               |         10 |          0 |          1 |         11 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.GlobalUsings.g.cs                         | C#                       |          7 |          1 |          1 |          9 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.dgspec.json                               | JSON                     |        150 |          0 |          0 |        150 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.g.props                                   | XML                      |         26 |          0 |          0 |         26 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.g.targets                                 | XML                      |          9 |          0 |          0 |          9 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/project.assets.json                                          | JSON                     |      6,301 |          0 |          0 |      6,301 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/CollisionHandling/Collisions.cs                         | C#                       |         14 |         12 |          1 |         27 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/CollisionHandling/SHG.cs                                | C#                       |         21 |          2 |          3 |         26 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Button.cs                                   | C#                       |          3 |         -1 |          0 |          2 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/GameObject.cs                               | C#                       |          3 |          0 |         -1 |          2 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Particles/Particle.cs                       | C#                       |         -9 |         -2 |         -1 |        -12 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Particles/Polygon.cs                        | C#                       |         28 |          2 |          2 |         32 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/SimulationBox.cs                            | C#                       |         -2 |          0 |          0 |         -2 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs                           | C#                       |        151 |         13 |         20 |        184 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/PhysicsLaws.cs                              | C#                       |          9 |          0 |          2 |         11 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalSimulation.csproj                                               | XML                      |          1 |          0 |          0 |          1 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Tests.deps.json                                       | JSON                     |      1,825 |          0 |          0 |      1,825 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Tests.runtimeconfig.json                              | JSON                     |          9 |          0 |          0 |          9 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ThermalSimulation.deps.json                           | JSON                     |      1,716 |          0 |          0 |      1,716 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs        | C#                       |         -1 |          0 |          0 |         -1 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/obj/ThermalSimulation.csproj.nuget.dgspec.json                         | JSON                     |         82 |          0 |          0 |         82 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/obj/ThermalSimulation.csproj.nuget.g.props                             | XML                      |          4 |          0 |          0 |          4 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/obj/project.assets.json                                                | JSON                     |      6,020 |          0 |          0 |      6,020 |
+| Total                                                                                                                 |                          |     18,315 |         38 |         44 |     18,397 |
++-----------------------------------------------------------------------------------------------------------------------+--------------------------+------------+------------+------------+------------+

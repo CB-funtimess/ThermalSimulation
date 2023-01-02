@@ -1,0 +1,35 @@
+"filename", "language", "XML", "JSON", "C#", "MonoGame Content Builder", "Properties", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/.config/dotnet-tools.json", "JSON", 0, 36, 0, 0, 0, 0, 0, 36
+"/home/kayla/Documents/GitHub/ThermalSimulation/Content/Content.mgcb", "MonoGame Content Builder", 0, 0, 0, 15, 0, 2, 2, 19
+"/home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs", "C#", 0, 0, 9, 0, 0, -1, 0, 8
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj", "XML", 21, 0, 0, 0, 0, 0, 5, 26
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/UnitTest1.cs", "C#", 0, 0, 12, 0, 0, 0, 2, 14
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Usings.cs", "C#", 0, 0, 0, 0, 0, 0, 1, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/Tests.deps.json", "JSON", 0, 1825, 0, 0, 0, 0, 0, 1825
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/Tests.runtimeconfig.json", "JSON", 0, 9, 0, 0, 0, 0, 0, 9
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs", "C#", 0, 0, 2, 0, 0, 1, 1, 4
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.AssemblyInfo.cs", "C#", 0, 0, 9, 0, 0, 9, 5, 23
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.GeneratedMSBuildEditorConfig.editorconfig", "Properties", 0, 0, 0, 0, 10, 0, 1, 11
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.GlobalUsings.g.cs", "C#", 0, 0, 7, 0, 0, 1, 1, 9
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.dgspec.json", "JSON", 0, 150, 0, 0, 0, 0, 0, 150
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.g.props", "XML", 26, 0, 0, 0, 0, 0, 0, 26
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.g.targets", "XML", 9, 0, 0, 0, 0, 0, 0, 9
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/project.assets.json", "JSON", 0, 6301, 0, 0, 0, 0, 0, 6301
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/CollisionHandling/Collisions.cs", "C#", 0, 0, 14, 0, 0, 12, 1, 27
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/CollisionHandling/SHG.cs", "C#", 0, 0, 21, 0, 0, 2, 3, 26
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Button.cs", "C#", 0, 0, 3, 0, 0, -1, 0, 2
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/GameObject.cs", "C#", 0, 0, 3, 0, 0, 0, -1, 2
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Particles/Particle.cs", "C#", 0, 0, -9, 0, 0, -2, -1, -12
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Particles/Polygon.cs", "C#", 0, 0, 28, 0, 0, 2, 2, 32
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/SimulationBox.cs", "C#", 0, 0, -2, 0, 0, 0, 0, -2
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs", "C#", 0, 0, 151, 0, 0, 13, 20, 184
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/PhysicsLaws.cs", "C#", 0, 0, 9, 0, 0, 0, 2, 11
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalSimulation.csproj", "XML", 1, 0, 0, 0, 0, 0, 0, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Tests.deps.json", "JSON", 0, 1825, 0, 0, 0, 0, 0, 1825
+"/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Tests.runtimeconfig.json", "JSON", 0, 9, 0, 0, 0, 0, 0, 9
+"/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ThermalSimulation.deps.json", "JSON", 0, 1716, 0, 0, 0, 0, 0, 1716
+"/home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs", "C#", 0, 0, -1, 0, 0, 0, 0, -1
+"/home/kayla/Documents/GitHub/ThermalSimulation/obj/ThermalSimulation.csproj.nuget.dgspec.json", "JSON", 0, 82, 0, 0, 0, 0, 0, 82
+"/home/kayla/Documents/GitHub/ThermalSimulation/obj/ThermalSimulation.csproj.nuget.g.props", "XML", 4, 0, 0, 0, 0, 0, 0, 4
+"/home/kayla/Documents/GitHub/ThermalSimulation/obj/project.assets.json", "JSON", 0, 6020, 0, 0, 0, 0, 0, 6020
+"Total", "-", 61, 17973, 256, 15, 10, 38, 44, 18397

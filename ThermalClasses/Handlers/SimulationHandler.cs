@@ -39,7 +39,7 @@ public class SimulationHandler : Handler
         temperature = 273;
         pressure = 100;
         maxVolume = 300;
-        rmsVelocity = 200;
+        rmsVelocity = 100;
     }
 
     #region Initialisation
@@ -66,7 +66,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle(int identifier)
     {
-        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 50, Color.White, new Point(20, 20))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 5, Color.White, new Point(20, 20))
         {
             Enabled = false,
             Type = "Large",
@@ -183,6 +183,7 @@ public class SimulationHandler : Handler
             {
                 for (var j = i+1; j < polygonList.Count; j++)
                 {
+                    Console.WriteLine($"Checking {polygonList[i].Position} with {polygonList[j].Position}");
                     if (CollisionFunctions.SeparatingAxisTheorem(polygonList[i], polygonList[j]))
                     {
                         // Collision handling: adjust the particles' velocities
@@ -261,6 +262,7 @@ public class SimulationHandler : Handler
             theta += (float)Math.PI / 2 / amount; // Modifies angle at which the magnitude of the velocity acts in
         }
     }
+
     #endregion
 
     #region Removing Particles
