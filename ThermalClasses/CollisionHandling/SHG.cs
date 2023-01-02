@@ -8,7 +8,7 @@ namespace ThermalClasses.CollisionHandling
     {
         #region Attributes
         private Dictionary<Microsoft.Xna.Framework.Vector2, List<Polygon>> spatialHashGrid;
-        private int cellHeight, cellWidth, simHeight, simWidth;
+        private int cellHeight, cellWidth;
         private Rectangle simBox;
         #endregion
 
@@ -20,18 +20,15 @@ namespace ThermalClasses.CollisionHandling
         public SHG(Rectangle simBox, double avgParticleSize)
         {
             this.simBox = simBox;
-            simWidth = simBox.Width;
-            simHeight = simBox.Height;
 
             // Bucket dimensions should be roughly double the size of a particle
-            cellHeight = Convert.ToInt32(Math.Ceiling(avgParticleSize * 2));
-            cellWidth = Convert.ToInt32(Math.Ceiling(avgParticleSize * 2));
+            cellHeight = cellWidth = Convert.ToInt32(avgParticleSize * 2);
 
             spatialHashGrid = new Dictionary<Vector2, List<Polygon>>();
             // Initialising all buckets in the grid
-            for (int i = 0; i < Hash(new Vector2(simBox.Right, simBox.Bottom)).X; i++)
+            for (int i = 0; i <= Hash(new Vector2(simBox.Right, simBox.Bottom)).X; i++)
             {
-                for (int j = 0; j < Hash(new Vector2(simBox.Right, simBox.Bottom)).Y; j++)
+                for (int j = 0; j <= Hash(new Vector2(simBox.Right, simBox.Bottom)).Y; j++)
                 {
                     spatialHashGrid.Add(new Vector2(i, j), new List<Polygon>());
                 }
@@ -56,11 +53,12 @@ namespace ThermalClasses.CollisionHandling
                 new Vector2(particle.ObjectRectangle.Left, particle.ObjectRectangle.Bottom)
             };
 
-            // Assign each corner of the rectangle to a bucket (while this is an approximation, it is an overestimate so it is guaranteed that all collisions will be accommodated)
+            // Assign each corner of the rectangle to a bucket (while this is an approximation since the bounding box != shape, it is an overestimate so it is guaranteed that all collisions will be accommodated)
             foreach (var point in points)
             {
                 Vector2 key = Hash(point);
-                if (key.X < Hash(new Vector2(simWidth, simHeight)).X && key.Y < Hash(new Vector2(simWidth, simHeight)).Y)
+                Vector2 keyBounds = Hash(new Vector2(simBox.Right, simBox.Bottom));
+                if (key.X <= keyBounds.X && key.Y <= keyBounds.Y && key.X >= 0 && key.Y >= 0)
                 {
                     if (!spatialHashGrid[key].Contains(particle))
                     {
@@ -103,8 +101,8 @@ namespace ThermalClasses.CollisionHandling
         // This function returns all buckets that border the rectangle for checking for boundary collisions
         public List<List<Polygon>> ReturnBoundaryCollisions()
         {
-            List<List<Polygon>> outsideBuckets = new List<List<Polygon>>();
-            Vector2 maxBucket = Hash(new Vector2(simWidth, simHeight));
+            List<List<Polygon>> outsideBuckets = new();
+            Vector2 maxBucket = Hash(new Vector2(simBox.Right, simBox.Bottom));
             foreach (var bucket in spatialHashGrid)
             {
                 if (bucket.Key.X == 0 || bucket.Key.Y == 0 || bucket.Key.X == maxBucket.X || bucket.Key.Y == maxBucket.Y)

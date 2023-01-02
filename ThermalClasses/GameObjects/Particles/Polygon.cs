@@ -41,7 +41,6 @@ public class Polygon : Particle
         float theta = (float)(2 * Math.PI / sides);
         unitPoints[0] = new Vector2(0, -yRadius);
         Points[0] = Vector2.Add(unitPoints[0], position);
-        Console.WriteLine($"Point 0: {Points[0]}");
 
         // 2-D Matrix transformation to generate points
         // Clockwise matrix rotation
@@ -53,9 +52,7 @@ public class Polygon : Particle
 
             // Translate all points to their correct location
             Points[i] = Vector2.Add(unitPoints[i], position);
-            Console.WriteLine($"Point {i}: {Points[i]}");
         }
-        Console.WriteLine("");
     }
 
     private void InitBoundingBox()
@@ -79,6 +76,28 @@ public class Polygon : Particle
                 Points[i] = Vector2.Add(unitPoints[i], position);
             }
             base.Update(gameTime);
+        }
+    }
+
+    // This function calculates the new velocity of the particle after a collision with another particle
+    public void CollisionParticleUpdate(Particle collidingMass, GameTime gameTime)
+    {
+        CurrentVelocity = CollisionHandling.CollisionFunctions.NewCollisionVelocities(this, collidingMass);
+        Update(gameTime);
+    }
+
+    // This function calculates the new velocity of the particle after a collision with a boundary
+    public void CollisionBoundaryUpdate(bool xCollision, GameTime gameTime)
+    {
+        if (xCollision) // If colliding with the left or right walls
+        {
+            CurrentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
+            Update(gameTime);
+        }
+        else
+        {
+            CurrentVelocity = new Vector2(CurrentVelocity.X, -1 * CurrentVelocity.Y);
+            Update(gameTime);
         }
     }
     #endregion

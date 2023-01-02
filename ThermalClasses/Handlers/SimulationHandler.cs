@@ -20,7 +20,7 @@ public class SimulationHandler : Handler
     private SHG spatialHashGrid;
     #endregion
     private SimulationBox simulationBox;
-    private Button testButton;
+    private Button addSmallParticlesButton;
     #endregion
     private int volume, maxVolume; // Measured in metres cubed
     private float temperature, pressure, rmsVelocity; // Measured in Kelvin, Pascals, metres per second
@@ -39,7 +39,7 @@ public class SimulationHandler : Handler
         temperature = 273;
         pressure = 100;
         maxVolume = 300;
-        rmsVelocity = 100;
+        rmsVelocity = 200;
     }
 
     #region Initialisation
@@ -93,8 +93,9 @@ public class SimulationHandler : Handler
 
     public override void Initialize()
     {
-        smallParticles = new Polygon[2];
-        largeParticles = new Polygon[2];
+        int listSize = 500;
+        smallParticles = new Polygon[listSize];
+        largeParticles = new Polygon[listSize];
         activeSmallParticles = new List<Polygon>();
         activeLargeParticles = new List<Polygon>();
     }
@@ -106,39 +107,39 @@ public class SimulationHandler : Handler
 
         // GameObject Initialisation
         InitSimBox();
-        testButton = new Button(content.Load<Texture2D>("GeneralAssets/Button"), content.Load<SpriteFont>("GeneralAssets/Arial"), new Vector2(0,0), Color.White, Color.Black, new Point(200, 50))
+        addSmallParticlesButton = new Button(content.Load<Texture2D>("GeneralAssets/Button"), content.Load<SpriteFont>("GeneralAssets/Arial"), new Vector2(0,0), Color.White, Color.Black, new Point(200, 50))
         {
             Text = "Add small particles",
             HoverColour = Color.Gray,
         };
-        testButton.Click += TestButton_Click;
+        addSmallParticlesButton.Click += AddSmallParticles_Click;
 
         AddSmallParticles(2);
     }
 
-    private void TestButton_Click(object sender, EventArgs e)
+    private void AddSmallParticles_Click(object sender, EventArgs e)
     {
-        AddSmallParticles(1);
+        if (activeSmallParticles.Count + 10 <= smallParticles.Length)
+        {
+        AddSmallParticles(10);
+        }
     }
 
     #endregion
 
+    #region Updating & Initialisation
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
+        addSmallParticlesButton.Update(gameTime);
         UpdateParticles(gameTime);
-        for (var i = 0; i < activeSmallParticles.Count; i++)
-        {
-            //activeSmallParticles[i].Update(gameTime);
-        }
-        testButton.Update(gameTime);
     }
 
     // Calls the draw methods of all GameObjects
     public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
     {
         simulationBox.Draw(_spriteBatch);
-        testButton.Draw(_spriteBatch);
+        addSmallParticlesButton.Draw(_spriteBatch);
         // Drawing all active particles to screen
         for (var i = 0; i < activeSmallParticles.Count; i++)
         {
@@ -185,28 +186,24 @@ public class SimulationHandler : Handler
                     if (CollisionFunctions.SeparatingAxisTheorem(polygonList[i], polygonList[j]))
                     {
                         // Collision handling: adjust the particles' velocities
-                        polygonList[i].CollisionParticleUpdate(polygonList[j]);
-                        polygonList[i].colliding = true;
-                        polygonList[j].CollisionParticleUpdate(polygonList[i]);
-                        polygonList[j].colliding = true;
                         Console.WriteLine("Colliding w particle");
 
                         // Move particles back into original lists
                         if (polygonList[i].Type == "Small")
                         {
-                            activeSmallParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j]);
+                            activeSmallParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j], gameTime);
                         }
                         else
                         {
-                            activeLargeParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j]);
+                            activeLargeParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j], gameTime);
                         }
                         if (polygonList[j].Type == "Small")
                         {
-                            activeSmallParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i]);
+                            activeSmallParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i], gameTime);
                         }
                         else
                         {
-                            activeLargeParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i]);
+                            activeLargeParticles[polygonList[j].Identifier].CollisionParticleUpdate(polygonList[i], gameTime);
                         }
                     }
                 }
@@ -219,7 +216,7 @@ public class SimulationHandler : Handler
             // Check whether each polygon in bucket is colliding with the wall
             foreach (var particle in polygonList)
             {
-                Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect);
+                Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect, gameTime);
 
                 // Move particles back into original lists
                 if (particle.Type == "Small")
@@ -238,13 +235,11 @@ public class SimulationHandler : Handler
     private void AddSmallParticles(int amount)
     {
         AddParticles(amount, ref activeSmallParticles, ref smallParticles);
-        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
     }
 
     private void AddLargeParticles(int amount)
     {
         AddParticles(amount, ref activeLargeParticles, ref largeParticles);
-        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
     }
 
     // Method to add particles to the list of active particles (called by event)
@@ -252,7 +247,7 @@ public class SimulationHandler : Handler
     {
         Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top + 10);
         // Creating the input velocities
-        float theta = (float)((Math.PI / 2 / amount) + 0.1);
+        float theta = (float)((Math.PI / (2 * amount)) + 0.1);
         // Enabling particles to allow them to be drawn and updated
         int indexToEnable = activeParticles.Count;
         for (var i = indexToEnable; i < indexToEnable + amount; i++)
@@ -292,5 +287,7 @@ public class SimulationHandler : Handler
         }
     }
     #endregion
+    #endregion
+
     #endregion
 }
