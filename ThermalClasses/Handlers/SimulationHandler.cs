@@ -39,7 +39,7 @@ public class SimulationHandler : Handler
         temperature = 273;
         pressure = 100;
         maxVolume = 300;
-        rmsVelocity = 50;
+        rmsVelocity = 200;
     }
 
     #region Initialisation
@@ -56,7 +56,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewSmallCircle(int identifier)
     {
-        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(20, 20), new Vector2(0, 0), 100, 5, Color.White, new Point(10, 10))
+        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(20, 20), new Vector2(0, 0), 1000, 5, Color.White, new Point(10, 10))
         {
             Enabled = false,
             Type = "Small",
@@ -66,7 +66,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle(int identifier)
     {
-        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 5, Color.White, new Point(20, 20))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 2000, 5, Color.White, new Point(20, 20))
         {
             Enabled = false,
             Type = "Large",
@@ -183,7 +183,6 @@ public class SimulationHandler : Handler
             {
                 for (var j = i+1; j < polygonList.Count; j++)
                 {
-                    Console.WriteLine($"Checking {polygonList[i].Position} with {polygonList[j].Position}");
                     if (CollisionFunctions.SeparatingAxisTheorem(polygonList[i], polygonList[j]))
                     {
                         // Collision handling: adjust the particles' velocities
@@ -192,10 +191,12 @@ public class SimulationHandler : Handler
                         // Move particles back into original lists
                         if (polygonList[i].Type == "Small")
                         {
+                            activeSmallParticles[polygonList[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList[i], polygonList[j], gameTime);
                             activeSmallParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j], gameTime);
                         }
                         else
                         {
+                            activeLargeParticles[polygonList[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList[i], polygonList[j], gameTime);
                             activeLargeParticles[polygonList[i].Identifier].CollisionParticleUpdate(polygonList[j], gameTime);
                         }
                         if (polygonList[j].Type == "Small")
