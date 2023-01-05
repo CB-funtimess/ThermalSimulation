@@ -65,7 +65,7 @@ public class Polygon : Particle
 
     public override void Update(GameTime gameTime)
     {
-        if (Enabled && !paused)
+        if (Enabled)
         {
             base.Update(gameTime);
         }

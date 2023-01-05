@@ -6,15 +6,15 @@ namespace ThermalClasses.GameObjects;
 public class Button : GameObject
 {
     #region Fields
-    private MouseState currentState;
-    private MouseState previousState;
-    private readonly SpriteFont font;
-    private bool isHovering;
+    protected MouseState currentState;
+    protected MouseState previousState;
+    protected readonly SpriteFont font;
+    protected bool isHovering;
     #endregion
 
     #region Properties
     public EventHandler Click;
-    public bool Clicked { get; private set; }
+    public bool Clicked { get; protected set; }
     public Rectangle Rectangle // Rectangle to mathematically represent the space the button takes up
     {
         get
@@ -23,16 +23,17 @@ public class Button : GameObject
         }
     }
     public string Text { get; set; }
-    public Color PenColor { get; set; }
+    public Color PenColour { get; set; }
     public Color HoverColour { get; set; }
     #endregion
 
     #region Methods
-    public Button(Texture2D texture, SpriteFont font, Vector2 position, Color colour, Color penColour, Point dimensions) : base(texture, position, colour, dimensions)
+    public Button(Texture2D texture, SpriteFont font, Vector2 position, Color unclickedColour, Color penColour, Point dimensions) : base(texture, position, unclickedColour, dimensions)
     {
         this.font = font;
 
-        PenColor = penColour;
+        PenColour = penColour;
+        Clicked = false;
     }
 
     public override void Draw(SpriteBatch _spriteBatch)
@@ -53,7 +54,7 @@ public class Button : GameObject
                 var x = Rectangle.X + (Rectangle.Width / 2) - (font.MeasureString(Text).X / 2);
                 var y = Rectangle.Y + (Rectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
 
-                _spriteBatch.DrawString(font, Text, new Vector2(x, y), PenColor);
+                _spriteBatch.DrawString(font, Text, new Vector2(x, y), PenColour);
             }
         }
     }

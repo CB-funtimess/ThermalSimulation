@@ -34,7 +34,11 @@ public class Game1 : Game
         InitRenderTarget();
 
         // Initialising and calling the Init() methods of my handlers
-        simulationHandler = new(this, renderRectangle);
+        simulationHandler = new(this, renderRectangle)
+        {
+            BackgroundColour = backgroundColor,
+            HoverColour = Color.Gray,
+        };
         simulationHandler.Initialize();
 
         // Other basic statements used in the Init() function

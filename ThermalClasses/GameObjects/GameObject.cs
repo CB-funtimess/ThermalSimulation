@@ -58,31 +58,31 @@ public class GameObject
     protected GameObject(Texture2D texture) : this(texture, new Vector2(0, 0), new Color(0, 0, 0), new Point()) { }
 
     // Draws objects with the scale of the texture
-    public virtual void TextureScaleDraw(GameTime gameTime, SpriteBatch _spritebatch)
+    public virtual void TextureScaleDraw(GameTime gameTime, SpriteBatch _spriteBatch)
     {
         if (Enabled)
         {
-            _spritebatch.Draw(texture, TopLeftPoint, colour);
+            _spriteBatch.Draw(texture, TopLeftPoint, colour);
         }
     }
 
     // Method to draw objects using a rectangle
-    public virtual void Draw(SpriteBatch _spritebatch)
+    public virtual void Draw(SpriteBatch _spriteBatch)
     {
         if (Enabled)
         {
             Rectangle scaleDraw = new((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y);
-            _spritebatch.Draw(texture, scaleDraw, colour);
+            _spriteBatch.Draw(texture, scaleDraw, colour);
         }
     }
 
     // Method to draw objects to scale
-    public virtual void ScaleDraw(SpriteBatch _spritebatch)
+    public virtual void ScaleDraw(SpriteBatch _spriteBatch)
     {
         if (Enabled)
         {
             Rectangle scaleDraw = new((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y);
-            _spritebatch.Draw(texture, TopLeftPoint, scaleDraw, colour);
+            _spriteBatch.Draw(texture, TopLeftPoint, scaleDraw, colour);
         }
     }
 

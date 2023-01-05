@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-namespace ThermalClasses.GameObjects;
+namespace ThermalClasses.GameObjects.ObjectCollections;
 
 public class SimulationBox : GameComponent
 {

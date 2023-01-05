@@ -7,6 +7,7 @@ using ThermalClasses.GameObjects;
 using ThermalClasses.GameObjects.Particles;
 using ThermalClasses.CollisionHandling;
 using ThermalClasses.PhysicsLaws;
+using ThermalClasses.GameObjects.ObjectCollections;
 
 namespace ThermalClasses.Handlers;
 
@@ -20,11 +21,20 @@ public class SimulationHandler : Handler
     private SHG spatialHashGrid;
     #endregion
     private SimulationBox simulationBox;
-    private Button addSmallParticlesButton;
+    #region Buttons
+    private CheckButton pauseButton;
+    private UpDownButton particlesControl;
+    #endregion
     #endregion
     private int volume, maxVolume; // Measured in metres cubed
     private float temperature, pressure, rmsVelocity; // Measured in Kelvin, Pascals, metres per second
+    private bool paused;
+    private Color penColour = Color.White;
+    #endregion
 
+    #region Properties
+    public Color BackgroundColour { get; set; }
+    public Color HoverColour { get; set; }
     #endregion
 
     #region Methods
@@ -40,6 +50,7 @@ public class SimulationHandler : Handler
         pressure = 100;
         maxVolume = 300;
         rmsVelocity = 200;
+        paused = false;
     }
 
     #region Initialisation
@@ -102,44 +113,48 @@ public class SimulationHandler : Handler
 
     public override void LoadContent()
     {
+        SpriteFont font = content.Load<SpriteFont>("GeneralAssets/Arial");
+        Color unclickedColour = Color.White;
         // Particle Initialisation
         InitialiseParticles();
 
         // GameObject Initialisation
         InitSimBox();
-        addSmallParticlesButton = new Button(content.Load<Texture2D>("GeneralAssets/Button"), content.Load<SpriteFont>("GeneralAssets/Arial"), new Vector2(0,0), Color.White, Color.Black, new Point(200, 50))
+        Vector2 pausePosition = new Vector2(0, simulationBox.BoxRect.Y - 55);
+        pauseButton = new CheckButton(content.Load<Texture2D>("GeneralAssets/PauseButton"), content.Load<Texture2D>("GeneralAssets/PlayButton"), font, pausePosition, unclickedColour, penColour, new Point(40, 40))
         {
-            Text = "Add small particles",
-            HoverColour = Color.Gray,
+            HoverColour = HoverColour,
         };
-        addSmallParticlesButton.Click += AddSmallParticles_Click;
+
+        Texture2D upTexture = content.Load<Texture2D>("GeneralAssets/UpButton");
+        Texture2D downTexture = content.Load<Texture2D>("GeneralAssets/DownButton");
+        pauseButton.Click += PauseSimulation_Click;
 
         AddSmallParticles(2);
     }
 
-    private void AddSmallParticles_Click(object sender, EventArgs e)
+    private void PauseSimulation_Click(object sender, EventArgs e)
     {
-        if (activeSmallParticles.Count + 10 <= smallParticles.Length)
-        {
-        AddSmallParticles(10);
-        }
+        paused = !paused;
     }
-
     #endregion
 
     #region Updating & Initialisation
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
-        addSmallParticlesButton.Update(gameTime);
-        UpdateParticles(gameTime);
+        pauseButton.Update(gameTime);
+        if (!paused)
+        {
+            UpdateParticles(gameTime);
+        }
     }
 
     // Calls the draw methods of all GameObjects
     public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
     {
         simulationBox.Draw(_spriteBatch);
-        addSmallParticlesButton.Draw(_spriteBatch);
+        pauseButton.Draw(_spriteBatch);
         // Drawing all active particles to screen
         for (var i = 0; i < activeSmallParticles.Count; i++)
         {
@@ -182,7 +197,7 @@ public class SimulationHandler : Handler
             // Check whether each polygon in bucket is colliding with every other polygon
             for (var i = 0; i < polygonList1.Count - 1; i++)
             {
-                for (var j = i+1; j < polygonList1.Count; j++)
+                for (var j = i + 1; j < polygonList1.Count; j++)
                 {
                     if (CollisionFunctions.SeparatingAxisTheorem(polygonList1[i], polygonList1[j]))
                     {
@@ -285,7 +300,7 @@ public class SimulationHandler : Handler
     private void RemoveParticles(int amount, ref List<Polygon> activeList, ref Polygon[] allParticles)
     {
         int indexToDisable = activeList.Count - 1;
-        for (var i = indexToDisable; i > indexToDisable - amount ; i--)
+        for (var i = indexToDisable; i > indexToDisable - amount; i--)
         {
             activeList.RemoveAt(activeList.Count - 1);
             allParticles[i].Enabled = false;

@@ -15,7 +15,6 @@ public class Particle : GameObject
 
     #region Properties
     public bool colliding;
-    public bool paused;
     public float Mass { get; protected set; }
     public Vector2 PreviousVelocity { get { return prevVelocity; } }
     public Vector2 PreviousPosition { get { return prevPos; } }
@@ -28,14 +27,13 @@ public class Particle : GameObject
     public Particle(Texture2D texture, Vector2 position, Vector2 velocity, float Mass, Color colour, Point dimensions) : base(texture, position, colour, dimensions)
     {
         colliding = false;
-        paused = false;
         CurrentVelocity = velocity;
         this.Mass = Mass;
     }
 
     public override void Update(GameTime gameTime)
     {
-        if (Enabled && !paused)
+        if (Enabled)
         {
             prevPos = position;
             // If there is no collision, the position is the only thing that changes

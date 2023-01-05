@@ -116,29 +116,37 @@ namespace ThermalClasses.CollisionHandling
         /// <returns></returns>
         public static Polygon BoundaryCollisionHandling(Polygon polygon, Rectangle border, GameTime gameTime)
         {
+            bool borderCollision = false;
             BorderCollisions borderCollisions = new BorderCollisions();
             if (polygon.Position.Y < border.Top)
             {
                 borderCollisions.top = true;
                 Console.WriteLine($"Y Collision");
+                borderCollision = true;
             }
             else if (polygon.Position.Y > border.Bottom)
             {
                 borderCollisions.bottom = true;
                 Console.WriteLine($"Y Collision");
+                borderCollision = true;
             }
             if (polygon.Position.X < border.Left)
             {
                 borderCollisions.left = true;
                 Console.WriteLine($"X Collision");
+                borderCollision = true;
             }
             else if (polygon.Position.X > border.Right)
             {
                 borderCollisions.right = true;
                 Console.WriteLine($"X Collision");
+                borderCollision = true;
             }
 
-            polygon.CollisionBoundaryUpdate(borderCollisions, gameTime);
+            if (borderCollision)
+            {
+                polygon.CollisionBoundaryUpdate(borderCollisions, gameTime);
+            }
             return polygon;
         }
 
