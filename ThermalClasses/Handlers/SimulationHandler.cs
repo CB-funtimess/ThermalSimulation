@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Net.Mime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -26,6 +27,8 @@ public class SimulationHandler : Handler
     private List<UpDownButton> upDownCollection;
     private CheckButton pauseButton;
     private UpDownButton volumeControl;
+    private UpDownButton smallParticleControl;
+    private UpDownButton largeParticleControl;
     #endregion
     #endregion
     private int volume, maxVolume; // Measured in metres cubed
@@ -141,8 +144,22 @@ public class SimulationHandler : Handler
         volumeControl.DownButton.Click += DecreaseVolume_Click;
         volumeControl.UpButton.Click += IncreaseVolume_Click;
 
+        Rectangle smallParticleButtonSize = new Rectangle();
+        smallParticleControl = new UpDownButton(upTexture, downTexture, labelTexture, smallParticleButtonSize, "Small Particles", font, penColour, unclickedColour, HoverColour);
+        smallParticleControl.DownButton.Click += RemoveSmallParticles_Click;
+        smallParticleControl.UpButton.Click += AddSmallParticles_Click;
+
+        Rectangle largeParticleButtonSize = new Rectangle(new Point(simulationBox.BoxRect.Right - 150, simulationBox.BoxRect.Bottom + 15), new Point(150, 40));
+        largeParticleControl = new UpDownButton(upTexture, downTexture, labelTexture, largeParticleButtonSize, "Large Particles", font, penColour, unclickedColour, HoverColour);
+        largeParticleControl.DownButton.Click += RemoveLargeParticles_Click;
+        largeParticleControl.UpButton.Click += AddSmallParticles_Click;
+
+        // Putting all objects into a list for easier updating and drawing
         buttonCollection.Add(pauseButton);
+
         upDownCollection.Add(volumeControl);
+        upDownCollection.Add(smallParticleControl);
+        upDownCollection.Add(largeParticleControl);
 
         AddParticles(2, ref activeSmallParticles, ref smallParticles);
     }
@@ -273,6 +290,7 @@ public class SimulationHandler : Handler
             }
         }
     }
+    #endregion
 
     #region Events
     #region Adding Particles
@@ -289,20 +307,23 @@ public class SimulationHandler : Handler
     // Method to add particles to the list of active particles (called by event)
     private void AddParticles(int amount, ref List<Polygon> activeParticles, ref Polygon[] allParticles)
     {
-        Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top + 10);
-        // Creating the input velocities
-        float theta = (float)((Math.PI / (2 * amount)) + 0.1);
-        // Enabling particles to allow them to be drawn and updated
-        int indexToEnable = activeParticles.Count;
-        for (var i = indexToEnable; i < indexToEnable + amount; i++)
+        if (activeParticles.Count + amount <= allParticles.Length)
         {
-            Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Cos(theta) * rmsVelocity);
-            allParticles[i].Enabled = true;
-            allParticles[i].Position = insertPosition;
-            allParticles[i].ChangeVelocityTo(insertionVelocity);
-            activeParticles.Add(allParticles[i]);
-            insertPosition.Y += 20; // Inserts next particle into a space below previous particle
-            theta += (float)Math.PI / 2 / amount; // Modifies angle at which the magnitude of the velocity acts in
+            Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top + 10);
+            // Creating the input velocities
+            float theta = (float)((Math.PI / (2 * amount)) + 0.1);
+            // Enabling particles to allow them to be drawn and updated
+            int indexToEnable = activeParticles.Count;
+            for (var i = indexToEnable; i < indexToEnable + amount; i++)
+            {
+                Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Cos(theta) * rmsVelocity);
+                allParticles[i].Enabled = true;
+                allParticles[i].Position = insertPosition;
+                allParticles[i].ChangeVelocityTo(insertionVelocity);
+                activeParticles.Add(allParticles[i]);
+                insertPosition.Y += 20; // Inserts next particle into a space below previous particle
+                theta += (float)Math.PI / 2 / amount; // Modifies angle at which the magnitude of the velocity acts in
+            }
         }
     }
 
@@ -322,16 +343,16 @@ public class SimulationHandler : Handler
     // Method to remove particles from the list of active particles (called by event)
     private void RemoveParticles(int amount, ref List<Polygon> activeList, ref Polygon[] allParticles)
     {
-        int indexToDisable = activeList.Count - 1;
-        for (var i = indexToDisable; i > indexToDisable - amount; i--)
+        if (activeList.Count >= amount)
         {
-            activeList.RemoveAt(activeList.Count - 1);
-            allParticles[i].Enabled = false;
+            int indexToDisable = activeList.Count - 1;
+            for (var i = indexToDisable; i > indexToDisable - amount; i--)
+            {
+                activeList.RemoveAt(activeList.Count - 1);
+                allParticles[i].Enabled = false;
+            }
         }
     }
-    #endregion
-    #endregion
-
     #endregion
 
     private void PauseSimulation_Click(object sender, EventArgs e)
@@ -348,5 +369,6 @@ public class SimulationHandler : Handler
     {
         simulationBox.ChangeVolume(-20);
     }
+    #endregion
     #endregion
 }
