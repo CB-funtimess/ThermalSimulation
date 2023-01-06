@@ -22,8 +22,10 @@ public class SimulationHandler : Handler
     #endregion
     private SimulationBox simulationBox;
     #region Buttons
+    private List<GameObject> buttonCollection;
+    private List<UpDownButton> upDownCollection;
     private CheckButton pauseButton;
-    private UpDownButton particlesControl;
+    private UpDownButton volumeControl;
     #endregion
     #endregion
     private int volume, maxVolume; // Measured in metres cubed
@@ -98,7 +100,7 @@ public class SimulationHandler : Handler
         GameObject fixedBox = new GameObject(content.Load<Texture2D>("SimulationAssets/FixedBox"), Color.White, fixedRect);
         GameObject movingBox = new GameObject(content.Load<Texture2D>("SimulationAssets/MovingBox"), Color.White, movingRect);
 
-        simulationBox = new SimulationBox(game, fixedBox, movingBox, (int)(renderRectangle.Width * 0.6), (int)(renderRectangle.Width * 0.05));
+        simulationBox = new SimulationBox(game, fixedBox, movingBox, (int)(renderRectangle.Width * 0.4), 0);
     }
     #endregion
 
@@ -109,6 +111,8 @@ public class SimulationHandler : Handler
         largeParticles = new Polygon[listSize];
         activeSmallParticles = new List<Polygon>();
         activeLargeParticles = new List<Polygon>();
+        buttonCollection = new List<GameObject>();
+        upDownCollection = new List<UpDownButton>();
     }
 
     public override void LoadContent()
@@ -120,22 +124,27 @@ public class SimulationHandler : Handler
 
         // GameObject Initialisation
         InitSimBox();
+        // Buttons Initialisation
         Vector2 pausePosition = new Vector2(0, simulationBox.BoxRect.Y - 55);
         pauseButton = new CheckButton(content.Load<Texture2D>("GeneralAssets/PauseButton"), content.Load<Texture2D>("GeneralAssets/PlayButton"), font, pausePosition, unclickedColour, penColour, new Point(40, 40))
         {
             HoverColour = HoverColour,
         };
+        pauseButton.Click += PauseSimulation_Click;
 
         Texture2D upTexture = content.Load<Texture2D>("GeneralAssets/UpButton");
         Texture2D downTexture = content.Load<Texture2D>("GeneralAssets/DownButton");
-        pauseButton.Click += PauseSimulation_Click;
+        Texture2D labelTexture = content.Load<Texture2D>("GeneralAssets/LabelBox1");
 
-        AddSmallParticles(2);
-    }
+        Rectangle volumeButtonSize = new Rectangle(Point.Zero, new Point(150, 40));
+        volumeControl = new UpDownButton(upTexture, downTexture, labelTexture, volumeButtonSize, "Volume", font, penColour, unclickedColour, HoverColour);
+        volumeControl.DownButton.Click += DecreaseVolume_Click;
+        volumeControl.UpButton.Click += IncreaseVolume_Click;
 
-    private void PauseSimulation_Click(object sender, EventArgs e)
-    {
-        paused = !paused;
+        buttonCollection.Add(pauseButton);
+        upDownCollection.Add(volumeControl);
+
+        AddParticles(2, ref activeSmallParticles, ref smallParticles);
     }
     #endregion
 
@@ -143,6 +152,14 @@ public class SimulationHandler : Handler
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
+        for (var i = 0; i < buttonCollection.Count; i++)
+        {
+            buttonCollection[i].Update(gameTime);
+        }
+        for (var i = 0; i < upDownCollection.Count; i++)
+        {
+            upDownCollection[i].Update(gameTime);
+        }
         pauseButton.Update(gameTime);
         if (!paused)
         {
@@ -154,7 +171,14 @@ public class SimulationHandler : Handler
     public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
     {
         simulationBox.Draw(_spriteBatch);
-        pauseButton.Draw(_spriteBatch);
+        for (var i = 0; i < buttonCollection.Count; i++)
+        {
+            buttonCollection[i].Draw(_spriteBatch);
+        }
+        for (var i = 0; i < upDownCollection.Count; i++)
+        {
+            upDownCollection[i].Draw(_spriteBatch);
+        }
         // Drawing all active particles to screen
         for (var i = 0; i < activeSmallParticles.Count; i++)
         {
@@ -250,15 +274,16 @@ public class SimulationHandler : Handler
         }
     }
 
+    #region Events
     #region Adding Particles
-    private void AddSmallParticles(int amount)
+    private void AddSmallParticles_Click(object sender, EventArgs e)
     {
-        AddParticles(amount, ref activeSmallParticles, ref smallParticles);
+        AddParticles(10, ref activeSmallParticles, ref smallParticles);
     }
 
-    private void AddLargeParticles(int amount)
+    private void AddLargeParticles_Click(object sender, EventArgs e)
     {
-        AddParticles(amount, ref activeLargeParticles, ref largeParticles);
+        AddParticles(10, ref activeLargeParticles, ref largeParticles);
     }
 
     // Method to add particles to the list of active particles (called by event)
@@ -284,16 +309,14 @@ public class SimulationHandler : Handler
     #endregion
 
     #region Removing Particles
-    private void RemoveSmallParticles(int amount)
+    private void RemoveSmallParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(amount, ref activeSmallParticles, ref smallParticles);
-        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
+        RemoveParticles(10, ref activeSmallParticles, ref smallParticles);
     }
 
-    private void RemoveLargeParticles(int amount)
+    private void RemoveLargeParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(amount, ref activeLargeParticles, ref largeParticles);
-        rmsVelocity = PhysicsEquations.CalcVelocityRMS(pressure, volume, activeSmallParticles.Count + activeLargeParticles.Count);
+        RemoveParticles(10, ref activeLargeParticles, ref largeParticles);
     }
 
     // Method to remove particles from the list of active particles (called by event)
@@ -309,5 +332,21 @@ public class SimulationHandler : Handler
     #endregion
     #endregion
 
+    #endregion
+
+    private void PauseSimulation_Click(object sender, EventArgs e)
+    {
+        paused = !paused;
+    }
+
+    private void IncreaseVolume_Click(object sender, EventArgs e)
+    {
+        simulationBox.ChangeVolume(20);
+    }
+
+    private void DecreaseVolume_Click(object sender, EventArgs e)
+    {
+        simulationBox.ChangeVolume(-20);
+    }
     #endregion
 }

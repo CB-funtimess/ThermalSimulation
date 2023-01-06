@@ -27,8 +27,8 @@ public class GameObject
     }
     public Vector2 TopLeftPoint { get { return new Vector2(position.X - xRadius, position.Y - yRadius); } }
     public Rectangle ObjectRectangle { get { return new Rectangle((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y); } }
-    public float XRadius { get; }
-    public float YRadius { get; }
+    public int XRadius { get { return dimensions.X / 2; } set { dimensions.X += value; } }
+    public int YRadius { get { return dimensions.Y / 2; } set { dimensions.Y += value; } }
     #endregion
 
     #region Methods
@@ -38,8 +38,6 @@ public class GameObject
         this.texture = texture;
         this.position = position;
         this.colour = colour;
-        xRadius = dimensions.X / 2;
-        yRadius = dimensions.Y / 2;
         Enabled = true;
     }
 
