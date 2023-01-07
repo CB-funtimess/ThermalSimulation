@@ -95,7 +95,7 @@ namespace ThermalClasses.CollisionHandling
         {
             float radiiDistance = p1.YRadius + p2.YRadius;
             int length = (int)gameTime.ElapsedGameTime.TotalMilliseconds;
-            float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / 10); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
+            float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / Math.Min(p1.YRadius, p2.YRadius)); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
             for (float i = 0; i < length; i+=iterateBy)
             {
                 Vector2 tempPosition = p1.PreviousPosition + (p1.CurrentVelocity * i);
@@ -121,25 +121,21 @@ namespace ThermalClasses.CollisionHandling
             if (polygon.Position.Y < border.Top)
             {
                 borderCollisions.top = true;
-                Console.WriteLine($"Y Collision");
                 borderCollision = true;
             }
             else if (polygon.Position.Y > border.Bottom)
             {
                 borderCollisions.bottom = true;
-                Console.WriteLine($"Y Collision");
                 borderCollision = true;
             }
             if (polygon.Position.X < border.Left)
             {
                 borderCollisions.left = true;
-                Console.WriteLine($"X Collision");
                 borderCollision = true;
             }
             else if (polygon.Position.X > border.Right)
             {
                 borderCollisions.right = true;
-                Console.WriteLine($"X Collision");
                 borderCollision = true;
             }
 

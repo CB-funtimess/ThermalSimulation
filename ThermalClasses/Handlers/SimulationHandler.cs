@@ -72,7 +72,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewSmallCircle(int identifier)
     {
-        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(20, 20), new Vector2(0, 0), 1000, 5, Color.White, new Point(10, 10))
+        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 100, 25, Color.White, new Point(10, 10))
         {
             Enabled = false,
             Type = "Small",
@@ -82,7 +82,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle(int identifier)
     {
-        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 2000, 5, Color.White, new Point(20, 20))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 25, Color.White, new Point(15, 15))
         {
             Enabled = false,
             Type = "Large",
@@ -144,15 +144,16 @@ public class SimulationHandler : Handler
         volumeControl.DownButton.Click += DecreaseVolume_Click;
         volumeControl.UpButton.Click += IncreaseVolume_Click;
 
-        Rectangle smallParticleButtonSize = new Rectangle();
+        Point particleControlSize = new Point(200, 40);
+        Rectangle largeParticleButtonSize = new Rectangle(new Point(simulationBox.BoxRect.Right - particleControlSize.X, simulationBox.BoxRect.Bottom + 15), particleControlSize);
+        Rectangle smallParticleButtonSize = new Rectangle(new Point(largeParticleButtonSize.X, largeParticleButtonSize.Y + particleControlSize.Y + 10), particleControlSize);
         smallParticleControl = new UpDownButton(upTexture, downTexture, labelTexture, smallParticleButtonSize, "Small Particles", font, penColour, unclickedColour, HoverColour);
         smallParticleControl.DownButton.Click += RemoveSmallParticles_Click;
         smallParticleControl.UpButton.Click += AddSmallParticles_Click;
 
-        Rectangle largeParticleButtonSize = new Rectangle(new Point(simulationBox.BoxRect.Right - 150, simulationBox.BoxRect.Bottom + 15), new Point(150, 40));
         largeParticleControl = new UpDownButton(upTexture, downTexture, labelTexture, largeParticleButtonSize, "Large Particles", font, penColour, unclickedColour, HoverColour);
         largeParticleControl.DownButton.Click += RemoveLargeParticles_Click;
-        largeParticleControl.UpButton.Click += AddSmallParticles_Click;
+        largeParticleControl.UpButton.Click += AddLargeParticles_Click;
 
         // Putting all objects into a list for easier updating and drawing
         buttonCollection.Add(pauseButton);
@@ -160,8 +161,6 @@ public class SimulationHandler : Handler
         upDownCollection.Add(volumeControl);
         upDownCollection.Add(smallParticleControl);
         upDownCollection.Add(largeParticleControl);
-
-        AddParticles(2, ref activeSmallParticles, ref smallParticles);
     }
     #endregion
 
@@ -243,24 +242,23 @@ public class SimulationHandler : Handler
                     if (CollisionFunctions.SeparatingAxisTheorem(polygonList1[i], polygonList1[j]))
                     {
                         // Collision handling: adjust the particles' velocities
-                        Console.WriteLine("Colliding w particle");
-
                         // Move particles back into original lists
                         if (polygonList1[i].Type == "Small")
                         {
                             activeSmallParticles[polygonList1[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList1[i], polygonList1[j], gameTime);
                             activeSmallParticles[polygonList1[i].Identifier].CollisionParticleUpdate(polygonList1[j], gameTime);
                         }
-                        else
+                        else if (polygonList1[i].Type == "Large")
                         {
                             activeLargeParticles[polygonList1[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList1[i], polygonList1[j], gameTime);
                             activeLargeParticles[polygonList1[i].Identifier].CollisionParticleUpdate(polygonList1[j], gameTime);
                         }
+
                         if (polygonList1[j].Type == "Small")
                         {
                             activeSmallParticles[polygonList1[j].Identifier].CollisionParticleUpdate(polygonList1[i], gameTime);
                         }
-                        else
+                        else if (polygonList1[j].Type == "Large")
                         {
                             activeLargeParticles[polygonList1[j].Identifier].CollisionParticleUpdate(polygonList1[i], gameTime);
                         }
@@ -296,12 +294,18 @@ public class SimulationHandler : Handler
     #region Adding Particles
     private void AddSmallParticles_Click(object sender, EventArgs e)
     {
-        AddParticles(10, ref activeSmallParticles, ref smallParticles);
+        if (!paused)
+        {
+            AddParticles(10, ref activeSmallParticles, ref smallParticles);
+        }
     }
 
     private void AddLargeParticles_Click(object sender, EventArgs e)
     {
-        AddParticles(10, ref activeLargeParticles, ref largeParticles);
+        if (!paused)
+        {
+            AddParticles(10, ref activeLargeParticles, ref largeParticles);
+        }
     }
 
     // Method to add particles to the list of active particles (called by event)
