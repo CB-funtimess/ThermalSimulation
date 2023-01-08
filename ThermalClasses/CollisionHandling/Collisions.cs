@@ -57,7 +57,7 @@ namespace ThermalClasses.CollisionHandling
                     }
 
                     // Comparing 1D shadows to find whether they intersect
-                    if (!((maxA1 >= maxA2 && maxA2 >= minA1) || (maxA1 >= minA2 && minA2 >= minA1)))
+                    if (maxA1 < minA2 || minA1 > maxA2)
                     {
                         return false;
                     }
@@ -74,7 +74,7 @@ namespace ThermalClasses.CollisionHandling
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static Vector2 NewCollisionVelocity(Polygon p1, Polygon p2)
+        public static Vector2 NewCollisionVelocity(Particle p1, Particle p2)
         {
             return NewCollisionVelocity(p1.CurrentVelocity, p2.CurrentVelocity, p1.Mass, p2.Mass, p1.Position, p2.Position);
         }
@@ -93,19 +93,26 @@ namespace ThermalClasses.CollisionHandling
         /// <returns></returns>
         public static Vector2 TouchingPosition(Polygon p1, Polygon p2, GameTime gameTime)
         {
-            float radiiDistance = p1.YRadius + p2.YRadius;
+            Polygon a1 = p1;
+            Polygon a2 = p2;
+            if(p1.Type == "Large" && p2.Type == "Small")
+            {
+                a1 = p2;
+                a2 = p1;
+            }
+            float radiiDistance = a1.YRadius + a2.YRadius;
             int length = (int)gameTime.ElapsedGameTime.TotalMilliseconds;
-            float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / Math.Min(p1.YRadius, p2.YRadius)); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
+            float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / Math.Min(a1.YRadius, a2.YRadius)); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
             for (float i = 0; i < length; i+=iterateBy)
             {
-                Vector2 tempPosition = p1.PreviousPosition + (p1.CurrentVelocity * i);
-                float distanceBetweenCentres = (tempPosition - p2.Position).Length();
+                Vector2 tempPosition = a1.PreviousPosition + (a1.CurrentVelocity * i);
+                float distanceBetweenCentres = (tempPosition - a2.Position).Length();
                 if (Math.Round(distanceBetweenCentres) >= Math.Round(radiiDistance))
                 {
                     return tempPosition;
                 }
             }
-            return p1.Position;
+            return a1.Position;
         }
 
         /// <summary>

@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ThermalClasses.CollisionHandling;
+
 namespace ThermalClasses.GameObjects.Particles;
 
 // NEED TO ADD ACCOMMODATION FOR PROPERTIES OF SIMULATION TO BE CHANGED
@@ -50,6 +52,27 @@ public class Particle : GameObject
     public void ChangeVelocityTo(Vector2 newVelocity)
     {
         CurrentVelocity = newVelocity;
+    }
+
+    // This function calculates the new velocity of the particle after a collision with another particle
+    public void CollisionParticleUpdate(Particle collidingMass, GameTime gameTime)
+    {
+        CurrentVelocity = CollisionFunctions.NewCollisionVelocity(this, collidingMass);
+        //Update(gameTime);
+    }
+
+    // This function calculates the new velocity of the particle after a collision with a boundary
+    public void CollisionBoundaryUpdate(CollisionFunctions.BorderCollisions borderCollisions, GameTime gameTime)
+    {
+        if ((borderCollisions.left && CurrentVelocity.X < 0) || (borderCollisions.right && CurrentVelocity.X > 0)) // If colliding with the left or right walls
+        {
+            CurrentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
+        }
+        if ((borderCollisions.top && CurrentVelocity.Y < 0) || (borderCollisions.bottom && CurrentVelocity.Y > 0))
+        {
+            CurrentVelocity = new Vector2(CurrentVelocity.X, CurrentVelocity.Y * -1);
+        }
+        Update(gameTime);
     }
     #endregion
 }

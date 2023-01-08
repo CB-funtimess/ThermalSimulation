@@ -72,7 +72,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewSmallCircle(int identifier)
     {
-        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 100, 25, Color.White, new Point(10, 10))
+        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 5, 10, Color.White, new Point(10, 10))
         {
             Enabled = false,
             Type = "Small",
@@ -82,7 +82,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle(int identifier)
     {
-        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 200, 25, Color.White, new Point(15, 15))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 6, 10, Color.White, new Point(12, 12))
         {
             Enabled = false,
             Type = "Large",
@@ -109,7 +109,7 @@ public class SimulationHandler : Handler
 
     public override void Initialize()
     {
-        int listSize = 500;
+        const int listSize = 500;
         smallParticles = new Polygon[listSize];
         largeParticles = new Polygon[listSize];
         activeSmallParticles = new List<Polygon>();
@@ -164,10 +164,12 @@ public class SimulationHandler : Handler
     }
     #endregion
 
-    #region Updating & Initialisation
+    #region Updating & Drawing
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
+        pauseButton.Update(gameTime);
+
         for (var i = 0; i < buttonCollection.Count; i++)
         {
             buttonCollection[i].Update(gameTime);
@@ -176,7 +178,6 @@ public class SimulationHandler : Handler
         {
             upDownCollection[i].Update(gameTime);
         }
-        pauseButton.Update(gameTime);
         if (!paused)
         {
             UpdateParticles(gameTime);
@@ -211,21 +212,18 @@ public class SimulationHandler : Handler
         for (var i = 0; i < activeSmallParticles.Count; i++)
         {
             activeSmallParticles[i].Update(gameTime);
+            activeSmallParticles[i].colliding = false;
         }
         for (var i = 0; i < activeLargeParticles.Count; i++)
         {
             activeLargeParticles[i].Update(gameTime);
+            activeLargeParticles[i].colliding = false;
         }
 
         // Broad phase: generate a spatial hash grid containing all particles
-        List<Polygon> allParticles = new List<Polygon>();
+        List<Polygon> allParticles = new();
         allParticles.AddRange(activeSmallParticles);
         allParticles.AddRange(activeLargeParticles);
-
-        foreach (var particle in allParticles)
-        {
-            particle.colliding = false;
-        }
 
         spatialHashGrid = new SHG(simulationBox.BoxRect, 15);
         spatialHashGrid.Insert(allParticles);
@@ -239,28 +237,26 @@ public class SimulationHandler : Handler
             {
                 for (var j = i + 1; j < polygonList1.Count; j++)
                 {
-                    if (CollisionFunctions.SeparatingAxisTheorem(polygonList1[i], polygonList1[j]))
+                    if (polygonList1[i].Type == "Small")
                     {
-                        // Collision handling: adjust the particles' velocities
-                        // Move particles back into original lists
-                        if (polygonList1[i].Type == "Small")
-                        {
-                            activeSmallParticles[polygonList1[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList1[i], polygonList1[j], gameTime);
-                            activeSmallParticles[polygonList1[i].Identifier].CollisionParticleUpdate(polygonList1[j], gameTime);
-                        }
-                        else if (polygonList1[i].Type == "Large")
-                        {
-                            activeLargeParticles[polygonList1[i].Identifier].Position = CollisionFunctions.TouchingPosition(polygonList1[i], polygonList1[j], gameTime);
-                            activeLargeParticles[polygonList1[i].Identifier].CollisionParticleUpdate(polygonList1[j], gameTime);
-                        }
-
                         if (polygonList1[j].Type == "Small")
                         {
-                            activeSmallParticles[polygonList1[j].Identifier].CollisionParticleUpdate(polygonList1[i], gameTime);
+                            CollisionParticleUpdates(ref activeSmallParticles, polygonList1[i].Identifier, ref activeSmallParticles, polygonList1[j].Identifier, gameTime);
                         }
-                        else if (polygonList1[j].Type == "Large")
+                        else
                         {
-                            activeLargeParticles[polygonList1[j].Identifier].CollisionParticleUpdate(polygonList1[i], gameTime);
+                            CollisionParticleUpdates(ref activeSmallParticles, polygonList1[i].Identifier, ref activeLargeParticles, polygonList1[j].Identifier, gameTime);
+                        }
+                    }
+                    else
+                    {
+                        if (polygonList1[j].Type == "Small")
+                        {
+                            CollisionParticleUpdates(ref activeLargeParticles, polygonList1[i].Identifier, ref activeSmallParticles, polygonList1[j].Identifier, gameTime);
+                        }
+                        else
+                        {
+                            CollisionParticleUpdates(ref activeLargeParticles, polygonList1[i].Identifier, ref activeLargeParticles, polygonList1[j].Identifier, gameTime);
                         }
                     }
                 }
@@ -268,7 +264,7 @@ public class SimulationHandler : Handler
         }
 
         // Handling particle-border collisions
-        // Broad phase pt2: find all particles potentially colliding with the border
+        // Finding all particles potentially colliding with the border and updating them
         var polygonList = spatialHashGrid.ReturnBoundaryCollisions();
         for (var i = 0; i < polygonList.Count; i++)
         {
@@ -286,6 +282,17 @@ public class SimulationHandler : Handler
                     activeLargeParticles[myParticle.Identifier] = myParticle;
                 }
             }
+        }
+    }
+
+    private void CollisionParticleUpdates(ref List<Polygon> a1, int i1, ref List<Polygon> a2, int i2, GameTime gameTime)
+    {
+        if (CollisionFunctions.SeparatingAxisTheorem(a1[i1], a2[i2]))
+        {
+            a1[i1].Position = CollisionFunctions.TouchingPosition(a1[i1], a2[i2], gameTime);
+            a1[i1].CollisionParticleUpdate(a2[i2], gameTime);
+
+            a2[i2].CollisionParticleUpdate(a1[i1], gameTime);
         }
     }
     #endregion
@@ -320,7 +327,7 @@ public class SimulationHandler : Handler
             int indexToEnable = activeParticles.Count;
             for (var i = indexToEnable; i < indexToEnable + amount; i++)
             {
-                Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Cos(theta) * rmsVelocity);
+                Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Sin(theta) * rmsVelocity);
                 allParticles[i].Enabled = true;
                 allParticles[i].Position = insertPosition;
                 allParticles[i].ChangeVelocityTo(insertionVelocity);

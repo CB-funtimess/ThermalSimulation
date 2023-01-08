@@ -26,7 +26,6 @@ public class Polygon : Particle
         yRadius = dimensions.Y / 2;
         position = centrePosition;
         InitialisePoints();
-        InitBoundingBox();
     }
 
     // Method to initialise all points
@@ -51,18 +50,6 @@ public class Polygon : Particle
         }
     }
 
-    private void InitBoundingBox()
-    {
-        Point bottomLeft = new Point(int.MaxValue);
-        Point topRight = new Point(int.MinValue);
-        foreach (var point in Points)
-        {
-            // Find the smallest x/y value to get Left/Bottom, largest for Right/Top
-            topRight = new Point((int)Math.Max(topRight.X, point.X), (int)Math.Max(topRight.Y, point.Y));
-            bottomLeft = new Point((int)Math.Min(bottomLeft.X, point.X), (int)Math.Min(bottomLeft.Y, point.Y));
-        }
-    }
-
     public override void Update(GameTime gameTime)
     {
         if (Enabled)
@@ -79,27 +66,6 @@ public class Polygon : Particle
             points[i] = Vector2.Add(unitPoints[i], position);
         }
         return points;
-    }
-
-    // This function calculates the new velocity of the particle after a collision with another particle
-    public void CollisionParticleUpdate(Polygon collidingMass, GameTime gameTime)
-    {
-        CurrentVelocity = CollisionFunctions.NewCollisionVelocity(this, collidingMass);
-        Update(gameTime);
-    }
-
-    // This function calculates the new velocity of the particle after a collision with a boundary
-    public void CollisionBoundaryUpdate(CollisionFunctions.BorderCollisions borderCollisions, GameTime gameTime)
-    {
-        if ((borderCollisions.left && CurrentVelocity.X < 0) || (borderCollisions.right && CurrentVelocity.X > 0)) // If colliding with the left or right walls
-        {
-            CurrentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
-        }
-        if ((borderCollisions.top && CurrentVelocity.Y < 0) || (borderCollisions.bottom && CurrentVelocity.Y > 0))
-        {
-            CurrentVelocity = new Vector2(CurrentVelocity.X, CurrentVelocity.Y * -1);
-        }
-        Update(gameTime);
     }
     #endregion
 }
