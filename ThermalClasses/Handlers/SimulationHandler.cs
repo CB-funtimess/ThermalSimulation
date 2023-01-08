@@ -38,6 +38,7 @@ public class SimulationHandler : Handler
     #endregion
 
     #region Properties
+    public float MaxVelocity {get{return rmsVelocity + 100;}}
     public Color BackgroundColour { get; set; }
     public Color HoverColour { get; set; }
     #endregion
@@ -54,7 +55,7 @@ public class SimulationHandler : Handler
         temperature = 273;
         pressure = 100;
         maxVolume = 300;
-        rmsVelocity = 200;
+        rmsVelocity = 150;
         paused = false;
     }
 
@@ -271,6 +272,10 @@ public class SimulationHandler : Handler
             foreach (var particle in polygonList[i])
             {
                 Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect, gameTime);
+                if (myParticle.CurrentVelocity.Length() > MaxVelocity)
+                {
+                    myParticle.ChangeVelocityTo(new Vector2(myParticle.CurrentVelocity.X - 25, myParticle.CurrentVelocity.Y - 25));
+                }
 
                 // Move particles back into original lists
                 if (particle.Type == "Small")
@@ -291,8 +296,16 @@ public class SimulationHandler : Handler
         {
             a1[i1].Position = CollisionFunctions.TouchingPosition(a1[i1], a2[i2], gameTime);
             a1[i1].CollisionParticleUpdate(a2[i2], gameTime);
+            if (a1[i1].CurrentVelocity.Length() > MaxVelocity)
+            {
+                a1[i1].ChangeVelocityTo(new Vector2(a1[i1].CurrentVelocity.X - 25, a1[i1].CurrentVelocity.Y - 25));
+            }
 
             a2[i2].CollisionParticleUpdate(a1[i1], gameTime);
+            if (a2[i2].CurrentVelocity.Length() > MaxVelocity)
+            {
+                a2[i2].ChangeVelocityTo(new Vector2(a2[i2].CurrentVelocity.X - 25, a2[i2].CurrentVelocity.Y - 25));
+            }
         }
     }
     #endregion
@@ -318,6 +331,7 @@ public class SimulationHandler : Handler
     // Method to add particles to the list of active particles (called by event)
     private void AddParticles(int amount, ref List<Polygon> activeParticles, ref Polygon[] allParticles)
     {
+        Random rnd = new Random();
         if (activeParticles.Count + amount <= allParticles.Length)
         {
             Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top + 10);
@@ -327,7 +341,7 @@ public class SimulationHandler : Handler
             int indexToEnable = activeParticles.Count;
             for (var i = indexToEnable; i < indexToEnable + amount; i++)
             {
-                Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Sin(theta) * rmsVelocity);
+                Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Cos(theta) * rmsVelocity);
                 allParticles[i].Enabled = true;
                 allParticles[i].Position = insertPosition;
                 allParticles[i].ChangeVelocityTo(insertionVelocity);
