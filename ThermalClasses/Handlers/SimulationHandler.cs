@@ -73,7 +73,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewSmallCircle(int identifier)
     {
-        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 5, 15, Color.White, new Point(5, 5))
+        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 5, 15, Color.White, new Point(7, 7))
         {
             Enabled = false,
             Type = "Small",
@@ -83,7 +83,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle(int identifier)
     {
-        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 5, 15, Color.White, new Point(10, 10))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 7, 15, Color.White, new Point(12, 12))
         {
             Enabled = false,
             Type = "Large",
@@ -274,7 +274,7 @@ public class SimulationHandler : Handler
                 Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect, gameTime);
                 if (myParticle.CurrentVelocity.Length() > MaxVelocity)
                 {
-                    myParticle.ChangeVelocityTo(new Vector2(myParticle.CurrentVelocity.X - 50, myParticle.CurrentVelocity.Y - 50));
+                    myParticle.ChangeVelocityTo(new Vector2((float)(myParticle.CurrentVelocity.X * 0.7), (float)(myParticle.CurrentVelocity.Y * 0.8)));
                 }
 
                 // Move particles back into original lists
@@ -298,13 +298,13 @@ public class SimulationHandler : Handler
             a1[i1].CollisionParticleUpdate(a2[i2], gameTime);
             if (a1[i1].CurrentVelocity.Length() > MaxVelocity)
             {
-                a1[i1].ChangeVelocityTo(new Vector2(a1[i1].CurrentVelocity.X - 25, a1[i1].CurrentVelocity.Y - 25));
+                a1[i1].ChangeVelocityTo(new Vector2((float)(a1[i1].CurrentVelocity.X * 0.8), (float)(a1[i1].CurrentVelocity.Y * 0.8)));
             }
 
             a2[i2].CollisionParticleUpdate(a1[i1], gameTime);
             if (a2[i2].CurrentVelocity.Length() > MaxVelocity)
             {
-                a2[i2].ChangeVelocityTo(new Vector2(a2[i2].CurrentVelocity.X - 25, a2[i2].CurrentVelocity.Y - 25));
+                a2[i2].ChangeVelocityTo(new Vector2((float)(a2[i2].CurrentVelocity.X * 0.8), (float)(a2[i2].CurrentVelocity.Y * 0.8)));
             }
         }
     }

@@ -23,7 +23,7 @@ namespace ThermalClasses.CollisionHandling
             this.simBox = simBox;
 
             // Bucket dimensions should be roughly double the size of a particle
-            cellHeight = cellWidth = Convert.ToInt32(avgParticleSize * 1.25);
+            cellHeight = cellWidth = Convert.ToInt32(avgParticleSize * 1.5);
 
             spatialHashGrid = new Dictionary<Vector2, List<Polygon>>();
             // Initialising all buckets in the grid
