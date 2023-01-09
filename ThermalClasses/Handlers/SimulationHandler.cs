@@ -51,7 +51,7 @@ public class SimulationHandler : Handler
         content = game.Content;
 
         // Initialising physical properties
-        volume = 100;
+        volume = 300;
         temperature = 273;
         pressure = 100;
         maxVolume = 300;
@@ -73,7 +73,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewSmallCircle(int identifier)
     {
-        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 5, 10, Color.White, new Point(10, 10))
+        return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), 5, 15, Color.White, new Point(5, 5))
         {
             Enabled = false,
             Type = "Small",
@@ -83,7 +83,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle(int identifier)
     {
-        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 6, 10, Color.White, new Point(12, 12))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 5, 15, Color.White, new Point(10, 10))
         {
             Enabled = false,
             Type = "Large",
@@ -274,7 +274,7 @@ public class SimulationHandler : Handler
                 Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect, gameTime);
                 if (myParticle.CurrentVelocity.Length() > MaxVelocity)
                 {
-                    myParticle.ChangeVelocityTo(new Vector2(myParticle.CurrentVelocity.X - 25, myParticle.CurrentVelocity.Y - 25));
+                    myParticle.ChangeVelocityTo(new Vector2(myParticle.CurrentVelocity.X - 50, myParticle.CurrentVelocity.Y - 50));
                 }
 
                 // Move particles back into original lists
@@ -336,7 +336,7 @@ public class SimulationHandler : Handler
         {
             Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top + 10);
             // Creating the input velocities
-            float theta = (float)((Math.PI / (2 * amount)) + 0.1);
+            float theta = (float)((Math.PI / (2 * amount)) + rnd.NextDouble());
             // Enabling particles to allow them to be drawn and updated
             int indexToEnable = activeParticles.Count;
             for (var i = indexToEnable; i < indexToEnable + amount; i++)
@@ -347,7 +347,7 @@ public class SimulationHandler : Handler
                 allParticles[i].ChangeVelocityTo(insertionVelocity);
                 activeParticles.Add(allParticles[i]);
                 insertPosition.Y += 20; // Inserts next particle into a space below previous particle
-                theta += (float)Math.PI / 2 / amount; // Modifies angle at which the magnitude of the velocity acts in
+                theta += (float)((Math.PI / 2 / amount) + rnd.NextDouble()); // Modifies angle at which the magnitude of the velocity acts in
             }
         }
     }

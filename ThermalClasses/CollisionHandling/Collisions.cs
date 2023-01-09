@@ -81,7 +81,7 @@ namespace ThermalClasses.CollisionHandling
 
         public static Vector2 NewCollisionVelocity(Vector2 v1, Vector2 v2, float m1, float m2, Vector2 x1, Vector2 x2)
         {
-            return v1 - (2 * m2 / (m1 + m2) * Vector2.Dot(v1 - v2, x1 - x2) / (float)Math.Pow((x1 - x2).Length(),2) * (x1-x2));
+            return v1 - (2 * m2 / (m1 + m2) * (Vector2.Dot(v1 - v2, x1 - x2) / (float)(x1 - x2).LengthSquared()) * (x1-x2));
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace ThermalClasses.CollisionHandling
             }
             float radiiDistance = a1.YRadius + a2.YRadius;
             int length = (int)gameTime.ElapsedGameTime.TotalMilliseconds;
-            float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / Math.Min(a1.YRadius, a2.YRadius)); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
+            float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / Math.Min(a1.YRadius - 2, a2.YRadius - 2)); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
             for (float i = 0; i < length; i+=iterateBy)
             {
                 Vector2 tempPosition = a1.PreviousPosition + (a1.CurrentVelocity * i);
