@@ -8,6 +8,11 @@ public class CheckButton : Button
     #region Fields
     private Texture2D checkedTexture;
     private Texture2D drawTexture;
+    private bool isChecked;
+    #endregion
+
+    #region Properties
+    private bool Checked { get { return isChecked; } }
     #endregion
 
     #region Methods
@@ -15,6 +20,7 @@ public class CheckButton : Button
     {
         this.checkedTexture = checkedTexture;
         drawTexture = uncheckedTexture;
+        isChecked = false;
     }
 
     public override void Draw(SpriteBatch _spriteBatch)
@@ -52,6 +58,7 @@ public class CheckButton : Button
             else
             {
                 drawTexture = checkedTexture;
+                isChecked = true;
             }
         }
     }

@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Mime;
 using Microsoft.Xna.Framework;
@@ -38,7 +40,7 @@ public class SimulationHandler : Handler
     #endregion
 
     #region Properties
-    public float MaxVelocity {get{return rmsVelocity + 100;}}
+    private float MaxVelocity {get{return rmsVelocity + 100;}}
     public Color BackgroundColour { get; set; }
     public Color HoverColour { get; set; }
     #endregion
@@ -294,7 +296,7 @@ public class SimulationHandler : Handler
     {
         if (CollisionFunctions.SeparatingAxisTheorem(a1[i1], a2[i2]))
         {
-            a1[i1].Position = CollisionFunctions.TouchingPosition(a1[i1], a2[i2], gameTime);
+            a1[i1].SetPosition(CollisionFunctions.TouchingPosition(a1[i1], a2[i2], gameTime));
             a1[i1].CollisionParticleUpdate(a2[i2], gameTime);
             if (a1[i1].CurrentVelocity.Length() > MaxVelocity)
             {
@@ -343,7 +345,7 @@ public class SimulationHandler : Handler
             {
                 Vector2 insertionVelocity = new Vector2(-1 * (float)Math.Sin(theta) * rmsVelocity, (float)Math.Cos(theta) * rmsVelocity);
                 allParticles[i].Enabled = true;
-                allParticles[i].Position = insertPosition;
+                allParticles[i].SetPosition(insertPosition);
                 allParticles[i].ChangeVelocityTo(insertionVelocity);
                 activeParticles.Add(allParticles[i]);
                 insertPosition.Y += 20; // Inserts next particle into a space below previous particle
@@ -393,6 +395,20 @@ public class SimulationHandler : Handler
     private void DecreaseVolume_Click(object sender, EventArgs e)
     {
         simulationBox.ChangeVolume(-20);
+    }
+
+    private void ChangeVelocities(int amount)
+    {
+        for (var i = 0; i < activeSmallParticles.Count; i++)
+        {
+            float newLength = activeSmallParticles[i].CurrentVelocity.Length() + amount;
+            activeSmallParticles[i].ChangeVelocityTo(newLength / activeSmallParticles[i].CurrentVelocity.Length() * activeSmallParticles[i].CurrentVelocity);
+        }
+        for (var i = 0; i < activeLargeParticles.Count; i++)
+        {
+            float newLength = activeLargeParticles[i].CurrentVelocity.Length() + amount;
+            activeLargeParticles[i].ChangeVelocityTo(newLength / activeLargeParticles[i].CurrentVelocity.Length() * activeLargeParticles[i].CurrentVelocity);
+        }
     }
     #endregion
     #endregion

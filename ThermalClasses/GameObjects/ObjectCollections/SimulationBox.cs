@@ -39,7 +39,7 @@ public class SimulationBox : GameComponent
         int newMovingPos = movingBox.ObjectRectangle.X - changeByX;
         if (newMovingPos >= minX && newMovingPos <= maxX)
         {
-            movingBox.Position = new Vector2(movingBox.Position.X - changeByX, movingBox.Position.Y);
+            movingBox.SetPosition(new Vector2(movingBox.Position.X - changeByX, movingBox.Position.Y));
         }
     }
 

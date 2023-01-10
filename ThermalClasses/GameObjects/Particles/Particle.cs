@@ -12,7 +12,7 @@ namespace ThermalClasses.GameObjects.Particles;
 public class Particle : GameObject
 {
     #region Fields
-    protected Vector2 prevPos, prevVelocity; // Prev values are only useful in case a backtracking algorithm is used for advanced collision handling
+    protected Vector2 prevPos, prevVelocity, currentVelocity; // Prev values are only useful in case a backtracking algorithm is used for advanced collision handling
     #endregion
 
     #region Properties
@@ -20,7 +20,7 @@ public class Particle : GameObject
     public float Mass { get; protected set; }
     public Vector2 PreviousVelocity { get { return prevVelocity; } }
     public Vector2 PreviousPosition { get { return prevPos; } }
-    public Vector2 CurrentVelocity { get; protected set; }
+    public Vector2 CurrentVelocity { get{return currentVelocity;} }
     public string Type { get; set; } // Type of ball ("Small" and "Large")
     public int Identifier { get; set; } // Unique identifier for the ball type that describes its position in the array
     #endregion
@@ -29,7 +29,7 @@ public class Particle : GameObject
     public Particle(Texture2D texture, Vector2 position, Vector2 velocity, float Mass, Color colour, Point dimensions) : base(texture, position, colour, dimensions)
     {
         colliding = false;
-        CurrentVelocity = velocity;
+        currentVelocity = velocity;
         this.Mass = Mass;
     }
 
@@ -51,13 +51,13 @@ public class Particle : GameObject
 
     public void ChangeVelocityTo(Vector2 newVelocity)
     {
-        CurrentVelocity = newVelocity;
+        currentVelocity = newVelocity;
     }
 
     // This function calculates the new velocity of the particle after a collision with another particle
     public void CollisionParticleUpdate(Particle collidingMass, GameTime gameTime)
     {
-        CurrentVelocity = CollisionFunctions.NewCollisionVelocity(this, collidingMass);
+        currentVelocity = CollisionFunctions.NewCollisionVelocity(this, collidingMass);
         Update(gameTime);
     }
 
@@ -66,11 +66,11 @@ public class Particle : GameObject
     {
         if ((borderCollisions.left && CurrentVelocity.X < 0) || (borderCollisions.right && CurrentVelocity.X > 0)) // If colliding with the left or right walls
         {
-            CurrentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
+            currentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
         }
         if ((borderCollisions.top && CurrentVelocity.Y < 0) || (borderCollisions.bottom && CurrentVelocity.Y > 0))
         {
-            CurrentVelocity = new Vector2(CurrentVelocity.X, CurrentVelocity.Y * -1);
+            currentVelocity = new Vector2(CurrentVelocity.X, CurrentVelocity.Y * -1);
         }
         Update(gameTime);
     }

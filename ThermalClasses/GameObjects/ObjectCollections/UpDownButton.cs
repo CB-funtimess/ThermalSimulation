@@ -13,6 +13,12 @@ public class UpDownButton
     #endregion
 
     #region Methods
+    public UpDownButton(Button upButton, Button downButton, Label textLabel)
+    {
+        UpButton = upButton;
+        DownButton = downButton;
+        TextLabel = textLabel;
+    }
     public UpDownButton(Texture2D upTexture, Texture2D downTexture, Texture2D labelTexture, Rectangle size, string labelText, SpriteFont font, Color penColour, Color backgroundColour, Color hoverColour)
     {
         Point buttonSize = new Point(size.Height, size.Height); // Buttons are square textures
