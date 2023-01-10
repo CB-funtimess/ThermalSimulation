@@ -52,7 +52,6 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ThermalSimulation.csproj.CoreCompileInputs.cache
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ThermalSimulation.csproj.CopyComplete
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ThermalSimulation.dll
-/home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/refint/ThermalSimulation.dll
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ThermalSimulation.pdb
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ThermalSimulation.genruntimeconfig.cache
 /home/kayla/Documents/GitHub/ThermalSimulation/obj/Debug/net6.0/ref/ThermalSimulation.dll
@@ -153,3 +152,4 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/UpButton.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/PauseButton.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/PlayButton.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ref/ThermalSimulation.dll

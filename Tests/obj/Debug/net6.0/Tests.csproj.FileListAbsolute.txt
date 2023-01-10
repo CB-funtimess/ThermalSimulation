@@ -104,7 +104,7 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/ThermalClasses.pdb
 /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.csproj.CopyComplete
 /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.dll
-/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/refint/Tests.dll
 /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.pdb
 /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/Tests.genruntimeconfig.cache
 /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Debug/net6.0/ref/Tests.dll
+/home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/ref/Tests.dll
