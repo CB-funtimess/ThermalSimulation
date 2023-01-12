@@ -19,21 +19,21 @@ public class UpDownButton
         DownButton = downButton;
         TextLabel = textLabel;
     }
-    public UpDownButton(Texture2D upTexture, Texture2D downTexture, Texture2D labelTexture, Rectangle size, string labelText, SpriteFont font, Color penColour, Color backgroundColour, Color hoverColour)
+    public UpDownButton(Texture2D upTexture, Texture2D downTexture, Texture2D labelTexture, Rectangle size, string labelText, SpriteFont font, Color penColour, Color baseColour, Color hoverColour)
     {
         Point buttonSize = new Point(size.Height, size.Height); // Buttons are square textures
-        DownButton = new Button(downTexture, font, new Vector2(size.X, size.Y), backgroundColour, Color.White, buttonSize)
+        DownButton = new Button(downTexture, font, new Vector2(size.X, size.Y), baseColour, Color.White, buttonSize)
         {
             HoverColour = hoverColour,
         };
         Point labelTopLeft = new Point(size.X + buttonSize.X, size.Y);
         Rectangle labelRect = new Rectangle(labelTopLeft, new Point(size.Width - (2 * buttonSize.X), buttonSize.Y));
-        TextLabel = new Label(labelTexture, backgroundColour, labelRect, font, penColour)
+        TextLabel = new Label(labelTexture, baseColour, labelRect, font, penColour)
         {
             Text = labelText,
         };
         Vector2 upPosition = new Vector2(size.Right - buttonSize.X, size.Top);
-        UpButton = new Button(upTexture, font, upPosition, backgroundColour, Color.White, buttonSize)
+        UpButton = new Button(upTexture, font, upPosition, baseColour, Color.White, buttonSize)
         {
             HoverColour = hoverColour,
         };

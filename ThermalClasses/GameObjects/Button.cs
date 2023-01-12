@@ -14,6 +14,7 @@ public class Button : GameObject
 
     #region Properties
     public EventHandler Click;
+    public Texture2D hoverTexture;
     public bool Clicked { get; protected set; }
     public Rectangle Rectangle // Rectangle to mathematically represent the space the button takes up
     {
@@ -40,14 +41,19 @@ public class Button : GameObject
     {
         if (Enabled)
         {
+            Texture2D tempTexture = texture;
             Color tempColour = colour;
             // If the mouse is hovering over the button
             if (isHovering)
             {
                 tempColour = HoverColour;
+                if (hoverTexture != null)
+                {
+                    tempTexture = hoverTexture;
+                }
             }
 
-            _spriteBatch.Draw(texture, Rectangle, tempColour);
+            _spriteBatch.Draw(tempTexture, Rectangle, tempColour);
 
             if (!String.IsNullOrEmpty(Text))
             {

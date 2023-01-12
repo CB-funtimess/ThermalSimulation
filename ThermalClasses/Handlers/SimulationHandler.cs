@@ -85,7 +85,7 @@ public class SimulationHandler : Handler
 
     private Polygon NewLargeCircle(int identifier)
     {
-        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 7, 15, Color.White, new Point(12, 12))
+        return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), 10, 15, Color.White, new Point(12, 12))
         {
             Enabled = false,
             Type = "Large",
@@ -277,6 +277,13 @@ public class SimulationHandler : Handler
                 if (myParticle.CurrentVelocity.Length() > MaxVelocity)
                 {
                     myParticle.ChangeVelocityTo(new Vector2((float)(myParticle.CurrentVelocity.X * 0.7), (float)(myParticle.CurrentVelocity.Y * 0.8)));
+                }
+
+                // Teleporting all particles outside of the current border back in to the box
+                // All particles outside should just be outside the x region of the box
+                if (myParticle.Position.X < simulationBox.BoxRect.X)
+                {
+                    myParticle.ChangePositionBy(new Vector2(22, 0));
                 }
 
                 // Move particles back into original lists

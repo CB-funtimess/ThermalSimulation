@@ -12,7 +12,7 @@ public class CheckButton : Button
     #endregion
 
     #region Properties
-    private bool Checked { get { return isChecked; } }
+    public bool Checked { get { return isChecked; } }
     #endregion
 
     #region Methods
