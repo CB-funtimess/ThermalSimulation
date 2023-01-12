@@ -34,12 +34,12 @@ public class CheckButton : Button
                 tempColour = HoverColour;
             }
 
-            _spriteBatch.Draw(drawTexture, Rectangle, tempColour);
+            _spriteBatch.Draw(drawTexture, ObjectRectangle, tempColour);
 
             if (!String.IsNullOrEmpty(Text))
             {
-                var x = Rectangle.X + (Rectangle.Width / 2) - (font.MeasureString(Text).X / 2);
-                var y = Rectangle.Y + (Rectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
+                var x = ObjectRectangle.X + (ObjectRectangle.Width / 2) - (font.MeasureString(Text).X / 2);
+                var y = ObjectRectangle.Y + (ObjectRectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
 
                 _spriteBatch.DrawString(font, Text, new Vector2(x, y), PenColour);
             }

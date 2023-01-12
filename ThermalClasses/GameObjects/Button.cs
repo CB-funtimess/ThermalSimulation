@@ -16,13 +16,6 @@ public class Button : GameObject
     public EventHandler Click;
     public Texture2D hoverTexture;
     public bool Clicked { get; protected set; }
-    public Rectangle Rectangle // Rectangle to mathematically represent the space the button takes up
-    {
-        get
-        {
-            return new Rectangle((int)position.X, (int)position.Y, dimensions.X, dimensions.Y);
-        }
-    }
     public string Text { get; set; }
     public Color PenColour { get; set; }
     public Color HoverColour { get; set; }
@@ -53,12 +46,12 @@ public class Button : GameObject
                 }
             }
 
-            _spriteBatch.Draw(tempTexture, Rectangle, tempColour);
+            _spriteBatch.Draw(tempTexture, ObjectRectangle, tempColour);
 
             if (!String.IsNullOrEmpty(Text))
             {
-                var x = Rectangle.X + (Rectangle.Width / 2) - (font.MeasureString(Text).X / 2);
-                var y = Rectangle.Y + (Rectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
+                var x = ObjectRectangle.X + (ObjectRectangle.Width / 2) - (font.MeasureString(Text).X / 2);
+                var y = ObjectRectangle.Y + (ObjectRectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
 
                 _spriteBatch.DrawString(font, Text, new Vector2(x, y), PenColour);
             }
@@ -76,7 +69,7 @@ public class Button : GameObject
         isHovering = false;
 
         // If the button is pressed, trigger a new event
-        if (mouseRectangle.Intersects(Rectangle))
+        if (mouseRectangle.Intersects(ObjectRectangle))
         {
             isHovering = true;
 

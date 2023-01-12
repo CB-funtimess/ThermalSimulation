@@ -27,10 +27,12 @@ public class SimulationHandler : Handler
     #region Buttons
     private List<GameObject> buttonCollection;
     private List<UpDownButton> upDownCollection;
+    private List<Slider> sliderCollection;
     private CheckButton pauseButton;
     private UpDownButton volumeControl;
     private UpDownButton smallParticleControl;
     private UpDownButton largeParticleControl;
+    private Slider testSlider;
     #endregion
     #endregion
     private int volume, maxVolume; // Measured in metres cubed
@@ -119,6 +121,7 @@ public class SimulationHandler : Handler
         activeLargeParticles = new List<Polygon>();
         buttonCollection = new List<GameObject>();
         upDownCollection = new List<UpDownButton>();
+        sliderCollection = new List<Slider>();
     }
 
     public override void LoadContent()
@@ -140,23 +143,31 @@ public class SimulationHandler : Handler
 
         Texture2D upTexture = content.Load<Texture2D>("GeneralAssets/UpButton");
         Texture2D downTexture = content.Load<Texture2D>("GeneralAssets/DownButton");
-        Texture2D labelTexture = content.Load<Texture2D>("GeneralAssets/LabelBox1");
+        Texture2D upDownLabelTexture = content.Load<Texture2D>("GeneralAssets/LabelBox1");
+        Texture2D sliderLabelTexture = content.Load<Texture2D>("GeneralAssets/SliderFrame");
+        Texture2D sliderButtonTexture = content.Load<Texture2D>("GeneralAssets/SliderButton_Unclicked");
+        Texture2D sliderButtonHoverTexture = content.Load<Texture2D>("GeneralAssets/SliderButton_Clicked");
 
-        Rectangle volumeButtonSize = new Rectangle(Point.Zero, new Point(150, 40));
-        volumeControl = new UpDownButton(upTexture, downTexture, labelTexture, volumeButtonSize, "Volume", font, penColour, unclickedColour, HoverColour);
+        Point volumeButtonSize = new Point(150, 40);
+        Rectangle volumeButtonRect = new Rectangle(new Point(simulationBox.BoxRect.Right - volumeButtonSize.X, simulationBox.BoxRect.Top - volumeButtonSize.Y - 15), volumeButtonSize);
+        volumeControl = new UpDownButton(upTexture, downTexture, upDownLabelTexture, volumeButtonRect, "Volume", font, penColour, unclickedColour, HoverColour);
         volumeControl.DownButton.Click += DecreaseVolume_Click;
         volumeControl.UpButton.Click += IncreaseVolume_Click;
 
         Point particleControlSize = new Point(200, 40);
         Rectangle largeParticleButtonSize = new Rectangle(new Point(simulationBox.BoxRect.Right - particleControlSize.X, simulationBox.BoxRect.Bottom + 15), particleControlSize);
         Rectangle smallParticleButtonSize = new Rectangle(new Point(largeParticleButtonSize.X, largeParticleButtonSize.Y + particleControlSize.Y + 10), particleControlSize);
-        smallParticleControl = new UpDownButton(upTexture, downTexture, labelTexture, smallParticleButtonSize, "Small Particles", font, penColour, unclickedColour, HoverColour);
+        smallParticleControl = new UpDownButton(upTexture, downTexture, upDownLabelTexture, smallParticleButtonSize, "Small Particles", font, penColour, unclickedColour, HoverColour);
         smallParticleControl.DownButton.Click += RemoveSmallParticles_Click;
         smallParticleControl.UpButton.Click += AddSmallParticles_Click;
 
-        largeParticleControl = new UpDownButton(upTexture, downTexture, labelTexture, largeParticleButtonSize, "Large Particles", font, penColour, unclickedColour, HoverColour);
+        largeParticleControl = new UpDownButton(upTexture, downTexture, upDownLabelTexture, largeParticleButtonSize, "Large Particles", font, penColour, unclickedColour, HoverColour);
         largeParticleControl.DownButton.Click += RemoveLargeParticles_Click;
         largeParticleControl.UpButton.Click += AddLargeParticles_Click;
+
+        Point testSliderSize = new Point(200, 40);
+        Rectangle testSliderRectangle = new Rectangle(Point.Zero, testSliderSize);
+        testSlider = new Slider(sliderButtonTexture, sliderButtonHoverTexture, sliderLabelTexture, font, testSliderRectangle, unclickedColour, penColour);
 
         // Putting all objects into a list for easier updating and drawing
         buttonCollection.Add(pauseButton);
@@ -164,6 +175,8 @@ public class SimulationHandler : Handler
         upDownCollection.Add(volumeControl);
         upDownCollection.Add(smallParticleControl);
         upDownCollection.Add(largeParticleControl);
+
+        sliderCollection.Add(testSlider);
     }
     #endregion
 
@@ -180,6 +193,10 @@ public class SimulationHandler : Handler
         for (var i = 0; i < upDownCollection.Count; i++)
         {
             upDownCollection[i].Update(gameTime);
+        }
+        for (var i = 0; i < sliderCollection.Count; i++)
+        {
+            sliderCollection[i].Update(gameTime);
         }
         if (!paused)
         {
@@ -198,6 +215,10 @@ public class SimulationHandler : Handler
         for (var i = 0; i < upDownCollection.Count; i++)
         {
             upDownCollection[i].Draw(_spriteBatch);
+        }
+        for (var i = 0; i < sliderCollection.Count; i++)
+        {
+            sliderCollection[i].Draw(_spriteBatch);
         }
         // Drawing all active particles to screen
         for (var i = 0; i < activeSmallParticles.Count; i++)

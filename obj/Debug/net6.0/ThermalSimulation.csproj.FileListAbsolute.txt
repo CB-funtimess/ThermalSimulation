@@ -153,3 +153,6 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/PauseButton.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/PlayButton.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ref/ThermalSimulation.dll
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/SliderButton_Clicked.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/SliderButton_Unclicked.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/SliderFrame.xnb
