@@ -34,14 +34,13 @@ public class SliderButton : Button
         isHovering = false;
 
         // If the button is pressed, move button
-        if (mouseRectangle.Intersects(ObjectRectangle) && oldMouseRectangle.Intersects(ObjectRectangle))
+        if (oldMouseRectangle.Intersects(ObjectRectangle))
         {
             isHovering = true;
-
             if (currentState.LeftButton == ButtonState.Pressed && previousState.LeftButton == ButtonState.Pressed)
             {
                 changeInX += currentState.X - previousState.X;
-                Vector2 newPosition = new Vector2(changeInX, 0);
+                Vector2 newPosition = new Vector2(currentState.X - (ObjectRectangle.Width / 2), 0);
                 if (newPosition.X >= minX && newPosition.X <= maxX)
                 {
                     SetPosition(newPosition);
