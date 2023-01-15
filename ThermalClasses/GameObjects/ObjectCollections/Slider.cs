@@ -26,6 +26,22 @@ public class Slider
         };
     }
 
+    public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle buttonMovement, Rectangle sliderPos, Color baseColour, Color penColour)
+    {
+        const float buttonScale = 1f;
+        minX = (int)(buttonMovement.Left + (buttonMovement.Height * buttonScale / 2));
+        maxX = (int)(buttonMovement.Right - (buttonMovement.Height * buttonScale / 2));
+
+        slider = new Label(labelTexture, baseColour, sliderPos, font, penColour);
+        Vector2 buttonPos = new Vector2(minX, buttonMovement.Top + (buttonMovement.Height / 2));
+        Point buttonDimensions = new Point((int)(buttonMovement.Height * buttonScale));
+        sliderButton = new SliderButton(buttonTexture, font, buttonPos, baseColour, penColour, buttonDimensions, minX, maxX)
+        {
+            hoverTexture = hoverTexture,
+            HoverColour = baseColour,
+        };
+    }
+
     public void Draw(SpriteBatch _spriteBatch)
     {
         slider.Draw(_spriteBatch);

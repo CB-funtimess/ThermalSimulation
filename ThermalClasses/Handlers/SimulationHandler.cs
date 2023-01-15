@@ -166,9 +166,9 @@ public class SimulationHandler : Handler
         largeParticleControl.DownButton.Click += RemoveLargeParticles_Click;
         largeParticleControl.UpButton.Click += AddLargeParticles_Click;
 
-        Point testSliderSize = new Point(100, 30);
+        Point testSliderSize = new Point(200, 30);
         Rectangle testSliderRectangle = new Rectangle(new Point(0, 0), testSliderSize);
-        testSlider = new Slider(sliderButtonTexture, sliderButtonHoverTexture, sliderLabelTexture, font, testSliderRectangle, unclickedColour, penColour);
+        testSlider = new Slider(sliderButtonTexture, sliderButtonHoverTexture, sliderLabelTexture, font, testSliderRectangle, new Rectangle(1, 1, 100, 100), unclickedColour, penColour);
 
         // Putting all objects into a list for easier updating and drawing
         buttonCollection.Add(pauseButton);
