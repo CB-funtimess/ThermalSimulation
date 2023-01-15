@@ -12,6 +12,7 @@
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderButton_Clicked.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderButton_Unclicked.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderFrame.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderFrame2.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/UpButton.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/BlueParticle.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/FixedBox.png</File>
@@ -21,6 +22,7 @@
   <DestFiles>
     <File xsi:nil="true" />
     <File>GeneralAssets/Arial.spritefont</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

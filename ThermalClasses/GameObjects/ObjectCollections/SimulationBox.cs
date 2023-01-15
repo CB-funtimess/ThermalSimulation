@@ -43,6 +43,14 @@ public class SimulationBox : GameComponent
         }
     }
 
+    public void SetVolume(float setX)
+    {
+        if (setX >= minX && setX <= maxX)
+        {
+            movingBox.SetPosition(new Vector2(setX, movingBox.Position.Y));
+        }
+    }
+
     public void Draw(SpriteBatch _spriteBatch)
     {
         fixedBox.Draw(_spriteBatch);

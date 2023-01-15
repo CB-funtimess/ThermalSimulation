@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/FixedBox.png</SourceFile>
-  <SourceTime>2023-01-06T11:39:20.551982+00:00</SourceTime>
-  <DestFile>/home/kayla/Documents/GitHub/ThermalSimulation/Content/bin/DesktopGL/SimulationAssets/FixedBox.xnb</DestFile>
-  <DestTime>2023-01-15T20:43:22.6067884+00:00</DestTime>
+  <SourceFile>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderFrame2.png</SourceFile>
+  <SourceTime>2023-01-15T20:42:48.4756208+00:00</SourceTime>
+  <DestFile>/home/kayla/Documents/GitHub/ThermalSimulation/Content/bin/DesktopGL/Content/GeneralAssets/SliderFrame2.xnb</DestFile>
+  <DestTime>2023-01-15T20:57:38.5684842+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T12:44:56+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

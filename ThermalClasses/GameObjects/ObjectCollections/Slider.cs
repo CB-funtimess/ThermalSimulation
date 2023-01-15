@@ -5,20 +5,19 @@ namespace ThermalClasses.GameObjects.ObjectCollections;
 public class Slider
 {
     #region Fields
-    private SliderButton sliderButton;
+    public SliderButton sliderButton;
     private Label slider;
     private int minX, maxX;
     #endregion
 
-    public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle position, Color baseColour, Color penColour)
+    public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle position, float scale, Color baseColour, Color penColour)
     {
-        const float buttonScale = 1f;
-        minX = (int)(position.Left + (position.Height * buttonScale / 2));
-        maxX = (int)(position.Right - (position.Height * buttonScale / 2));
+        minX = (int)(position.Left + (position.Height * scale / 2));
+        maxX = (int)(position.Right - (position.Height * scale / 2));
 
         slider = new Label(labelTexture, baseColour, position, font, penColour);
         Vector2 buttonPos = new Vector2(minX, position.Top + (position.Height / 2));
-        Point buttonDimensions = new Point((int)(position.Height * buttonScale));
+        Point buttonDimensions = new Point((int)(position.Height * scale));
         sliderButton = new SliderButton(buttonTexture, font, buttonPos, baseColour, penColour, buttonDimensions, minX, maxX)
         {
             hoverTexture = hoverTexture,
@@ -26,15 +25,14 @@ public class Slider
         };
     }
 
-    public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle buttonMovement, Rectangle sliderPos, Color baseColour, Color penColour)
+    public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle buttonMovement, Rectangle sliderPos, float scale, Color baseColour, Color penColour)
     {
-        const float buttonScale = 1f;
-        minX = (int)(buttonMovement.Left + (buttonMovement.Height * buttonScale / 2));
-        maxX = (int)(buttonMovement.Right - (buttonMovement.Height * buttonScale / 2));
+        minX = (int)(buttonMovement.Left + (buttonMovement.Height * scale / 2));
+        maxX = (int)(buttonMovement.Right - (buttonMovement.Height * scale / 2));
 
         slider = new Label(labelTexture, baseColour, sliderPos, font, penColour);
         Vector2 buttonPos = new Vector2(minX, buttonMovement.Top + (buttonMovement.Height / 2));
-        Point buttonDimensions = new Point((int)(buttonMovement.Height * buttonScale));
+        Point buttonDimensions = new Point((int)(buttonMovement.Height * scale));
         sliderButton = new SliderButton(buttonTexture, font, buttonPos, baseColour, penColour, buttonDimensions, minX, maxX)
         {
             hoverTexture = hoverTexture,

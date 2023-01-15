@@ -29,10 +29,9 @@ public class SimulationHandler : Handler
     private List<UpDownButton> upDownCollection;
     private List<Slider> sliderCollection;
     private CheckButton pauseButton;
-    private UpDownButton volumeControl;
     private UpDownButton smallParticleControl;
     private UpDownButton largeParticleControl;
-    private Slider testSlider;
+    private Slider volumeSlider;
     #endregion
     #endregion
     private int volume, maxVolume; // Measured in metres cubed
@@ -99,11 +98,11 @@ public class SimulationHandler : Handler
     #region Game Object Initialisation
     private void InitSimBox()
     {
-        Point fixedMovingStart = new(renderRectangle.Left, (int)(renderRectangle.Top + (renderRectangle.Height * 0.2)));
+        Point fixedStart = new(renderRectangle.Left, (int)(renderRectangle.Top + (renderRectangle.Height * 0.2)));
         Point movingSize = new(10, (int)(renderRectangle.Height * 0.6));
         Point fixedSize = new((int)(renderRectangle.Width * 0.6), movingSize.Y);
-        Rectangle fixedRect = new(fixedMovingStart, fixedSize);
-        Rectangle movingRect = new(fixedMovingStart, movingSize);
+        Rectangle fixedRect = new(fixedStart, fixedSize);
+        Rectangle movingRect = new(fixedStart, movingSize);
 
         GameObject fixedBox = new GameObject(content.Load<Texture2D>("SimulationAssets/FixedBox"), Color.White, fixedRect);
         GameObject movingBox = new GameObject(content.Load<Texture2D>("SimulationAssets/MovingBox"), Color.White, movingRect);
@@ -145,15 +144,9 @@ public class SimulationHandler : Handler
         Texture2D upTexture = content.Load<Texture2D>("GeneralAssets/UpButton");
         Texture2D downTexture = content.Load<Texture2D>("GeneralAssets/DownButton");
         Texture2D upDownLabelTexture = content.Load<Texture2D>("GeneralAssets/LabelBox1");
-        Texture2D sliderLabelTexture = content.Load<Texture2D>("GeneralAssets/SliderFrame");
+        Texture2D sliderLabelTexture = content.Load<Texture2D>("GeneralAssets/SliderFrame2");
         Texture2D sliderButtonTexture = content.Load<Texture2D>("GeneralAssets/SliderButton_Unclicked");
         Texture2D sliderButtonHoverTexture = content.Load<Texture2D>("GeneralAssets/SliderButton_Clicked");
-
-        Point volumeButtonSize = new Point(150, 40);
-        Rectangle volumeButtonRect = new Rectangle(new Point(simulationBox.BoxRect.Right - volumeButtonSize.X, simulationBox.BoxRect.Top - volumeButtonSize.Y - 15), volumeButtonSize);
-        volumeControl = new UpDownButton(upTexture, downTexture, upDownLabelTexture, volumeButtonRect, "Volume", font, penColour, unclickedColour, HoverColour);
-        volumeControl.DownButton.Click += DecreaseVolume_Click;
-        volumeControl.UpButton.Click += IncreaseVolume_Click;
 
         Point particleControlSize = new Point(200, 40);
         Rectangle largeParticleButtonSize = new Rectangle(new Point(simulationBox.BoxRect.Right - particleControlSize.X, simulationBox.BoxRect.Bottom + 15), particleControlSize);
@@ -166,18 +159,20 @@ public class SimulationHandler : Handler
         largeParticleControl.DownButton.Click += RemoveLargeParticles_Click;
         largeParticleControl.UpButton.Click += AddLargeParticles_Click;
 
-        Point testSliderSize = new Point(200, 30);
-        Rectangle testSliderRectangle = new Rectangle(new Point(0, 0), testSliderSize);
-        testSlider = new Slider(sliderButtonTexture, sliderButtonHoverTexture, sliderLabelTexture, font, testSliderRectangle, new Rectangle(1, 1, 100, 100), unclickedColour, penColour);
+        // Initialising the volume slider
+        Rectangle volumeSliderRect = new Rectangle(new Point(simulationBox.BoxRect.Left, simulationBox.BoxRect.Bottom + 15), new Point((int)(renderRectangle.Width * 0.4) - 10, 20));
+        Point volumeFixedTextureSize = new Point((int)(renderRectangle.Width * 0.4) - volumeSliderRect.Height - 10, 4);
+        Rectangle volumeFixedTextureRect = new Rectangle(new Point(simulationBox.BoxRect.Left + (volumeSliderRect.Height / 2), simulationBox.BoxRect.Bottom + 15 + 8), volumeFixedTextureSize);
+        volumeSlider = new Slider(sliderButtonTexture, sliderButtonHoverTexture, sliderLabelTexture, font, volumeSliderRect, volumeFixedTextureRect, 1, unclickedColour, penColour);
+        volumeSlider.sliderButton.Click += ChangeVolume_Click;
 
         // Putting all objects into a list for easier updating and drawing
         buttonCollection.Add(pauseButton);
 
-        upDownCollection.Add(volumeControl);
         upDownCollection.Add(smallParticleControl);
         upDownCollection.Add(largeParticleControl);
 
-        sliderCollection.Add(testSlider);
+        sliderCollection.Add(volumeSlider);
     }
     #endregion
 
@@ -424,6 +419,11 @@ public class SimulationHandler : Handler
     private void DecreaseVolume_Click(object sender, EventArgs e)
     {
         simulationBox.ChangeVolume(-20);
+    }
+
+    private void ChangeVolume_Click(object sender, EventArgs e)
+    {
+        simulationBox.SetVolume(volumeSlider.sliderButton.Position.X);
     }
 
     private void ChangeVelocities(int amount)

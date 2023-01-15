@@ -45,6 +45,8 @@ public class SliderButton : Button
                 {
                     SetXPosition(newPositionX);
                 }
+                Click?.Invoke(this, EventArgs.Empty);
+                Clicked = true;
             }
             else if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
             {
