@@ -22,8 +22,6 @@ public class Polygon : Particle
     {
         sides = noSides;
         unitPoints = new Vector2[sides];
-        xRadius = dimensions.X / 2;
-        yRadius = dimensions.Y / 2;
         position = centrePosition;
         InitialisePoints();
     }
@@ -38,7 +36,7 @@ public class Polygon : Particle
         }
 
         float theta = (float)(2 * Math.PI / sides);
-        unitPoints[0] = new Vector2(0, -yRadius);
+        unitPoints[0] = new Vector2(0, -YRadius);
 
         // 2-D Matrix transformation to generate points
         // Clockwise matrix rotation

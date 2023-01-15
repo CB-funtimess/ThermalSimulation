@@ -22,7 +22,7 @@ public class UpDownButton
     public UpDownButton(Texture2D upTexture, Texture2D downTexture, Texture2D labelTexture, Rectangle size, string labelText, SpriteFont font, Color penColour, Color baseColour, Color hoverColour)
     {
         Point buttonSize = new Point(size.Height, size.Height); // Buttons are square textures
-        DownButton = new Button(downTexture, font, new Vector2(size.X, size.Y), baseColour, Color.White, buttonSize)
+        DownButton = new Button(downTexture, font, new Vector2(size.X + (buttonSize.X / 2), size.Y + (buttonSize.Y / 2)), baseColour, Color.White, buttonSize)
         {
             HoverColour = hoverColour,
         };
@@ -32,7 +32,7 @@ public class UpDownButton
         {
             Text = labelText,
         };
-        Vector2 upPosition = new Vector2(size.Right - buttonSize.X, size.Top);
+        Vector2 upPosition = new Vector2(size.Right - (buttonSize.X / 2), size.Top + (buttonSize.Y / 2));
         UpButton = new Button(upTexture, font, upPosition, baseColour, Color.White, buttonSize)
         {
             HoverColour = hoverColour,

@@ -134,8 +134,9 @@ public class SimulationHandler : Handler
         // GameObject Initialisation
         InitSimBox();
         // Buttons Initialisation
-        Vector2 pausePosition = new Vector2(0, simulationBox.BoxRect.Y - 55);
-        pauseButton = new CheckButton(content.Load<Texture2D>("GeneralAssets/PauseButton"), content.Load<Texture2D>("GeneralAssets/PlayButton"), font, pausePosition, unclickedColour, penColour, new Point(40, 40))
+        Point pauseSize = new Point(40, 40);
+        Vector2 pausePosition = new Vector2(pauseSize.X / 2, simulationBox.BoxRect.Y - 55);
+        pauseButton = new CheckButton(content.Load<Texture2D>("GeneralAssets/PauseButton"), content.Load<Texture2D>("GeneralAssets/PlayButton"), font, pausePosition, unclickedColour, penColour, pauseSize)
         {
             HoverColour = HoverColour,
         };
@@ -165,8 +166,8 @@ public class SimulationHandler : Handler
         largeParticleControl.DownButton.Click += RemoveLargeParticles_Click;
         largeParticleControl.UpButton.Click += AddLargeParticles_Click;
 
-        Point testSliderSize = new Point(200, 40);
-        Rectangle testSliderRectangle = new Rectangle(Point.Zero, testSliderSize);
+        Point testSliderSize = new Point(100, 30);
+        Rectangle testSliderRectangle = new Rectangle(new Point(0, 0), testSliderSize);
         testSlider = new Slider(sliderButtonTexture, sliderButtonHoverTexture, sliderLabelTexture, font, testSliderRectangle, unclickedColour, penColour);
 
         // Putting all objects into a list for easier updating and drawing

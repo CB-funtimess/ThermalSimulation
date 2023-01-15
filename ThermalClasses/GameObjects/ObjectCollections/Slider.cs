@@ -12,12 +12,13 @@ public class Slider
 
     public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle position, Color baseColour, Color penColour)
     {
-        minX = position.X + (position.Height / 2);
-        maxX = position.Right - (position.Height / 2) - 20;
+        const float buttonScale = 1f;
+        minX = (int)(position.Left + (position.Height * buttonScale / 2));
+        maxX = (int)(position.Right - (position.Height * buttonScale / 2));
 
         slider = new Label(labelTexture, baseColour, position, font, penColour);
-        Vector2 buttonPos = new Vector2(position.X, position.Y);
-        Point buttonDimensions = new Point((int)(position.Height * 0.8), (int)(position.Height * 0.8));
+        Vector2 buttonPos = new Vector2(minX, position.Top + (position.Height / 2));
+        Point buttonDimensions = new Point((int)(position.Height * buttonScale));
         sliderButton = new SliderButton(buttonTexture, font, buttonPos, baseColour, penColour, buttonDimensions, minX, maxX)
         {
             hoverTexture = hoverTexture,

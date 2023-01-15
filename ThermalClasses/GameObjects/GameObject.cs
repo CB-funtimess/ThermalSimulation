@@ -11,7 +11,6 @@ public class GameObject
     protected Texture2D texture;
     protected Vector2 position; // The central position of the object
     protected Color colour;
-    protected float xRadius, yRadius;
     protected Point dimensions;
     #endregion
 
@@ -21,18 +20,18 @@ public class GameObject
     {
         get { return position; }
     }
-    public Vector2 TopLeftPoint { get { return new Vector2(position.X - xRadius, position.Y - yRadius); } }
+    public Vector2 TopLeftPoint { get { return new Vector2(position.X - XRadius, position.Y - YRadius); } }
     public Rectangle ObjectRectangle { get { return new Rectangle((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y); } }
     public int XRadius { get { return dimensions.X / 2; }}
     public int YRadius { get { return dimensions.Y / 2; }}
     #endregion
 
     #region Methods
-    public GameObject(Texture2D texture, Vector2 position, Color colour, Point dimensions)
+    public GameObject(Texture2D texture, Vector2 centralPosition, Color colour, Point dimensions)
     {
         this.dimensions = dimensions;
         this.texture = texture;
-        this.position = position;
+        position = centralPosition;
         this.colour = colour;
         Enabled = true;
     }
@@ -42,10 +41,8 @@ public class GameObject
         dimensions = size.Size;
         this.texture = texture;
         this.colour = colour;
-        xRadius = dimensions.X / 2;
-        yRadius = dimensions.Y / 2;
         Enabled = true;
-        position = new Vector2(size.Left + xRadius, size.Top + yRadius);
+        position = new Vector2(size.Left + XRadius, size.Top + YRadius);
     }
 
     // Initialises a basic GameObject
@@ -65,8 +62,7 @@ public class GameObject
     {
         if (Enabled)
         {
-            Rectangle scaleDraw = new((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y);
-            _spriteBatch.Draw(texture, scaleDraw, colour);
+            _spriteBatch.Draw(texture, ObjectRectangle, colour);
         }
     }
 
@@ -90,6 +86,11 @@ public class GameObject
     public void SetPosition(Vector2 newPosition)
     {
         position = newPosition;
+    }
+
+    public void SetXPosition(float xValue)
+    {
+        position.X = xValue;
     }
     #endregion
 }

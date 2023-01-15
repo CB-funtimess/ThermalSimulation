@@ -40,10 +40,10 @@ public class SliderButton : Button
             if (currentState.LeftButton == ButtonState.Pressed && previousState.LeftButton == ButtonState.Pressed)
             {
                 changeInX += currentState.X - previousState.X;
-                Vector2 newPosition = new Vector2(currentState.X - (ObjectRectangle.Width / 2), 0);
-                if (newPosition.X >= minX && newPosition.X <= maxX)
+                float newPositionX = currentState.X;
+                if (newPositionX >= minX && newPositionX <= maxX)
                 {
-                    SetPosition(newPosition);
+                    SetXPosition(newPositionX);
                 }
             }
             else if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
