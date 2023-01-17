@@ -5,13 +5,18 @@ namespace ThermalClasses.GameObjects.ObjectCollections;
 public class Slider
 {
     #region Fields
-    public SliderButton sliderButton;
     private Label slider;
     private int minX, maxX;
     #endregion
 
+    #region Properties
+    public SliderButton sliderButton;
+    public bool Moveable;
+    #endregion
+
     public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle position, float scale, Color baseColour, Color penColour)
     {
+        Moveable = true;
         minX = (int)(position.Left + (position.Height * scale / 2));
         maxX = (int)(position.Right - (position.Height * scale / 2));
 
@@ -48,6 +53,9 @@ public class Slider
 
     public void Update(GameTime gameTime)
     {
-        sliderButton.Update(gameTime);
+        if (Moveable)
+        {
+            sliderButton.Update(gameTime);
+        }
     }
 }
