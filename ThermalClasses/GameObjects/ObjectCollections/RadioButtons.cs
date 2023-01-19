@@ -23,8 +23,8 @@ public class RadioButtons
         for (var i = 0; i < numButtons; i++)
         {
             Vector2 buttonPos = new Vector2(rect.X + 20, rect.Y + (rect.Height * ((i+1) / (numButtons + 1))));
-            Rectangle labelRect = new Rectangle(new Point((int)(buttonPos.X + 20), (int)(buttonPos.Y - (buttonSize.Y / 2))), new Point(, buttonSize.Y));
-            labels[i] = new Label(labelTexture, baseColour, , font, penColour)
+            Rectangle labelRect = new Rectangle(new Point((int)(buttonPos.X + 60), (int)(buttonPos.Y - (buttonSize.Y / 2))), new Point(rect.Width / (3/4), buttonSize.Y));
+            labels[i] = new Label(labelTexture, baseColour, labelRect, font, penColour)
             {
                 Text = text[i],
             };
