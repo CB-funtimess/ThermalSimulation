@@ -93,6 +93,7 @@ public class Game1 : Game
         base.Draw(gameTime);
     }
 
+    // Code modified from http://www.infinitespace-studios.co.uk/general/monogame-scaling-your-game-using-rendertargets-and-touchpanel/
     private void InitRenderTarget()
     {
         windowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -100,25 +101,7 @@ public class Game1 : Game
         _graphics.PreferredBackBufferHeight = windowHeight; // Values laptop screen: 1200, monitor: 1080
         _graphics.PreferredBackBufferWidth = windowWidth; // Values laptop screen: 1920, monitor: 1920
         _graphics.ApplyChanges();
-        // Creating a game window that fits my chosen 16:9 aspect ratio
-        if (windowWidth / windowHeight < 16 / 9)
-        {
-            // Window is too tall, so render target needs to start lower down
-            int presentHeight = (int)((windowWidth * (16 / 9)) + 0.5);
-            int barHeight = (windowHeight - presentHeight) / 2;
-            renderRectangle = new Rectangle(0, barHeight, windowWidth, presentHeight);
-        }
-        else if (windowWidth / windowHeight > 16 / 9)
-        {
-            // Window is too wide, so render target needs to start more to the left
-            int presentWidth = (int)((windowHeight * (16 / 9)) + 0.5);
-            int barWidth = (windowWidth - presentWidth) / 2;
-            renderRectangle = new Rectangle(barWidth, 0, presentWidth, windowHeight);
-        }
-        else
-        {
-            renderRectangle = new(0, 0, windowWidth, windowHeight);
-        }
+        renderRectangle = new(0, 0, windowWidth, windowHeight);
         window = new RenderTarget2D(GraphicsDevice, windowWidth, windowHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat, GraphicsDevice.PresentationParameters.DepthStencilFormat);
     }
 

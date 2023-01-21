@@ -13,12 +13,12 @@ public class Polygon : Particle
     #endregion
 
     #region Properties
-    public int Sides { get { return sides; } }
-    public Vector2[] Points { get { return GeneratePoints(); } } // Vectors of the vertices; Index 0 represents the topmost middle point
+    public int Sides => sides;
+    public Vector2[] Points => GeneratePoints(); // Vectors of the vertices; Index 0 represents the topmost middle point
     #endregion
 
     #region Methods
-    public Polygon(Texture2D texture, Vector2 centrePosition, Vector2 velocity, float mass, int noSides, Color colour, Point dimensions) : base(texture, centrePosition, velocity, mass, colour, dimensions)
+    public Polygon(Texture2D texture, Vector2 centrePosition, Vector2 velocity, double mass, int noSides, Color colour, Point dimensions) : base(texture, centrePosition, velocity, mass, colour, dimensions)
     {
         sides = noSides;
         unitPoints = new Vector2[sides];

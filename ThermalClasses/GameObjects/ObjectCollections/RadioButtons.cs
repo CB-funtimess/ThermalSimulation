@@ -1,5 +1,7 @@
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 namespace ThermalClasses.GameObjects.ObjectCollections;
 
 public class RadioButtons
@@ -7,28 +9,75 @@ public class RadioButtons
     #region Fields
     private List<Label> labels;
     private Label surround;
+    private int checkedIndex;
+    private List<CheckButton> buttons;
     #endregion
 
     #region Properties
-    public List<CheckButton> Buttons;
+    public bool ChangedIndex;
+    public int CheckedIndex => checkedIndex;
     #endregion
 
     #region Methods
-    public RadioButtons(Texture2D buttonTexture, Texture2D checkedTexture, Texture2D labelTexture, Texture2D surroundTexture, Rectangle rect, List<string> text, SpriteFont font, Color baseColour, Color penColour)
+    public RadioButtons(Texture2D uncheckedTexture, Texture2D checkedTexture, Texture2D labelTexture, Texture2D surroundTexture, Rectangle rect, Vector2 buttonStartPos, string[] text, SpriteFont font, Color baseColour, Color hoverColour, Color penColour, int startIndex)
     {
+        ChangedIndex = false;
         surround = new Label(surroundTexture, baseColour, rect, font, penColour);
-        int numButtons = text.Count;
-        Point buttonSize = new Point(40, 40);
+        int numButtons = text.Length;
+        Point buttonSize = new Point(15, 15);
+        buttons = new List<CheckButton>();
+        labels = new List<Label>();
 
         for (var i = 0; i < numButtons; i++)
         {
-            Vector2 buttonPos = new Vector2(rect.X + 20, rect.Y + (rect.Height * ((i+1) / (numButtons + 1))));
-            Rectangle labelRect = new Rectangle(new Point((int)(buttonPos.X + 60), (int)(buttonPos.Y - (buttonSize.Y / 2))), new Point(rect.Width / (3/4), buttonSize.Y));
-            labels[i] = new Label(labelTexture, baseColour, labelRect, font, penColour)
+            Rectangle labelRect = new Rectangle(new Point((int)(buttonStartPos.X + buttonSize.X), (int)buttonStartPos.Y - buttonSize.Y), new Point(rect.Width * (3/4), buttonSize.Y));
+            labels.Add(new Label(labelTexture, baseColour, labelRect, font, penColour)
             {
                 Text = text[i],
-            };
-            Buttons[i] = new CheckButton(buttonTexture, checkedTexture, font, buttonPos, baseColour, penColour, buttonSize);
+            });
+            buttons.Add(new CheckButton(uncheckedTexture, checkedTexture, font, buttonStartPos, baseColour, penColour, buttonSize)
+            {
+                HoverColour = hoverColour
+            });
+            buttonStartPos.Y += buttonSize.Y + 10;
+        }
+        checkedIndex = startIndex;
+        buttons[startIndex].Check();
+    }
+
+    public void Draw(SpriteBatch _spriteBatch)
+    {
+        surround.Draw(_spriteBatch);
+        for (var i = 0; i < buttons.Count; i++)
+        {
+            labels[i].DrawStringUncentred(_spriteBatch);
+            buttons[i].Draw(_spriteBatch);
+        }
+    }
+
+    public void Update(GameTime gameTime)
+    {
+        ChangedIndex = false;
+        for (var i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].Update(gameTime);
+            if (buttons[i].Clicked)
+            {
+                ChangedIndex = true;
+                buttons[checkedIndex].Uncheck();
+                checkedIndex = i;
+                break;
+            }
+        }
+        buttons[checkedIndex].Check();
+    }
+
+    public void ChangePenColour(Color colour)
+    {
+        for (var i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].PenColour = colour;
+            labels[i].PenColour = colour;
         }
     }
     #endregion

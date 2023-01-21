@@ -16,14 +16,11 @@ public class GameObject
 
     #region Properties
     public bool Enabled;
-    public Vector2 Position
-    {
-        get { return position; }
-    }
-    public Vector2 TopLeftPoint { get { return new Vector2(position.X - XRadius, position.Y - YRadius); } }
-    public Rectangle ObjectRectangle { get { return new Rectangle((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y); } }
-    public int XRadius { get { return dimensions.X / 2; }}
-    public int YRadius { get { return dimensions.Y / 2; }}
+    public Vector2 Position => position;
+    public Vector2 TopLeftPoint => new Vector2(position.X - XRadius, position.Y - YRadius);
+    public Rectangle ObjectRectangle => new Rectangle((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y);
+    public int XRadius => dimensions.X / 2;
+    public int YRadius => dimensions.Y / 2;
     #endregion
 
     #region Methods

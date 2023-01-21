@@ -13,24 +13,25 @@ public class Particle : GameObject
 {
     #region Fields
     protected Vector2 prevPos, prevVelocity, currentVelocity; // Prev values are only useful in case a backtracking algorithm is used for advanced collision handling
+    protected double mass;
     #endregion
 
     #region Properties
     public bool colliding;
-    public float Mass { get; protected set; }
-    public Vector2 PreviousVelocity { get { return prevVelocity; } }
-    public Vector2 PreviousPosition { get { return prevPos; } }
-    public Vector2 CurrentVelocity { get{return currentVelocity;} }
+    public double Mass => mass;
+    public Vector2 PreviousVelocity => prevVelocity;
+    public Vector2 PreviousPosition => prevPos;
+    public Vector2 CurrentVelocity => currentVelocity;
     public string Type { get; set; } // Type of ball ("Small" and "Large")
     public int Identifier { get; set; } // Unique identifier for the ball type that describes its position in the array
     #endregion
 
     #region Methods
-    public Particle(Texture2D texture, Vector2 position, Vector2 velocity, float Mass, Color colour, Point dimensions) : base(texture, position, colour, dimensions)
+    public Particle(Texture2D texture, Vector2 position, Vector2 velocity, double Mass, Color colour, Point dimensions) : base(texture, position, colour, dimensions)
     {
         colliding = false;
         currentVelocity = velocity;
-        this.Mass = Mass;
+        mass = Mass;
     }
 
     public override void Update(GameTime gameTime)

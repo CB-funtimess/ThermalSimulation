@@ -4,6 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/../../../../Downloads/DataBox.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/Button_Checked.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/Button_Unchecked.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/DownButton.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/File.spritefont</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/LabelBox1.png</File>
@@ -20,6 +23,9 @@
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/YellowParticle.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>GeneralAssets/DataBox.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>GeneralAssets/Arial.spritefont</File>
     <File xsi:nil="true" />

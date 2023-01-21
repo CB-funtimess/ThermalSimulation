@@ -12,7 +12,7 @@ public class CheckButton : Button
     #endregion
 
     #region Properties
-    public bool Checked { get { return isChecked; } }
+    public bool Checked => isChecked;
     #endregion
 
     #region Methods
@@ -49,11 +49,12 @@ public class CheckButton : Button
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        if (Clicked)
+        if (clicked)
         {
             if (drawTexture == checkedTexture)
             {
                 drawTexture = texture;
+                isChecked = false;
             }
             else
             {
@@ -61,6 +62,18 @@ public class CheckButton : Button
                 isChecked = true;
             }
         }
+    }
+
+    public void Uncheck()
+    {
+        isChecked = false;
+        drawTexture = texture;
+    }
+
+    public void Check()
+    {
+        isChecked = true;
+        drawTexture = checkedTexture;
     }
     #endregion
 }

@@ -79,9 +79,9 @@ namespace ThermalClasses.CollisionHandling
             return NewCollisionVelocity(p1.CurrentVelocity, p2.CurrentVelocity, p1.Mass, p2.Mass, p1.Position, p2.Position);
         }
 
-        public static Vector2 NewCollisionVelocity(Vector2 v1, Vector2 v2, float m1, float m2, Vector2 x1, Vector2 x2)
+        public static Vector2 NewCollisionVelocity(Vector2 v1, Vector2 v2, double m1, double m2, Vector2 x1, Vector2 x2)
         {
-            return v1 - (2 * m2 / (m1 + m2) * (Vector2.Dot(v1 - v2, x1 - x2) / (float)(x1 - x2).LengthSquared()) * (x1-x2));
+            return v1 - (Vector2.Dot(v1 - v2, x1 - x2) / (float)(x1 - x2).LengthSquared() * (x1 - x2) * (float)(2 * m2 / (m1 + m2)));
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace ThermalClasses.CollisionHandling
         {
             Polygon a1 = p1;
             Polygon a2 = p2;
-            if(p1.Type == "Large" && p2.Type == "Small")
+            if (p1.Type == "Large" && p2.Type == "Small")
             {
                 a1 = p2;
                 a2 = p1;
@@ -103,7 +103,7 @@ namespace ThermalClasses.CollisionHandling
             float radiiDistance = a1.YRadius + a2.YRadius;
             int length = (int)gameTime.ElapsedGameTime.TotalMilliseconds;
             float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / Math.Min(a1.YRadius - 2, a2.YRadius - 2)); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
-            for (float i = 0; i < length; i+=iterateBy)
+            for (float i = 0; i < length; i += iterateBy)
             {
                 Vector2 tempPosition = a1.PreviousPosition + (a1.CurrentVelocity * i);
                 float distanceBetweenCentres = (tempPosition - a2.Position).Length();

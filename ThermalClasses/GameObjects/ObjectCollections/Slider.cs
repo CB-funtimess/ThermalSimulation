@@ -12,6 +12,8 @@ public class Slider
     #region Properties
     public SliderButton sliderButton;
     public bool Moveable;
+    public int MinX => minX;
+    public int MaxX => maxX;
     #endregion
 
     public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle position, float scale, Color baseColour, Color penColour)
@@ -32,6 +34,7 @@ public class Slider
 
     public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle buttonMovement, Rectangle sliderPos, float scale, Color baseColour, Color penColour)
     {
+        Moveable = true;
         minX = (int)(buttonMovement.Left + (buttonMovement.Height * scale / 2));
         maxX = (int)(buttonMovement.Right - (buttonMovement.Height * scale / 2));
 
@@ -57,5 +60,10 @@ public class Slider
         {
             sliderButton.Update(gameTime);
         }
+    }
+
+    public void ChangePenColour(Color colour)
+    {
+        slider.PenColour = colour;
     }
 }

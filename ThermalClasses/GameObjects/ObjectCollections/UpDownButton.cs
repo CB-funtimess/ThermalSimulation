@@ -6,10 +6,13 @@ namespace ThermalClasses.GameObjects.ObjectCollections;
 
 public class UpDownButton
 {
+    #region Fields
+    private Label textLabel;
+    #endregion
+
     #region Properties
     public Button UpButton;
     public Button DownButton;
-    public Label TextLabel;
     #endregion
 
     #region Methods
@@ -17,7 +20,7 @@ public class UpDownButton
     {
         UpButton = upButton;
         DownButton = downButton;
-        TextLabel = textLabel;
+        textLabel = textLabel;
     }
     public UpDownButton(Texture2D upTexture, Texture2D downTexture, Texture2D labelTexture, Rectangle size, string labelText, SpriteFont font, Color penColour, Color baseColour, Color hoverColour)
     {
@@ -28,7 +31,7 @@ public class UpDownButton
         };
         Point labelTopLeft = new Point(size.X + buttonSize.X, size.Y);
         Rectangle labelRect = new Rectangle(labelTopLeft, new Point(size.Width - (2 * buttonSize.X), buttonSize.Y));
-        TextLabel = new Label(labelTexture, baseColour, labelRect, font, penColour)
+        textLabel = new Label(labelTexture, baseColour, labelRect, font, penColour)
         {
             Text = labelText,
         };
@@ -42,7 +45,7 @@ public class UpDownButton
     public void Draw(SpriteBatch _spriteBatch)
     {
         DownButton.Draw(_spriteBatch);
-        TextLabel.Draw(_spriteBatch);
+        textLabel.Draw(_spriteBatch);
         UpButton.Draw(_spriteBatch);
     }
 
@@ -50,6 +53,11 @@ public class UpDownButton
     {
         UpButton.Update(gameTime);
         DownButton.Update(gameTime);
+    }
+
+    public void ChangePenColour(Color colour)
+    {
+        textLabel.PenColour = colour;
     }
     #endregion
 }

@@ -10,12 +10,13 @@ public class Button : GameObject
     protected MouseState previousState;
     protected readonly SpriteFont font;
     protected bool isHovering;
+    protected bool clicked;
     #endregion
 
     #region Properties
     public EventHandler Click;
     public Texture2D hoverTexture;
-    public bool Clicked { get; protected set; }
+    public bool Clicked => clicked;
     public string Text { get; set; }
     public Color PenColour { get; set; }
     public Color HoverColour { get; set; }
@@ -27,7 +28,7 @@ public class Button : GameObject
         this.font = font;
 
         PenColour = penColour;
-        Clicked = false;
+        clicked = false;
     }
 
     public override void Draw(SpriteBatch _spriteBatch)
@@ -62,7 +63,7 @@ public class Button : GameObject
     {
         previousState = currentState;
         currentState = Mouse.GetState();
-        Clicked = false;
+        clicked = false;
 
         var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
 
@@ -76,7 +77,7 @@ public class Button : GameObject
             if (currentState.LeftButton == ButtonState.Released && previousState.LeftButton == ButtonState.Pressed)
             {
                 Click?.Invoke(this, EventArgs.Empty);
-                Clicked = true;
+                clicked = true;
             }
         }
     }

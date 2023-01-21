@@ -29,5 +29,17 @@ public class Label : GameObject // This class is a label with a box texture
             _spriteBatch.DrawString(Font, Text, new Vector2(x, y), PenColour);
         }
     }
+
+    public void DrawStringUncentred(SpriteBatch _spriteBatch)
+    {
+        base.Draw(_spriteBatch);
+        if (!String.IsNullOrEmpty(Text))
+        {
+             var x = ObjectRectangle.X + (ObjectRectangle.Width / 2);
+             var y = ObjectRectangle.Y + (ObjectRectangle.Height / 2);
+
+            _spriteBatch.DrawString(Font, Text, new Vector2(x,y), PenColour);
+        }
+    }
     #endregion
 }
