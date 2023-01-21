@@ -1,9 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
-using System.Net.Http.Headers;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Mime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,11 +26,12 @@ public class SimulationHandler : Handler
     private List<UpDownButton> upDownCollection;
     private List<Label> labelCollection;
     private CheckButton pauseButton;
+    private Button resetButton;
     private UpDownButton smallParticleControl;
     private UpDownButton largeParticleControl;
     private UpDownButton temperatureControl;
     private Slider volumeSlider;
-    private Label dataBox, volumeDisp, temperatureDisp, pressureDisp, numParticlesDisp;
+    private Label dataBox, volumeDisp, temperatureDisp, pressureDisp, numParticlesDisp, constantLabel;
     private RadioButtons keepConstant;
     #endregion
     #endregion
@@ -148,9 +143,15 @@ public class SimulationHandler : Handler
         Vector2 pausePosition = new Vector2(pauseSize.X / 2, simulationBox.BoxRect.Y - 35);
         pauseButton = new CheckButton(content.Load<Texture2D>("GeneralAssets/PauseButton"), content.Load<Texture2D>("GeneralAssets/PlayButton"), font, pausePosition, unclickedColour, penColour, pauseSize)
         {
-            HoverColour = HoverColour,
+            HoverColour = HoverColour
         };
         pauseButton.Click += PauseSimulation_Click;
+        Vector2 resetPos = new Vector2(pausePosition.X + pauseSize.X + 5, pausePosition.Y);
+        resetButton = new Button(content.Load<Texture2D>("GeneralAssets/ResetButton"), font, resetPos, unclickedColour, penColour, pauseSize)
+        {
+            HoverColour = HoverColour
+        };
+        resetButton.Click += ResetSimulation_Click;
 
         Texture2D upTexture = content.Load<Texture2D>("GeneralAssets/UpButton");
         Texture2D downTexture = content.Load<Texture2D>("GeneralAssets/DownButton");
@@ -161,6 +162,12 @@ public class SimulationHandler : Handler
         Texture2D outputBox = content.Load<Texture2D>("GeneralAssets/DataBox");
         Texture2D buttonUnchecked = content.Load<Texture2D>("GeneralAssets/Button_Unchecked");
         Texture2D buttonChecked = content.Load<Texture2D>("GeneralAssets/Button_Checked");
+
+        Texture2D whiteTexture = content.Load<Texture2D>("Colours/WhiteColour");
+        Texture2D greenTexture = content.Load<Texture2D>("Colours/GreenColour");
+        Texture2D yellowTexture = content.Load<Texture2D>("Colours/YellowColour");
+        Texture2D orangeTexture = content.Load<Texture2D>("Colours/OrangeColour");
+        Texture2D cyanTexture = content.Load<Texture2D>("Colours/CyanColour");
 
         // Display values
         Rectangle resultsBox = new Rectangle(new Point((int)(renderRectangle.Width * 0.73), (int)(renderRectangle.Height * 0.6)), new Point((int)(renderRectangle.Width * 0.27), (int)(renderRectangle.Height * 0.35)));
@@ -188,11 +195,17 @@ public class SimulationHandler : Handler
             Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles)}mol"
         };
 
-        Point radioSize = new Point(225,120);
-        Rectangle radioRect = new Rectangle(new Point(resultsBox.X + ((resultsBox.Width / 2) - (radioSize.X / 2)), numParticlesRect.Y + 50), radioSize);
+        Point radioSize = new Point(230,120);
+        Rectangle radioRect = new Rectangle(new Point(resultsBox.X + ((resultsBox.Width / 2) - (radioSize.X / 2)), numParticlesRect.Y + 70), radioSize);
         string[] text = {"Volume", "Temperature", "Pressure => Volume", "Pressure => Temperature"};
         Vector2 startButton = new Vector2(radioRect.X + 20, radioRect.Y + 20);
         keepConstant = new RadioButtons(buttonUnchecked, buttonChecked, upDownLabelTexture, outputBox, radioRect, startButton, text, font, unclickedColour, HoverColour, penColour, 1);
+        Point constSize = new Point(radioSize.X, 20);
+        Rectangle constRect = new Rectangle(new Point(radioRect.X, radioRect.Y - 20), constSize);
+        constantLabel = new Label(upDownLabelTexture, unclickedColour, constRect, font, penColour)
+        {
+            Text = "Choose what to keep constant:"
+        };
 
         Point particleControlSize = new Point(200, 40);
         Rectangle largeParticleButtonRect = new Rectangle(new Point(simulationBox.BoxRect.Right - particleControlSize.X, simulationBox.BoxRect.Bottom + 15), particleControlSize);
@@ -217,14 +230,15 @@ public class SimulationHandler : Handler
         volumeSlider = new Slider(sliderButtonTexture, sliderButtonHoverTexture, sliderLabelTexture, font, volumeSliderRect, volumeFixedTextureRect, 1, unclickedColour, penColour);
         volumeSlider.sliderButton.Click += ChangeVolume_Click;
         volumeSlider.sliderButton.Click.Invoke(new object(), EventArgs.Empty);
-
         // Putting all objects into a list for easier updating and drawing
         buttonCollection.Add(pauseButton);
+        buttonCollection.Add(resetButton);
 
         upDownCollection.Add(smallParticleControl);
         upDownCollection.Add(largeParticleControl);
 
         labelCollection.Add(dataBox);
+        labelCollection.Add(constantLabel);
     }
     #endregion
 
@@ -417,7 +431,7 @@ public class SimulationHandler : Handler
         }
     }
 
-    private void ChangePenColour(Color colour)
+    public void ChangePenColour(Color colour)
     {
         for (var i = 0; i < buttonCollection.Count; i++)
         {
@@ -515,6 +529,20 @@ public class SimulationHandler : Handler
         paused = !paused;
     }
 
+    private void ResetSimulation_Click(object sender, EventArgs e)
+    {
+        temperature = 300; // Room temperature
+        pressure = 0;
+        volume = maxVolume;
+        rmsVelocity = PhysicsEquations.CalcVRMS(temperature, avgMass);
+
+        simulationBox.SetVolume(InverseScale(volume));
+        volumeSlider.sliderButton.SetPosition(new Vector2(InverseScale(volume), volumeSlider.sliderButton.Position.Y));
+
+        RemoveParticles(activeLargeParticles.Count, ref activeLargeParticles, ref largeParticles);
+        RemoveParticles(activeSmallParticles.Count, ref activeSmallParticles, ref smallParticles);
+    }
+
     #region Changing Volume
     private void ChangeVolume_Click(object sender, EventArgs e)
     {
@@ -540,7 +568,7 @@ public class SimulationHandler : Handler
     #region Changing Temperature
     private void IncreaseTemperature_Click(object sender, EventArgs e)
     {
-        if (PhysicsEquations.CalcVolume(pressure, NumParticles, temperature + 10) <= maxVolume)
+        if (PhysicsEquations.CalcVolume(pressure, NumParticles, temperature + 10) <= maxVolume && !constants.Volume)
         {
             temperature += 10;
             if (!constants.PressureTemp && !constants.PressureVol)
@@ -549,11 +577,24 @@ public class SimulationHandler : Handler
                 ChangeVelocities(rmsVelocity);
             }
         }
+
+        if (constants.Volume)
+        {
+            if (temperature + 10 < 450)
+            {
+                temperature += 10;
+                if (!constants.PressureTemp && !constants.PressureVol)
+                {
+                    rmsVelocity = PhysicsEquations.CalcVRMS(temperature, avgMass);
+                    ChangeVelocities(rmsVelocity);
+                }
+            }
+        }
     }
 
     private void DecreaseTemperature_Click(object sender, EventArgs e)
     {
-        if (PhysicsEquations.CalcVolume(pressure, NumParticles, temperature - 10) >= minVolume)
+        if (PhysicsEquations.CalcVolume(pressure, NumParticles, temperature - 10) >= minVolume && !constants.Volume)
         {
             temperature -= 10;
             if (!constants.PressureTemp && !constants.PressureVol)
@@ -561,6 +602,20 @@ public class SimulationHandler : Handler
                 var newRmsVelocity = PhysicsEquations.CalcVRMS(temperature, avgMass);
                 ChangeVelocities(newRmsVelocity - rmsVelocity);
                 rmsVelocity = newRmsVelocity;
+            }
+        }
+
+        if (constants.Volume)
+        {
+            if (temperature - 10 >= 0)
+            {
+                temperature -= 10;
+                if (!constants.PressureTemp && !constants.PressureVol)
+                {
+                    var newRmsVelocity = PhysicsEquations.CalcVRMS(temperature, avgMass);
+                    ChangeVelocities(newRmsVelocity - rmsVelocity);
+                    rmsVelocity = newRmsVelocity;
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ public class SliderButton : Button
 {
     #region Fields
     private readonly int minX, maxX;
+    bool isMoving;
     #endregion
 
     #region Properties
@@ -17,6 +18,7 @@ public class SliderButton : Button
     {
         this.minX = minX;
         this.maxX = maxX;
+        isMoving = false;
     }
 
     public override void Update(GameTime gameTime)
@@ -25,13 +27,21 @@ public class SliderButton : Button
         currentState = Mouse.GetState();
         clicked = false;
 
-        var oldMouseRectangle = new Rectangle(previousState.X, previousState.Y, 1, 1);
         var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
 
         isHovering = false;
 
+        if (currentState.LeftButton == ButtonState.Released)
+        {
+            isMoving = false;
+        }
+        if (mouseRectangle.Intersects(ObjectRectangle))
+        {
+            isMoving = true;
+        }
+
         // If the button is pressed, move button
-        if (oldMouseRectangle.Intersects(ObjectRectangle))
+        if (isMoving)
         {
             isHovering = true;
             if (currentState.LeftButton == ButtonState.Pressed && previousState.LeftButton == ButtonState.Pressed)
@@ -48,6 +58,7 @@ public class SliderButton : Button
             {
                 Click?.Invoke(this, EventArgs.Empty);
                 clicked = true;
+                isMoving = false;
             }
         }
     }

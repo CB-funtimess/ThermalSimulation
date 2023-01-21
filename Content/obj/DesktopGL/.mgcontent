@@ -5,6 +5,11 @@
   <Config />
   <SourceFiles>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/../../../../Downloads/DataBox.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/Colours/CyanColour.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/Colours/GreenColour.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/Colours/OrangeColour.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/Colours/WhiteColour.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/Colours/YellowColour.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/Button_Checked.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/Button_Unchecked.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/DownButton.png</File>
@@ -12,6 +17,7 @@
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/LabelBox1.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/PauseButton.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/PlayButton.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/ResetButton.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderButton_Clicked.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderButton_Unclicked.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/SliderFrame.png</File>
@@ -27,7 +33,13 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>GeneralAssets/Arial.spritefont</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
