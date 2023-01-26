@@ -304,6 +304,7 @@ public class SimulationHandler : Handler
             labelCollection[i].Draw(_spriteBatch);
         }
 
+        // THIS SECTION SHOULD BE AN INDIVIDUAL FUNCTION
         // Concerning the values of the properties and their displayed values
         if ((constants.PressureTemp || constants.PressureVol) && NumParticles > 0) // Pressure constant so other variables evaluated
         {
@@ -430,6 +431,7 @@ public class SimulationHandler : Handler
             a2[i2].CollisionParticleUpdate(a1[i1], gameTime);
         }
     }
+    #endregion
 
     public void ChangePenColour(Color colour)
     {
@@ -450,7 +452,6 @@ public class SimulationHandler : Handler
         volumeDisp.PenColour = temperatureDisp.PenColour = pressureDisp.PenColour = numParticlesDisp.PenColour = colour;
         keepConstant.ChangePenColour(colour);
     }
-    #endregion
     #endregion
 
     #region Events
