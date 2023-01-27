@@ -72,7 +72,7 @@ public class RadioButtons : ObjectCollection
         buttons[checkedIndex].Check();
     }
 
-    public void ChangePenColour(Color colour)
+    public override void ChangePenColour(Color colour)
     {
         for (var i = 0; i < buttons.Count; i++)
         {

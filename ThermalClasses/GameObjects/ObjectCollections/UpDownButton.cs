@@ -55,7 +55,7 @@ public class UpDownButton : ObjectCollection
         DownButton.Update(gameTime);
     }
 
-    public void ChangePenColour(Color colour)
+    public override void ChangePenColour(Color colour)
     {
         textLabel.PenColour = colour;
     }

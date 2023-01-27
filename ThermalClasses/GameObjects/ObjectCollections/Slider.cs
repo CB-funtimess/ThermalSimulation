@@ -62,7 +62,7 @@ public class Slider : ObjectCollection
         }
     }
 
-    public void ChangePenColour(Color colour)
+    public override void ChangePenColour(Color colour)
     {
         slider.PenColour = colour;
     }

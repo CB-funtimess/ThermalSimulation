@@ -34,15 +34,6 @@ public class SimulationBox
 
     // Method to change the 'volume' of the box
     // Similar to the Update() method called by the game, except this is event-driven
-    public void ChangeVolume(int changeByX)
-    {
-        int newMovingPos = movingBox.ObjectRectangle.X - changeByX;
-        if (newMovingPos >= minX && newMovingPos <= maxX)
-        {
-            movingBox.SetPosition(new Vector2(movingBox.Position.X - changeByX, movingBox.Position.Y));
-        }
-    }
-
     public void SetVolume(float setX)
     {
         if (setX >= minX && setX <= maxX)
