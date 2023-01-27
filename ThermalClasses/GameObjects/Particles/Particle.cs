@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ThermalClasses.CollisionHandling;
+using ThermalClasses.PhysicsLaws;
+using ThermalClasses.Handlers;
 
 namespace ThermalClasses.GameObjects.Particles;
 
@@ -22,7 +24,7 @@ public class Particle : GameObject
     public Vector2 PreviousVelocity => prevVelocity;
     public Vector2 PreviousPosition => prevPos;
     public Vector2 CurrentVelocity => currentVelocity;
-    public string Type { get; set; } // Type of ball ("Small" and "Large")
+    public ParticleType Type { get; set; } // Type of ball ("Small" and "Large")
     public int Identifier { get; set; } // Unique identifier for the ball type that describes its position in the array
     #endregion
 

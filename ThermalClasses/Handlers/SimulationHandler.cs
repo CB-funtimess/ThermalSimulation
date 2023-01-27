@@ -1,3 +1,5 @@
+using System.Transactions;
+using System.Xml.Schema;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,6 +20,8 @@ public class SimulationHandler : Handler
     #region Particles
     private Polygon[] smallParticles, largeParticles; // Total particles present in simulation
     private List<Polygon> activeSmallParticles, activeLargeParticles; // All enabled particles
+    private int indexSmall, indexLarge; // The index of the next particle to add
+    private List<Polygon> activeParticles;
     private SHG spatialHashGrid;
     #endregion
     private SimulationBox simulationBox;
@@ -39,7 +43,6 @@ public class SimulationHandler : Handler
     private double volume, maxVolume, changeInVolume, minVolume; // Measured in metres cubed
     private double pressure, rmsVelocity, avgMass; // Measured in Kelvin, Pascals, metres per second, kilograms
     private double temperature;
-    private int NumParticles => activeSmallParticles.Count + activeLargeParticles.Count;
     private bool paused;
     private Color penColour = Color.White;
     #endregion
@@ -47,6 +50,7 @@ public class SimulationHandler : Handler
     #region Properties
     public Color BackgroundColour { get; set; }
     public Color HoverColour { get; set; }
+    public int NumParticles => activeParticles.Count;
     #endregion
 
     #region Methods
@@ -85,7 +89,7 @@ public class SimulationHandler : Handler
         return new Polygon(content.Load<Texture2D>("SimulationAssets/YellowParticle"), new Vector2(0, 0), new Vector2(0, 0), avgMass - (0.001*avgMass), 15, Color.White, new Point(5, 5)) // avgMass - (0.001*avgMass)
         {
             Enabled = false,
-            Type = "Small",
+            Type = ParticleType.Small,
             Identifier = identifier,
         };
     }
@@ -95,7 +99,7 @@ public class SimulationHandler : Handler
         return new(content.Load<Texture2D>("SimulationAssets/BlueParticle"), new Vector2(0, 0), new Vector2(0, 0), avgMass + (0.001*avgMass), 15, Color.White, new Point(10, 10)) // avgMass + (0.001*avgMass)
         {
             Enabled = false,
-            Type = "Large",
+            Type = ParticleType.Large,
             Identifier = identifier,
         };
     }
@@ -127,6 +131,8 @@ public class SimulationHandler : Handler
         buttonCollection = new List<Button>();
         upDownCollection = new List<UpDownButton>();
         labelCollection = new List<Label>();
+        indexLarge = indexSmall = 0;
+        activeParticles = new List<Polygon>();
     }
 
     public override void LoadContent()
@@ -291,6 +297,7 @@ public class SimulationHandler : Handler
             upDownCollection[i].Draw(_spriteBatch);
         }
         // Drawing all active particles to screen
+        /*
         for (var i = 0; i < activeSmallParticles.Count; i++)
         {
             activeSmallParticles[i].Draw(_spriteBatch);
@@ -298,6 +305,11 @@ public class SimulationHandler : Handler
         for (var x = 0; x < activeLargeParticles.Count; x++)
         {
             activeLargeParticles[x].Draw(_spriteBatch);
+        }
+        */
+        for (var i = 0; i < activeParticles.Count; i++)
+        {
+            activeParticles[i].Draw(_spriteBatch);
         }
         for (var i = 0; i < labelCollection.Count; i++)
         {
@@ -337,24 +349,15 @@ public class SimulationHandler : Handler
     #region Particle Updates
     private void UpdateParticles(GameTime gameTime)
     {
-        for (var i = 0; i < activeSmallParticles.Count; i++)
+        for (var i = 0; i < activeParticles.Count; i++)
         {
-            activeSmallParticles[i].Update(gameTime);
-            activeSmallParticles[i].colliding = false;
-        }
-        for (var i = 0; i < activeLargeParticles.Count; i++)
-        {
-            activeLargeParticles[i].Update(gameTime);
-            activeLargeParticles[i].colliding = false;
+            activeParticles[i].Update(gameTime);
+            activeParticles[i].colliding = false;
         }
 
         // Broad phase: generate a spatial hash grid containing all particles
-        List<Polygon> allParticles = new();
-        allParticles.AddRange(activeSmallParticles);
-        allParticles.AddRange(activeLargeParticles);
-
         spatialHashGrid = new SHG(simulationBox.BoxRect, 15);
-        spatialHashGrid.Insert(allParticles);
+        spatialHashGrid.Insert(activeParticles);
 
         // Handling particle-particle collisions
         // Narrow phase: confirm whether pairs of particles are actually colliding
@@ -365,28 +368,7 @@ public class SimulationHandler : Handler
             {
                 for (var j = i + 1; j < polygonList1.Count; j++)
                 {
-                    if (polygonList1[i].Type == "Small")
-                    {
-                        if (polygonList1[j].Type == "Small")
-                        {
-                            ParticleCollisionUpdates(ref activeSmallParticles, polygonList1[i].Identifier, ref activeSmallParticles, polygonList1[j].Identifier, gameTime);
-                        }
-                        else
-                        {
-                            ParticleCollisionUpdates(ref activeSmallParticles, polygonList1[i].Identifier, ref activeLargeParticles, polygonList1[j].Identifier, gameTime);
-                        }
-                    }
-                    else
-                    {
-                        if (polygonList1[j].Type == "Small")
-                        {
-                            ParticleCollisionUpdates(ref activeLargeParticles, polygonList1[i].Identifier, ref activeSmallParticles, polygonList1[j].Identifier, gameTime);
-                        }
-                        else
-                        {
-                            ParticleCollisionUpdates(ref activeLargeParticles, polygonList1[i].Identifier, ref activeLargeParticles, polygonList1[j].Identifier, gameTime);
-                        }
-                    }
+                    ParticleCollisionUpdates(GetIndex(polygonList1[i].Type, polygonList1[i].Identifier), GetIndex(polygonList1[j].Type, polygonList1[j].Identifier), gameTime);
                 }
             }
         }
@@ -408,28 +390,33 @@ public class SimulationHandler : Handler
                 }
 
                 // Move particles back into original lists
-                if (particle.Type == "Small")
-                {
-                    activeSmallParticles[myParticle.Identifier] = myParticle;
-                }
-                else
-                {
-                    activeLargeParticles[myParticle.Identifier] = myParticle;
-                }
+                activeParticles[GetIndex(myParticle.Type, myParticle.Identifier)] = myParticle;
             }
         }
     }
 
-    private void ParticleCollisionUpdates(ref List<Polygon> a1, int i1, ref List<Polygon> a2, int i2, GameTime gameTime)
+    private void ParticleCollisionUpdates(int i1, int i2, GameTime gameTime)
     {
-        if (CollisionFunctions.SeparatingAxisTheorem(a1[i1], a2[i2]))
+        if (CollisionFunctions.SeparatingAxisTheorem(activeParticles[i1], activeParticles[i2]))
         {
-            // Change the position of the particle with the highest velocity for cleaner graphics
-            a1[i1].SetPosition(CollisionFunctions.TouchingPosition(a1[i1], a2[i2], gameTime));
-            a1[i1].CollisionParticleUpdate(a2[i2], gameTime);
+            activeParticles[i1].SetPosition(CollisionFunctions.TouchingPosition(activeParticles[i1], activeParticles[i2], gameTime));
 
-            a2[i2].CollisionParticleUpdate(a1[i1], gameTime);
+            activeParticles[i1].CollisionParticleUpdate(activeParticles[i2], gameTime);
+            activeParticles[i2].CollisionParticleUpdate(activeParticles[i1], gameTime);
         }
+    }
+
+    // Gets the index of a specific particle in the active particle list
+    private int GetIndex(ParticleType type, int index)
+    {
+        for (var i = 0; i < activeParticles.Count; i++)
+        {
+            if (activeParticles[i].Type == type && activeParticles[i].Identifier == index)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
     #endregion
 
@@ -460,7 +447,7 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            AddParticles(10, ref activeSmallParticles, ref smallParticles);
+            AddParticles(10, ref smallParticles, ref indexSmall);
         }
     }
 
@@ -468,58 +455,54 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            AddParticles(10, ref activeLargeParticles, ref largeParticles);
+            AddParticles(10, ref largeParticles, ref indexLarge);
         }
     }
 
-    // Method to add particles to the list of active particles (called by event)
-    private void AddParticles(int amount, ref List<Polygon> activeParticles, ref Polygon[] allParticles)
+    private void AddParticles(int amount, ref Polygon[] particleType, ref int index)
     {
         Random rnd = new Random();
-        if (activeParticles.Count + amount <= allParticles.Length)
+        if (index + amount <= particleType.Length)
         {
             Vector2 insertPosition = new Vector2(simulationBox.BoxRect.Right - 10, simulationBox.BoxRect.Top + 10);
             // Creating the input velocities
             float theta = (float)((Math.PI / (2 * amount)) + rnd.NextDouble());
             // Enabling particles to allow them to be drawn and updated
-            int indexToEnable = activeParticles.Count;
-            for (var i = indexToEnable; i < indexToEnable + amount; i++)
+            for (var i = 0; i < amount; i++)
             {
                 Vector2 insertionVelocity = new Vector2((float)(-1 * (float)Math.Sin(theta) * rmsVelocity), (float)((float)Math.Cos(theta) * rmsVelocity));
-                allParticles[i].Enabled = true;
-                allParticles[i].SetPosition(insertPosition);
-                allParticles[i].ChangeVelocityTo(insertionVelocity);
-                activeParticles.Add(allParticles[i]);
+                particleType[index].Enabled = true;
+                particleType[index].SetPosition(insertPosition);
+                particleType[index].ChangeVelocityTo(insertionVelocity);
+                activeParticles.Add(particleType[index]);
                 insertPosition.Y += 20; // Inserts next particle into a space below previous particle
                 theta += (float)((Math.PI / 2 / amount) + rnd.NextDouble()); // Modifies angle at which the magnitude of the velocity acts in
+                index++;
             }
         }
-        pressure = PhysicsEquations.CalcPressure(volume, NumParticles, temperature, 25);
     }
-
     #endregion
 
     #region Removing Particles
     private void RemoveSmallParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(10, ref activeSmallParticles, ref smallParticles);
+        RemoveParticles(10, ref smallParticles, ref indexSmall, ParticleType.Small);
     }
 
     private void RemoveLargeParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(10, ref activeLargeParticles, ref largeParticles);
+        RemoveParticles(10, ref largeParticles, ref indexLarge, ParticleType.Large);
     }
 
-    // Method to remove particles from the list of active particles (called by event)
-    private void RemoveParticles(int amount, ref List<Polygon> activeList, ref Polygon[] allParticles)
+    private void RemoveParticles(int amount, ref Polygon[] particleType, ref int typeIndex, ParticleType type)
     {
-        if (activeList.Count >= amount)
+        if (typeIndex - amount >= 0)
         {
-            int indexToDisable = activeList.Count - 1;
-            for (var i = indexToDisable; i > indexToDisable - amount; i--)
+            for (var i = 0; i < amount; i++)
             {
-                activeList.RemoveAt(activeList.Count - 1);
-                allParticles[i].Enabled = false;
+                typeIndex--;
+                activeParticles.RemoveAt(GetIndex(type, typeIndex));
+                particleType[typeIndex].Enabled = false;
             }
         }
     }
@@ -540,8 +523,21 @@ public class SimulationHandler : Handler
         simulationBox.SetVolume(InverseScale(volume));
         volumeSlider.sliderButton.SetPosition(new Vector2(InverseScale(volume), volumeSlider.sliderButton.Position.Y));
 
-        RemoveParticles(activeLargeParticles.Count, ref activeLargeParticles, ref largeParticles);
-        RemoveParticles(activeSmallParticles.Count, ref activeSmallParticles, ref smallParticles);
+        RemoveAllParticles();
+    }
+
+    private void RemoveAllParticles()
+    {
+        // Set all small particles to disabled
+        for (var i = 0; i < indexSmall; i++)
+        {
+            smallParticles[i].Enabled = false;
+        }
+        for (var i = 0; i < indexLarge; i++)
+        {
+            largeParticles[i].Enabled = false;
+        }
+        activeParticles.Clear();
     }
 
     #region Changing Volume
@@ -623,54 +619,13 @@ public class SimulationHandler : Handler
 
     private void ChangeVelocities(double amount)
     {
-        for (var i = 0; i < activeSmallParticles.Count; i++)
+        for (var i = 0; i < activeParticles.Count; i++)
         {
-            float newLength = (float)(activeSmallParticles[i].CurrentVelocity.Length() + amount);
-            activeSmallParticles[i].ChangeVelocityTo(newLength / activeSmallParticles[i].CurrentVelocity.Length() * activeSmallParticles[i].CurrentVelocity);
-        }
-        for (var i = 0; i < activeLargeParticles.Count; i++)
-        {
-            float newLength = (float)(activeLargeParticles[i].CurrentVelocity.Length() + amount);
-            activeLargeParticles[i].ChangeVelocityTo(newLength / activeLargeParticles[i].CurrentVelocity.Length() * activeLargeParticles[i].CurrentVelocity);
+            float newLength = (float)(activeParticles[i].CurrentVelocity.Length() + amount);
+            activeParticles[i].ChangeVelocityTo(newLength / activeParticles[i].CurrentVelocity.Length() * activeParticles[i].CurrentVelocity);
         }
     }
     #endregion
     #endregion
     #endregion
-}
-
-/// <summary>
-/// This struct manages the physical constants and variables in the simulation
-/// </summary>
-public struct PhysicalConstants
-{
-    public bool PressureVol, PressureTemp, Temperature, Volume;
-    public PhysicalConstants()
-    {
-        PressureVol = false; // Pressure kept constant (V can only be changed by modifying T) if true
-        PressureTemp = false; // Pressure kept constant (T can only be changed by modifying V) if true
-        Temperature = true; // Temperature kept constant if true
-        Volume = false; // Volume kept constant if true
-    }
-
-    public void ChangeIndex(int index)
-    {
-        PressureTemp = PressureVol = Temperature = Volume = false;
-        if(index == 0)
-        {
-            Volume = true;
-        }
-        else if (index == 1)
-        {
-            Temperature = true;
-        }
-        else if (index == 2)
-        {
-            PressureVol = true;
-        }
-        else if(index == 3)
-        {
-            PressureTemp = true;
-        }
-    }
 }

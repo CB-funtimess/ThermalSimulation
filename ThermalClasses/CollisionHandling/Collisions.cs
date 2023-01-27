@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ThermalClasses.GameObjects.Particles;
+using ThermalClasses.PhysicsLaws;
 
 namespace ThermalClasses.CollisionHandling
 {
@@ -95,7 +96,7 @@ namespace ThermalClasses.CollisionHandling
         {
             Polygon a1 = p1;
             Polygon a2 = p2;
-            if (p1.Type == "Large" && p2.Type == "Small")
+            if (p1.Type == ParticleType.Large && p2.Type == ParticleType.Small)
             {
                 a1 = p2;
                 a2 = p1;
