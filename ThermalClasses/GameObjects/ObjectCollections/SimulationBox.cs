@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace ThermalClasses.GameObjects.ObjectCollections;
 
-public class SimulationBox : GameComponent
+public class SimulationBox
 {
     #region Fields
     private GameObject fixedBox;
@@ -24,7 +24,7 @@ public class SimulationBox : GameComponent
     #endregion
 
     #region Methods
-    public SimulationBox(Game game, GameObject fixedBox, GameObject movingBox, int maxX, int minX) : base(game) // Width is a length, not an x coordinate
+    public SimulationBox(Game game, GameObject fixedBox, GameObject movingBox, int maxX, int minX) // Width is a length, not an x coordinate
     {
         this.fixedBox = fixedBox;
         this.movingBox = movingBox;
