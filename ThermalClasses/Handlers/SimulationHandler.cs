@@ -19,7 +19,6 @@ public class SimulationHandler : Handler
     #region Objects
     #region Particles
     private Polygon[] smallParticles, largeParticles; // Total particles present in simulation
-    private List<Polygon> activeSmallParticles, activeLargeParticles; // All enabled particles
     private int indexSmall, indexLarge; // The index of the next particle to add
     private List<Polygon> activeParticles;
     private SHG spatialHashGrid;
@@ -126,8 +125,6 @@ public class SimulationHandler : Handler
         const int listSize = 500;
         smallParticles = new Polygon[listSize];
         largeParticles = new Polygon[listSize];
-        activeSmallParticles = new List<Polygon>();
-        activeLargeParticles = new List<Polygon>();
         buttonCollection = new List<Button>();
         upDownCollection = new List<UpDownButton>();
         labelCollection = new List<Label>();
@@ -254,11 +251,6 @@ public class SimulationHandler : Handler
     {
         pauseButton.Update(gameTime);
         keepConstant.Update(gameTime);
-        if (keepConstant.ChangedIndex)
-        {
-            constants.ChangeIndex(keepConstant.CheckedIndex);
-        }
-
         for (var i = 0; i < buttonCollection.Count; i++)
         {
             buttonCollection[i].Update(gameTime);
@@ -266,6 +258,11 @@ public class SimulationHandler : Handler
         for (var i = 0; i < upDownCollection.Count; i++)
         {
             upDownCollection[i].Update(gameTime);
+        }
+
+        if (keepConstant.ChangedIndex)
+        {
+            constants.ChangeIndex(keepConstant.CheckedIndex);
         }
         if (!constants.Volume && !constants.PressureVol)
         {
@@ -281,72 +278,8 @@ public class SimulationHandler : Handler
         }
     }
 
-    // Calls the draw methods of all GameObjects
-    public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
-    {
-        simulationBox.Draw(_spriteBatch);
-        temperatureControl.Draw(_spriteBatch);
-        volumeSlider.Draw(_spriteBatch);
-        keepConstant.Draw(_spriteBatch);
-        for (var i = 0; i < buttonCollection.Count; i++)
-        {
-            buttonCollection[i].Draw(_spriteBatch);
-        }
-        for (var i = 0; i < upDownCollection.Count; i++)
-        {
-            upDownCollection[i].Draw(_spriteBatch);
-        }
-        // Drawing all active particles to screen
-        /*
-        for (var i = 0; i < activeSmallParticles.Count; i++)
-        {
-            activeSmallParticles[i].Draw(_spriteBatch);
-        }
-        for (var x = 0; x < activeLargeParticles.Count; x++)
-        {
-            activeLargeParticles[x].Draw(_spriteBatch);
-        }
-        */
-        for (var i = 0; i < activeParticles.Count; i++)
-        {
-            activeParticles[i].Draw(_spriteBatch);
-        }
-        for (var i = 0; i < labelCollection.Count; i++)
-        {
-            labelCollection[i].Draw(_spriteBatch);
-        }
-
-        // THIS SECTION SHOULD BE AN INDIVIDUAL FUNCTION
-        // Concerning the values of the properties and their displayed values
-        if ((constants.PressureTemp || constants.PressureVol) && NumParticles > 0) // Pressure constant so other variables evaluated
-        {
-            if (constants.PressureTemp)
-            {
-                temperature = PhysicsEquations.CalcTemperature(pressure, volume, NumParticles);
-            }
-            else
-            {
-                volume = PhysicsEquations.CalcVolume(pressure, NumParticles, temperature);
-                // Update the slider
-                simulationBox.SetVolume(InverseScale(volume));
-                volumeSlider.sliderButton.SetPosition(new Vector2(InverseScale(volume), volumeSlider.sliderButton.Position.Y));
-            }
-        }
-        else // Pressure not constant so calculated
-        {
-            pressure = PhysicsEquations.CalcPressure(volume, NumParticles, temperature, 25);
-        }
-        volumeDisp.Text = $"Volume: {Convert.ToInt32(volume)} metres cubed";
-        volumeDisp.Draw(_spriteBatch);
-        temperatureDisp.Text = $"Temperature: {Convert.ToInt32(temperature)}K / {Convert.ToInt32(temperature - 273)} degrees C";
-        temperatureDisp.Draw(_spriteBatch);
-        pressureDisp.Text = $"Pressure: {pressure.ToString("e2", CultureInfo.InvariantCulture)}Pa";
-        pressureDisp.Draw(_spriteBatch);
-        numParticlesDisp.Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles, 25).ToString("e2", CultureInfo.InvariantCulture)}mol";
-        numParticlesDisp.Draw(_spriteBatch);
-    }
-
     #region Particle Updates
+
     private void UpdateParticles(GameTime gameTime)
     {
         for (var i = 0; i < activeParticles.Count; i++)
@@ -419,6 +352,60 @@ public class SimulationHandler : Handler
         return -1;
     }
     #endregion
+
+    // Calls the draw methods of all GameObjects
+    public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
+    {
+        simulationBox.Draw(_spriteBatch);
+        temperatureControl.Draw(_spriteBatch);
+        volumeSlider.Draw(_spriteBatch);
+        keepConstant.Draw(_spriteBatch);
+        for (var i = 0; i < buttonCollection.Count; i++)
+        {
+            buttonCollection[i].Draw(_spriteBatch);
+        }
+        for (var i = 0; i < upDownCollection.Count; i++)
+        {
+            upDownCollection[i].Draw(_spriteBatch);
+        }
+        for (var i = 0; i < activeParticles.Count; i++)
+        {
+            activeParticles[i].Draw(_spriteBatch);
+        }
+        for (var i = 0; i < labelCollection.Count; i++)
+        {
+            labelCollection[i].Draw(_spriteBatch);
+        }
+
+        // THIS SECTION SHOULD BE AN INDIVIDUAL FUNCTION
+        // Concerning the values of the properties and their displayed values
+        if ((constants.PressureTemp || constants.PressureVol) && NumParticles > 0) // Pressure constant so other variables evaluated
+        {
+            if (constants.PressureTemp)
+            {
+                temperature = PhysicsEquations.CalcTemperature(pressure, volume, NumParticles);
+            }
+            else
+            {
+                volume = PhysicsEquations.CalcVolume(pressure, NumParticles, temperature);
+                // Update the slider
+                simulationBox.SetVolume(InverseScale(volume));
+                volumeSlider.sliderButton.SetPosition(new Vector2(InverseScale(volume), volumeSlider.sliderButton.Position.Y));
+            }
+        }
+        else // Pressure not constant so calculated
+        {
+            pressure = PhysicsEquations.CalcPressure(volume, NumParticles, temperature, 25);
+        }
+        volumeDisp.Text = $"Volume: {Convert.ToInt32(volume)} metres cubed";
+        volumeDisp.Draw(_spriteBatch);
+        temperatureDisp.Text = $"Temperature: {Convert.ToInt32(temperature)}K / {Convert.ToInt32(temperature - 273)} degrees C";
+        temperatureDisp.Draw(_spriteBatch);
+        pressureDisp.Text = $"Pressure: {pressure.ToString("e2", CultureInfo.InvariantCulture)}Pa";
+        pressureDisp.Draw(_spriteBatch);
+        numParticlesDisp.Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles, 25).ToString("e2", CultureInfo.InvariantCulture)}mol";
+        numParticlesDisp.Draw(_spriteBatch);
+    }
 
     public void ChangePenColour(Color colour)
     {

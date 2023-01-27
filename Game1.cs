@@ -8,7 +8,7 @@ using ThermalClasses.Handlers;
 
 namespace ThermalSimulation;
 
-public class Game1 : Game
+public class ThermalSim : Game
 {
     #region Fields
     private GraphicsDeviceManager _graphics;
@@ -22,12 +22,13 @@ public class Game1 : Game
     private Rectangle renderRectangle;
     private SimulationHandler simulationHandler;
     private Button whiteButton, greenButton, orangeButton, cyanButton, yellowButton;
-    private List<Button> colourList;
+    private List<Button> colourButtonList;
+    private List<Color> colourList;
     private Label penColourLabel, colourLabel;
     #endregion
 
     #region Methods
-    public Game1()
+    public ThermalSim()
     {
         _graphics = new GraphicsDeviceManager(this);
 
@@ -37,8 +38,8 @@ public class Game1 : Game
     protected override void Initialize()
     {
         InitRenderTarget();
-        colourList = new List<Button>();
-
+        colourButtonList = new List<Button>();
+        colourList = new List<Color>();
         // Initialising and calling the Init() methods of my handlers
         simulationHandler = new(this, renderRectangle)
         {
@@ -87,67 +88,55 @@ public class Game1 : Game
         {
             HoverColour = hoverColour
         };
-        whiteButton.Click += White_Click;
+        whiteButton.Click += ColourButton_Click;
         colourPos.X += colourSize.X * 2;
         greenButton = new Button(greenTexture, font, colourPos, unclickedColour, penColour, colourSize)
         {
             HoverColour = hoverColour
         };
-        greenButton.Click += Green_Click;
+        greenButton.Click += ColourButton_Click;
         colourPos.X += colourSize.X * 2;
         yellowButton = new Button(yellowTexture, font, colourPos, unclickedColour, penColour, colourSize)
         {
             HoverColour = hoverColour
         };
-        yellowButton.Click += Yellow_Click;
+        yellowButton.Click += ColourButton_Click;
         colourPos.X += colourSize.X * 2;
         orangeButton = new Button(orangeTexture, font, colourPos, unclickedColour, penColour, colourSize)
         {
             HoverColour = hoverColour
         };
-        orangeButton.Click += Orange_Click;
+        orangeButton.Click += ColourButton_Click;
         colourPos.X += colourSize.X * 2;
         cyanButton = new Button(cyanTexture, font, colourPos, unclickedColour, penColour, colourSize)
         {
             HoverColour = hoverColour
         };
-        cyanButton.Click += Cyan_Click;
+        cyanButton.Click += ColourButton_Click;
 
-        colourList.Add(whiteButton);
-        colourList.Add(greenButton);
-        colourList.Add(yellowButton);
-        colourList.Add(orangeButton);
-        colourList.Add(cyanButton);
+        colourButtonList.Add(whiteButton);
+        colourList.Add(Color.White);
+        colourButtonList.Add(greenButton);
+        colourList.Add(Color.Green);
+        colourButtonList.Add(yellowButton);
+        colourList.Add(Color.Yellow);
+        colourButtonList.Add(orangeButton);
+        colourList.Add(Color.Orange);
+        colourButtonList.Add(cyanButton);
+        colourList.Add(Color.Cyan);
     }
 
     #region Changing Pen Colour
-    private void White_Click(object sender, EventArgs e)
+    // Matches the index of the button to the index of the colour
+    private void ColourButton_Click(object sender, EventArgs e)
     {
-        penColour = Color.White;
-        ChangeAllPenColour();
-    }
-
-    private void Green_Click(object sender, EventArgs e)
-    {
-        penColour = Color.Green;
-        ChangeAllPenColour();
-    }
-
-    private void Orange_Click(object sender, EventArgs e)
-    {
-        penColour = Color.Orange;
-        ChangeAllPenColour();
-    }
-
-    private void Cyan_Click(object sender, EventArgs e)
-    {
-        penColour = Color.Cyan;
-        ChangeAllPenColour();
-    }
-
-    private void Yellow_Click(object sender, EventArgs e)
-    {
-        penColour = Color.Yellow;
+        for (var i = 0; i < colourButtonList.Count; i++)
+        {
+            if (colourButtonList[i] == sender)
+            {
+                penColour = colourList[i];
+            }
+        }
         ChangeAllPenColour();
     }
 
@@ -163,9 +152,9 @@ public class Game1 : Game
         // Calling the Update methods of my handlers
         simulationHandler.Update(gameTime);
 
-        for (var i = 0; i < colourList.Count; i++)
+        for (var i = 0; i < colourButtonList.Count; i++)
         {
-            colourList[i].Update(gameTime);
+            colourButtonList[i].Update(gameTime);
         }
 
         base.Update(gameTime);
@@ -182,9 +171,9 @@ public class Game1 : Game
         null, null, null, null);
 
         // Draw everything onto the render target
-        for (var i = 0; i < colourList.Count; i++)
+        for (var i = 0; i < colourButtonList.Count; i++)
         {
-            colourList[i].Draw(_spriteBatch);
+            colourButtonList[i].Draw(_spriteBatch);
         }
         penColourLabel.Draw(_spriteBatch);
         colourLabel.Draw(_spriteBatch);

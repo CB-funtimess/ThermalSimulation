@@ -1,3 +1,3 @@
 ﻿
-using var game = new ThermalSimulation.Game1();
+using var game = new ThermalSimulation.ThermalSim();
 game.Run();
