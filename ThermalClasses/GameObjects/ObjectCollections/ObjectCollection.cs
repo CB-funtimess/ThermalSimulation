@@ -1,0 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+namespace ThermalClasses.GameObjects.ObjectCollections;
+
+public abstract class ObjectCollection
+{
+    public abstract void Draw(SpriteBatch _spriteBatch);
+    public abstract void Update(GameTime gameTime);
+}

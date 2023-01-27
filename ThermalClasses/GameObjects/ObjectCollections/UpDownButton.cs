@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace ThermalClasses.GameObjects.ObjectCollections;
 
-public class UpDownButton
+public class UpDownButton : ObjectCollection
 {
     #region Fields
     private Label textLabel;
@@ -42,14 +42,14 @@ public class UpDownButton
         };
     }
 
-    public void Draw(SpriteBatch _spriteBatch)
+    public override void Draw(SpriteBatch _spriteBatch)
     {
         DownButton.Draw(_spriteBatch);
         textLabel.Draw(_spriteBatch);
         UpButton.Draw(_spriteBatch);
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
         UpButton.Update(gameTime);
         DownButton.Update(gameTime);

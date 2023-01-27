@@ -378,6 +378,7 @@ public class SimulationHandler : Handler
         }
 
         // THIS SECTION SHOULD BE AN INDIVIDUAL FUNCTION
+        // SETTING PROPERTIES SHOULD BE HANDLED IN UPDATE()
         // Concerning the values of the properties and their displayed values
         if ((constants.PressureTemp || constants.PressureVol) && NumParticles > 0) // Pressure constant so other variables evaluated
         {

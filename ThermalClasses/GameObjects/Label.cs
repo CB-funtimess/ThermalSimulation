@@ -30,7 +30,7 @@ public class Label : GameObject // This class is a label with a box texture
         }
     }
 
-    public void DrawStringUncentred(SpriteBatch _spriteBatch)
+    public void DrawStringUncentered(SpriteBatch _spriteBatch)
     {
         base.Draw(_spriteBatch);
         if (!String.IsNullOrEmpty(Text))

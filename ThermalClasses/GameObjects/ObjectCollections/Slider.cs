@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace ThermalClasses.GameObjects.ObjectCollections;
 
-public class Slider
+public class Slider : ObjectCollection
 {
     #region Fields
     private Label slider;
@@ -48,13 +48,13 @@ public class Slider
         };
     }
 
-    public void Draw(SpriteBatch _spriteBatch)
+    public override void Draw(SpriteBatch _spriteBatch)
     {
         slider.Draw(_spriteBatch);
         sliderButton.Draw(_spriteBatch);
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
         if (Moveable)
         {

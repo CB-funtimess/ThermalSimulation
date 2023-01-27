@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace ThermalClasses.GameObjects.ObjectCollections;
 
-public class RadioButtons
+public class RadioButtons : ObjectCollection
 {
     #region Fields
     private List<Label> labels;
@@ -45,17 +45,17 @@ public class RadioButtons
         buttons[startIndex].Check();
     }
 
-    public void Draw(SpriteBatch _spriteBatch)
+    public override void Draw(SpriteBatch _spriteBatch)
     {
         surround.Draw(_spriteBatch);
         for (var i = 0; i < buttons.Count; i++)
         {
-            labels[i].DrawStringUncentred(_spriteBatch);
+            labels[i].DrawStringUncentered(_spriteBatch);
             buttons[i].Draw(_spriteBatch);
         }
     }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
         ChangedIndex = false;
         for (var i = 0; i < buttons.Count; i++)
