@@ -116,7 +116,7 @@ public class SimulationHandler : Handler
         GameObject fixedBox = new GameObject(content.Load<Texture2D>("SimulationAssets/FixedBox"), Color.White, fixedRect);
         GameObject movingBox = new GameObject(content.Load<Texture2D>("SimulationAssets/MovingBox"), Color.White, movingRect);
 
-        simulationBox = new SimulationBox(game, fixedBox, movingBox, (int)(renderRectangle.Width * 0.55), 0);
+        simulationBox = new SimulationBox(fixedBox, movingBox, (int)(renderRectangle.Width * 0.55), 0);
     }
     #endregion
 
@@ -285,7 +285,6 @@ public class SimulationHandler : Handler
         for (var i = 0; i < activeParticles.Count; i++)
         {
             activeParticles[i].Update(gameTime);
-            activeParticles[i].colliding = false;
         }
 
         // Broad phase: generate a spatial hash grid containing all particles
@@ -408,7 +407,7 @@ public class SimulationHandler : Handler
         numParticlesDisp.Draw(_spriteBatch);
     }
 
-    public void ChangePenColour(Color colour)
+    public override void ChangePenColour(Color colour)
     {
         for (var i = 0; i < buttonCollection.Count; i++)
         {
@@ -461,7 +460,7 @@ public class SimulationHandler : Handler
                 Vector2 insertionVelocity = new Vector2((float)(-1 * (float)Math.Sin(theta) * rmsVelocity), (float)((float)Math.Cos(theta) * rmsVelocity));
                 particleType[index].Enabled = true;
                 particleType[index].SetPosition(insertPosition);
-                particleType[index].ChangeVelocityTo(insertionVelocity);
+                particleType[index].SetVelocity(insertionVelocity);
                 activeParticles.Add(particleType[index]);
                 insertPosition.Y += 20; // Inserts next particle into a space below previous particle
                 theta += (float)((Math.PI / 2 / amount) + rnd.NextDouble()); // Modifies angle at which the magnitude of the velocity acts in
@@ -610,7 +609,7 @@ public class SimulationHandler : Handler
         for (var i = 0; i < activeParticles.Count; i++)
         {
             float newLength = (float)(activeParticles[i].CurrentVelocity.Length() + amount);
-            activeParticles[i].ChangeVelocityTo(newLength / activeParticles[i].CurrentVelocity.Length() * activeParticles[i].CurrentVelocity);
+            activeParticles[i].SetVelocity(newLength / activeParticles[i].CurrentVelocity.Length() * activeParticles[i].CurrentVelocity);
         }
     }
     #endregion

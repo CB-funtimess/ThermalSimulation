@@ -24,7 +24,7 @@ public class SimulationBox
     #endregion
 
     #region Methods
-    public SimulationBox(Game game, GameObject fixedBox, GameObject movingBox, int maxX, int minX) // Width is a length, not an x coordinate
+    public SimulationBox(GameObject fixedBox, GameObject movingBox, int maxX, int minX) // Width is a length, not an x coordinate
     {
         this.fixedBox = fixedBox;
         this.movingBox = movingBox;

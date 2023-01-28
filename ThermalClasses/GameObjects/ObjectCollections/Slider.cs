@@ -27,7 +27,7 @@ public class Slider : ObjectCollection
         Point buttonDimensions = new Point((int)(position.Height * scale));
         sliderButton = new SliderButton(buttonTexture, font, buttonPos, baseColour, penColour, buttonDimensions, minX, maxX)
         {
-            hoverTexture = hoverTexture,
+            HoverTexture = hoverTexture,
             HoverColour = baseColour,
         };
     }
@@ -43,7 +43,7 @@ public class Slider : ObjectCollection
         Point buttonDimensions = new Point((int)(buttonMovement.Height * scale));
         sliderButton = new SliderButton(buttonTexture, font, buttonPos, baseColour, penColour, buttonDimensions, minX, maxX)
         {
-            hoverTexture = hoverTexture,
+            HoverTexture = hoverTexture,
             HoverColour = baseColour,
         };
     }

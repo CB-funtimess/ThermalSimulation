@@ -14,14 +14,12 @@ namespace ThermalClasses.GameObjects.Particles;
 public class Particle : GameObject
 {
     #region Fields
-    protected Vector2 prevPos, prevVelocity, currentVelocity; // Prev values are only useful in case a backtracking algorithm is used for advanced collision handling
+    protected Vector2 prevPos, currentVelocity; // Prev values are only useful in case a backtracking algorithm is used for advanced collision handling
     protected double mass;
     #endregion
 
     #region Properties
-    public bool colliding;
     public double Mass => mass;
-    public Vector2 PreviousVelocity => prevVelocity;
     public Vector2 PreviousPosition => prevPos;
     public Vector2 CurrentVelocity => currentVelocity;
     public ParticleType Type { get; set; } // Type of ball ("Small" and "Large")
@@ -31,7 +29,6 @@ public class Particle : GameObject
     #region Methods
     public Particle(Texture2D texture, Vector2 position, Vector2 velocity, double Mass, Color colour, Point dimensions) : base(texture, position, colour, dimensions)
     {
-        colliding = false;
         currentVelocity = velocity;
         mass = Mass;
     }
@@ -44,15 +41,12 @@ public class Particle : GameObject
             // If there is no collision, the position is the only thing that changes
             // When there is no collision, the velocity of the particle is effectively zero: as such, it does not move on the GUI
             // Collision handling is outside the scope of a single instance of this object: therefore, only the movement of the object can be handled in the Update() function
-            if (!colliding)
-            {
-                position.X += (float)(CurrentVelocity.X * gameTime.ElapsedGameTime.TotalSeconds);
-                position.Y += (float)(CurrentVelocity.Y * gameTime.ElapsedGameTime.TotalSeconds);
-            }
+            position.X += (float)(CurrentVelocity.X * gameTime.ElapsedGameTime.TotalSeconds);
+            position.Y += (float)(CurrentVelocity.Y * gameTime.ElapsedGameTime.TotalSeconds);
         }
     }
 
-    public void ChangeVelocityTo(Vector2 newVelocity)
+    public void SetVelocity(Vector2 newVelocity)
     {
         currentVelocity = newVelocity;
     }

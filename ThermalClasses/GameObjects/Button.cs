@@ -15,7 +15,7 @@ public class Button : GameObject
 
     #region Properties
     public EventHandler Click;
-    public Texture2D hoverTexture;
+    public Texture2D HoverTexture;
     public bool Clicked => clicked;
     public string Text { get; set; }
     public Color PenColour { get; set; }
@@ -41,9 +41,9 @@ public class Button : GameObject
             if (isHovering)
             {
                 tempColour = HoverColour;
-                if (hoverTexture != null)
+                if (HoverTexture != null)
                 {
-                    tempTexture = hoverTexture;
+                    tempTexture = HoverTexture;
                 }
             }
 

@@ -48,14 +48,6 @@ public class Polygon : Particle
         }
     }
 
-    public override void Update(GameTime gameTime)
-    {
-        if (Enabled)
-        {
-            base.Update(gameTime);
-        }
-    }
-
     private Vector2[] GeneratePoints()
     {
         Vector2[] points = new Vector2[sides];
