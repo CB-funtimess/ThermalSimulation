@@ -331,7 +331,9 @@ public class SimulationHandler : Handler
     {
         if (CollisionFunctions.SeparatingAxisTheorem(activeParticles[i1], activeParticles[i2]))
         {
-            activeParticles[i1].SetPosition(CollisionFunctions.TouchingPosition(activeParticles[i1], activeParticles[i2], gameTime));
+            Vector2[] touchingPositions = CollisionFunctions.TouchingPosition(activeParticles[i1], activeParticles[i2], gameTime);
+            activeParticles[i1].SetPosition(touchingPositions[0]);
+            activeParticles[i2].SetPosition(touchingPositions[1]);
 
             activeParticles[i1].CollisionParticleUpdate(activeParticles[i2], gameTime);
             activeParticles[i2].CollisionParticleUpdate(activeParticles[i1], gameTime);

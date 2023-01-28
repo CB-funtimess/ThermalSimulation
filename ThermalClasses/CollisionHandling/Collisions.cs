@@ -92,28 +92,21 @@ namespace ThermalClasses.CollisionHandling
         /// <param name="p2"></param>
         /// <param name="positionRatio"></param>
         /// <returns></returns>
-        public static Vector2 TouchingPosition(Polygon p1, Polygon p2, GameTime gameTime)
+        public static Vector2[] TouchingPosition(Polygon p1, Polygon p2, GameTime gameTime)
         {
-            Polygon a1 = p1;
-            Polygon a2 = p2;
-            if (p1.Type == ParticleType.Large && p2.Type == ParticleType.Small)
+            double radiiDistance = p1.YRadius + p2.YRadius;
+            double timeElapsed = gameTime.ElapsedGameTime.TotalMilliseconds * Math.Pow(10, -3);
+            for (double i = 0; i < timeElapsed; i += timeElapsed / 20)
             {
-                a1 = p2;
-                a2 = p1;
-            }
-            float radiiDistance = a1.YRadius + a2.YRadius;
-            int length = (int)gameTime.ElapsedGameTime.TotalMilliseconds;
-            float iterateBy = (float)(gameTime.ElapsedGameTime.TotalSeconds / Math.Min(a1.YRadius - 2, a2.YRadius - 2)); // Making iterateBy smaller will increase precision but decrease performance (10 seems to be a number that limits performance only slightly)
-            for (float i = 0; i < length; i += iterateBy)
-            {
-                Vector2 tempPosition = a1.PreviousPosition + (a1.CurrentVelocity * i);
-                float distanceBetweenCentres = (tempPosition - a2.Position).Length();
-                if (Math.Round(distanceBetweenCentres) >= Math.Round(radiiDistance))
+                Vector2 tempPosition1 = p1.PreviousPosition + (p1.CurrentVelocity * (float)i);
+                Vector2 tempPosition2 = p2.PreviousPosition + (p2.CurrentVelocity * (float)i);
+                double distanceBetweenCentres = Vector2.Distance(tempPosition1, tempPosition2);
+                if (Math.Round(distanceBetweenCentres, 2) <= Math.Round(radiiDistance, 2))
                 {
-                    return tempPosition;
+                    return new Vector2[] { tempPosition1, tempPosition2 };
                 }
             }
-            return a1.Position;
+            return new Vector2[] { p1.Position, p2.Position };
         }
 
         /// <summary>
