@@ -112,6 +112,13 @@ namespace ThermalClasses.CollisionHandling
             return gameTime.ElapsedGameTime.TotalSeconds;
         }
 
+        /// <summary>
+        /// Finds the roots of an equation in the form y = ax^2 + bx + c
+        /// </summary>
+        /// <param name="a">Coefficient of x^2</param>
+        /// <param name="b">Coefficient of x</param>
+        /// <param name="c">Constant</param>
+        /// <returns></returns>
         public static double[] CalcRoots(double a, double b, double c)
         {
             double[] roots = new double[]

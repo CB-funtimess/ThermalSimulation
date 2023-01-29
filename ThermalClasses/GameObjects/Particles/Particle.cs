@@ -68,7 +68,6 @@ public class Particle : GameObject
         {
             currentVelocity = new Vector2(CurrentVelocity.X, CurrentVelocity.Y * -1);
         }
-        Update(gameTime);
     }
     #endregion
 }

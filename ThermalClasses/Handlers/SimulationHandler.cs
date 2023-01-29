@@ -297,7 +297,7 @@ public class SimulationHandler : Handler
 
                 // Teleporting all particles outside of the current border back in to the box
                 // All particles outside should just be outside the x region of the box
-                if (myParticle.Position.X < simulationBox.BoxRect.Left)
+                if (myParticle.Position.X + myParticle.XRadius < simulationBox.BoxRect.Left)
                 {
                     myParticle.ChangePositionBy(new Vector2(20, 0));
                 }
@@ -343,7 +343,12 @@ public class SimulationHandler : Handler
         }
     }
 
-    // Gets the index of a specific particle in the active particle list
+    /// <summary>
+    /// Gets the index of a specific particle in the active particle list
+    /// </summary>
+    /// <param name="type">Type of particle (small or large)</param>
+    /// <param name="index">Index of particle in particle type array</param>
+    /// <returns>Index of the particle</returns>
     private int GetIndex(ParticleType type, int index)
     {
         for (var i = 0; i < activeParticles.Count; i++)
