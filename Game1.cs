@@ -37,7 +37,7 @@ public class ThermalSim : Game
 
     protected override void Initialize()
     {
-        InitRenderTarget();
+        InitializeRenderTarget();
         colourButtonList = new List<Button>();
         colourList = new List<Color>();
         // Initialising and calling the Init() methods of my handlers
@@ -53,6 +53,19 @@ public class ThermalSim : Game
         _graphics.PreferMultiSampling = false;
         GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
         base.Initialize();
+    }
+
+    // Code modified from http://www.infinitespace-studios.co.uk/general/monogame-scaling-your-game-using-rendertargets-and-touchpanel/
+    private void InitializeRenderTarget()
+    {
+        // My preferred screen ratio: 16:9
+        windowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+        windowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        _graphics.PreferredBackBufferHeight = windowHeight; // Values laptop screen: 1200, monitor: 1080
+        _graphics.PreferredBackBufferWidth = windowWidth; // Values laptop screen: 1920, monitor: 1920
+        _graphics.ApplyChanges();
+        renderRectangle = new(0, 0, windowWidth, windowHeight);
+        window = new RenderTarget2D(GraphicsDevice, windowWidth, windowHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat, GraphicsDevice.PresentationParameters.DepthStencilFormat);
     }
 
     protected override void LoadContent()
@@ -193,18 +206,6 @@ public class ThermalSim : Game
         _spriteBatch.End();
 
         base.Draw(gameTime);
-    }
-
-    // Code modified from http://www.infinitespace-studios.co.uk/general/monogame-scaling-your-game-using-rendertargets-and-touchpanel/
-    private void InitRenderTarget()
-    {
-        windowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-        windowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-        _graphics.PreferredBackBufferHeight = windowHeight; // Values laptop screen: 1200, monitor: 1080
-        _graphics.PreferredBackBufferWidth = windowWidth; // Values laptop screen: 1920, monitor: 1920
-        _graphics.ApplyChanges();
-        renderRectangle = new(0, 0, windowWidth, windowHeight);
-        window = new RenderTarget2D(GraphicsDevice, windowWidth, windowHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat, GraphicsDevice.PresentationParameters.DepthStencilFormat);
     }
 
     protected override void Dispose(bool disposing)

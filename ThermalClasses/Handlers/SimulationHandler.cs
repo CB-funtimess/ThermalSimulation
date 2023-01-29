@@ -195,7 +195,7 @@ public class SimulationHandler : Handler
         };
         numParticlesDisp = new Label(upDownLabelTexture, unclickedColour, numParticlesRect, font, penColour)
         {
-            Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles)}mol"
+            Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles, 25)}mol"
         };
 
         Point radioSize = new Point(230,120);
@@ -491,15 +491,15 @@ public class SimulationHandler : Handler
         RemoveParticles(10, ref largeParticles, ref indexLarge, ParticleType.Large);
     }
 
-    private void RemoveParticles(int amount, ref Polygon[] particleType, ref int typeIndex, ParticleType type)
+    private void RemoveParticles(int amount, ref Polygon[] particleType, ref int index, ParticleType type)
     {
-        if (typeIndex - amount >= 0)
+        if (index - amount >= 0)
         {
             for (var i = 0; i < amount; i++)
             {
-                typeIndex--;
-                activeParticles.RemoveAt(GetIndex(type, typeIndex));
-                particleType[typeIndex].Enabled = false;
+                index--;
+                activeParticles.RemoveAt(GetIndex(type, index));
+                particleType[index].Enabled = false;
             }
         }
     }
@@ -545,7 +545,7 @@ public class SimulationHandler : Handler
     }
 
     /// <summary>
-    /// Scales the value of the volume according to the position of the moust
+    /// Scales the value of the volume according to the position of the mouse
     /// </summary>
     /// <param name="x">Mouse x coordinate</param>
     /// <returns></returns>

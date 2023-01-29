@@ -3,13 +3,30 @@ namespace ThermalClasses.PhysicsLaws;
 
 public static class PhysicsEquations
 {
-    public static double CalcVRMS(double pressure, int volume, int numParticles, double avgMass)
+    #region Constants
+    private const double k = 1.23E-23f;
+    #endregion
+
+    #region Methods
+    /// <summary>
+    /// Calculates the root mean square velocity according to the pressure, volume, and number of particles
+    /// </summary>
+    /// <param name="p">Pressure</param>
+    /// <param name="V">Volume</param>
+    /// <param name="N">Number of particles</param>
+    /// <param name="avgMass">Average mass of particles</param>
+    /// <returns>The root mean square velocity</returns>
+    public static double CalcVRMS(double p, int V, int N, double avgMass)
     {
-        return (double)Math.Sqrt(3 * pressure * volume / (numParticles * avgMass));
+        return (double)Math.Sqrt(3 * p * V / (N * avgMass));
     }
 
-    private const double k = 1.23E-23f;
-
+    /// <summary>
+    /// Calculates the root mean square velocity according to the temperature
+    /// </summary>
+    /// <param name="T">Temperature</param>
+    /// <param name="avgMass">Average mass of particles</param>
+    /// <returns>The root mean square velocity</returns>
     public static double CalcVRMS(double T, double avgMass)
     {
         return Math.Sqrt(3 * k * T / avgMass);
@@ -22,7 +39,7 @@ public static class PhysicsEquations
     /// <param name="p">Pressure</param>
     /// <param name="N">Number of particles</param>
     /// <param name="T">Temperature</param>
-    /// <returns></returns>
+    /// <returns>The volume of the simulation</returns>
     public static double CalcVolume(double p, int N, double T)
     {
         return N * k * T/p;
@@ -34,7 +51,7 @@ public static class PhysicsEquations
     /// <param name="V">Volume</param>
     /// <param name="N">Number of particles</param>
     /// <param name="T">Temperature</param>
-    /// <returns></returns>
+    /// <returns>The pressure of the simulation</returns>
     public static double CalcPressure(double V, int N, double T, int roundTo)
     {
         return RoundDouble(N*k*T/V, roundTo);
@@ -46,7 +63,7 @@ public static class PhysicsEquations
     /// <param name="p">Pressure</param>
     /// <param name="V">Volume</param>
     /// <param name="N">Number of particles</param>
-    /// <returns></returns>
+    /// <returns>The temperature of the simulation</returns>
     public static double CalcTemperature(double p, double V, int N)
     {
         return p*V/(N*k);
@@ -57,7 +74,7 @@ public static class PhysicsEquations
     /// </summary>
     /// <param name="vRMS">Average velocity</param>
     /// <param name="avgMass">Average mass of particles</param>
-    /// <returns></returns>
+    /// <returns>The temperature of the simulation</returns>
     public static double CalcTemperature(double vRMS, double avgMass)
     {
         return (double)Math.Round(avgMass * Math.Pow(vRMS, 2) / (3 * k));
@@ -67,18 +84,21 @@ public static class PhysicsEquations
     /// Returns the number of moles from a given number of particles using n = Nk/R
     /// </summary>
     /// <param name="N">Number of particles</param>
+    /// <returns>The number of moles in the simulation</returns>
     public static double NumberToMoles(int N, int roundTo)
     {
         return RoundDouble(N * k / 8.31, roundTo);
     }
 
-    public static double NumberToMoles(int N)
-    {
-        return (N *k / 8.31);
-    }
-
+    /// <summary>
+    /// Rounds a double type to a specific number of decimal places
+    /// </summary>
+    /// <param name="value">The value to round</param>
+    /// <param name="roundTo">The number of decimal places to round to</param>
+    /// <returns>The value rounded to a number of decimal places</returns>
     private static double RoundDouble(double value, int roundTo)
     {
         return Convert.ToDouble(Math.Round(Convert.ToDecimal(value), roundTo));
     }
+    #endregion
 }
