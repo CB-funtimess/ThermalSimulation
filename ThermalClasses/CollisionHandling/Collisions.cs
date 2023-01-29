@@ -86,27 +86,40 @@ namespace ThermalClasses.CollisionHandling
         }
 
         /// <summary>
-        /// Linear search algorithm to find the closest approximate position at which p1 touches p2
+        /// Root finding algorithm to determine the time at which particles are just colliding
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
-        /// <param name="positionRatio"></param>
+        /// <param name="gameTime"></param>
         /// <returns></returns>
-        public static Vector2[] TouchingPosition(Polygon p1, Polygon p2, GameTime gameTime)
+        public static double TimeOfCollision(Polygon p1, Polygon p2, GameTime gameTime)
         {
-            double radiiDistance = p1.YRadius + p2.YRadius;
-            double timeElapsed = gameTime.ElapsedGameTime.TotalMilliseconds * Math.Pow(10, -3);
-            for (double i = 0; i < timeElapsed; i += timeElapsed / 20)
+            Polygon a1 = p1;
+            Polygon a2 = p2;
+            double a = Math.Pow(a2.CurrentVelocity.Y + a2.CurrentVelocity.Y - a1.CurrentVelocity.Y - a1.CurrentVelocity.X, 2);
+            double b = 2*(a2.PreviousPosition.X + a2.PreviousPosition.Y - a1.PreviousPosition.X - a1.PreviousPosition.Y)*(a2.CurrentVelocity.Y + a2.CurrentVelocity.Y - a1.CurrentVelocity.Y - a1.CurrentVelocity.X);
+            double c = Math.Pow(a2.PreviousPosition.X + a2.PreviousPosition.Y - a1.PreviousPosition.X - a1.PreviousPosition.Y, 2) - Math.Pow(a1.YRadius + a2.YRadius, 2);
+
+            double discriminant = Math.Pow(b,2) - (4*a*c);
+            if (discriminant >= 0) // if there are roots
             {
-                Vector2 tempPosition1 = p1.PreviousPosition + (p1.CurrentVelocity * (float)i);
-                Vector2 tempPosition2 = p2.PreviousPosition + (p2.CurrentVelocity * (float)i);
-                double distanceBetweenCentres = Vector2.Distance(tempPosition1, tempPosition2);
-                if (Math.Round(distanceBetweenCentres, 2) <= Math.Round(radiiDistance, 2))
+                double[] roots = CalcRoots(a, b, c).Where(c => c >= 0).ToArray<double>(); // find all positive roots
+                if (roots.Length > 0)
                 {
-                    return new Vector2[] { tempPosition1, tempPosition2 };
+                    return roots.Min();
                 }
             }
-            return new Vector2[] { p1.Position, p2.Position };
+            return gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        public static double[] CalcRoots(double a, double b, double c)
+        {
+            double[] roots = new double[]
+            {
+                (-b + Math.Sqrt(Math.Pow(b,2) - (4*a*c))) / 2*a,
+                (-b - Math.Sqrt(Math.Pow(b,2) - (4*a*c))) / 2*a,
+            };
+            return roots;
         }
 
         /// <summary>

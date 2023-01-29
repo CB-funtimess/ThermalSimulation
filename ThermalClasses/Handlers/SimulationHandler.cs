@@ -282,28 +282,9 @@ public class SimulationHandler : Handler
 
     private void UpdateParticles(GameTime gameTime)
     {
-        for (var i = 0; i < activeParticles.Count; i++)
-        {
-            activeParticles[i].Update(gameTime);
-        }
-
         // Broad phase: generate a spatial hash grid containing all particles
         spatialHashGrid = new SHG(simulationBox.BoxRect, 15);
         spatialHashGrid.Insert(activeParticles);
-
-        // Handling particle-particle collisions
-        // Narrow phase: confirm whether pairs of particles are actually colliding
-        foreach (var polygonList1 in spatialHashGrid.ReturnParticleCollisions())
-        {
-            // Check whether each polygon in bucket is colliding with every other polygon
-            for (var i = 0; i < polygonList1.Count - 1; i++)
-            {
-                for (var j = i + 1; j < polygonList1.Count; j++)
-                {
-                    ParticleCollisionUpdates(GetIndex(polygonList1[i].Type, polygonList1[i].Identifier), GetIndex(polygonList1[j].Type, polygonList1[j].Identifier), gameTime);
-                }
-            }
-        }
 
         // Handling particle-border collisions
         // Finding all particles potentially colliding with the border and updating them
@@ -325,15 +306,37 @@ public class SimulationHandler : Handler
                 activeParticles[GetIndex(myParticle.Type, myParticle.Identifier)] = myParticle;
             }
         }
+
+        // Handling particle-particle collisions
+        // Narrow phase: confirm whether pairs of particles are actually colliding
+        foreach (var polygonList1 in spatialHashGrid.ReturnParticleCollisions())
+        {
+            // Check whether each polygon in bucket is colliding with every other polygon
+            for (var i = 0; i < polygonList1.Count - 1; i++)
+            {
+                for (var j = i + 1; j < polygonList1.Count; j++)
+                {
+                    ParticleCollisionUpdates(GetIndex(polygonList1[i].Type, polygonList1[i].Identifier), GetIndex(polygonList1[j].Type, polygonList1[j].Identifier), gameTime);
+                }
+            }
+        }
+
+        for (var i = 0; i < activeParticles.Count; i++)
+        {
+            activeParticles[i].Update(gameTime);
+        }
     }
 
     private void ParticleCollisionUpdates(int i1, int i2, GameTime gameTime)
     {
         if (CollisionFunctions.SeparatingAxisTheorem(activeParticles[i1], activeParticles[i2]))
         {
-            Vector2[] touchingPositions = CollisionFunctions.TouchingPosition(activeParticles[i1], activeParticles[i2], gameTime);
-            activeParticles[i1].SetPosition(touchingPositions[0]);
-            activeParticles[i2].SetPosition(touchingPositions[1]);
+            double timeOfCollision = CollisionFunctions.TimeOfCollision(activeParticles[i1], activeParticles[i2], gameTime);
+            if (timeOfCollision < gameTime.ElapsedGameTime.TotalSeconds)
+            {
+                activeParticles[i1].SetPosition(activeParticles[i1].PreviousPosition + (activeParticles[i1].CurrentVelocity * (float)timeOfCollision));
+                activeParticles[i2].SetPosition(activeParticles[i2].PreviousPosition + (activeParticles[i2].CurrentVelocity * (float)timeOfCollision));
+            }
 
             activeParticles[i1].CollisionParticleUpdate(activeParticles[i2], gameTime);
             activeParticles[i2].CollisionParticleUpdate(activeParticles[i1], gameTime);
