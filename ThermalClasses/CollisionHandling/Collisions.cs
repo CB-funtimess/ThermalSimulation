@@ -8,13 +8,12 @@ namespace ThermalClasses.CollisionHandling
 {
     public static class CollisionFunctions
     {
-        // The separating axis theorem function
         /// <summary>
-        /// Finds whether two polygons are colliding; returns true if they collide
+        /// Checks whether two polygons are colliding
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
+        /// <param name="p1">First polygon</param>
+        /// <param name="p2">Second polygon</param>
+        /// <returns>True if the particles are colliding</returns>
         public static bool SeparatingAxisTheorem(Polygon p1, Polygon p2)
         {
             Polygon a1 = p1;
@@ -72,9 +71,9 @@ namespace ThermalClasses.CollisionHandling
         /// <summary>
         /// Returns the updated velocity for particle 1 after a collision with another particle; only for use in the particle class
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
+        /// <param name="p1">First particle</param>
+        /// <param name="p2">Second particle</param>
+        /// <returns>The handled velocity of the first particle</returns>
         public static Vector2 NewCollisionVelocity(Particle p1, Particle p2)
         {
             return NewCollisionVelocity(p1.CurrentVelocity, p2.CurrentVelocity, p1.Mass, p2.Mass, p1.Position, p2.Position);
@@ -88,10 +87,10 @@ namespace ThermalClasses.CollisionHandling
         /// <summary>
         /// Root finding algorithm to determine the time at which particles are just colliding
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="gameTime"></param>
-        /// <returns></returns>
+        /// <param name="p1">Particle 1</param>
+        /// <param name="p2">Particle 2</param>
+        /// <param name="gameTime">GameTime object</param>
+        /// <returns>The minimum time of collision</returns>
         public static double TimeOfCollision(Polygon p1, Polygon p2, GameTime gameTime)
         {
             Polygon a1 = p1;
@@ -118,7 +117,7 @@ namespace ThermalClasses.CollisionHandling
         /// <param name="a">Coefficient of x^2</param>
         /// <param name="b">Coefficient of x</param>
         /// <param name="c">Constant</param>
-        /// <returns></returns>
+        /// <returns>Array containing all roots</returns>
         public static double[] CalcRoots(double a, double b, double c)
         {
             double[] roots = new double[]
@@ -132,9 +131,9 @@ namespace ThermalClasses.CollisionHandling
         /// <summary>
         /// Returns a polygon that may be colliding with the wall with a handled velocity
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="border"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon potentially colliding with the border</param>
+        /// <param name="border">The border of the simulation</param>
+        /// <returns>The polygon with its velocity handled.</returns>
         public static Polygon BoundaryCollisionHandling(Polygon polygon, Rectangle border, GameTime gameTime)
         {
             bool borderCollision = false;
@@ -162,29 +161,9 @@ namespace ThermalClasses.CollisionHandling
 
             if (borderCollision)
             {
-                polygon.CollisionBoundaryUpdate(borderCollisions, gameTime);
+                polygon.CollisionBoundaryUpdate(borderCollisions);
             }
             return polygon;
-        }
-
-        public struct BorderCollisions
-        {
-            public bool left;
-            public bool right;
-            public bool top;
-            public bool bottom;
-            public BorderCollisions(bool left, bool right, bool top, bool bottom)
-            {
-                this.left = left;
-                this.right = right;
-                this.top = top;
-                this.bottom = bottom;
-            }
-
-            public BorderCollisions()
-            {
-                left = right = top = bottom = false;
-            }
         }
     }
 }

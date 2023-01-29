@@ -105,7 +105,7 @@ public class SimulationHandler : Handler
     #endregion
 
     #region Game Object Initialisation
-    private void InitSimBox()
+    private void InitialiseSimBox()
     {
         Point fixedStart = new(renderRectangle.Left, (int)(renderRectangle.Top + (renderRectangle.Height * 0.15)));
         Point movingSize = new(10, (int)(renderRectangle.Height * 0.7));
@@ -140,7 +140,7 @@ public class SimulationHandler : Handler
         InitialiseParticles();
 
         // GameObject Initialisation
-        InitSimBox();
+        InitialiseSimBox();
         // Buttons Initialisation
         Point pauseSize = new Point(40, 40);
         Vector2 pausePosition = new Vector2(pauseSize.X / 2, simulationBox.BoxRect.Y - 35);
@@ -338,8 +338,8 @@ public class SimulationHandler : Handler
                 activeParticles[i2].SetPosition(activeParticles[i2].PreviousPosition + (activeParticles[i2].CurrentVelocity * (float)timeOfCollision));
             }
 
-            activeParticles[i1].CollisionParticleUpdate(activeParticles[i2], gameTime);
-            activeParticles[i2].CollisionParticleUpdate(activeParticles[i1], gameTime);
+            activeParticles[i1].CollisionParticleUpdate(activeParticles[i2]);
+            activeParticles[i2].CollisionParticleUpdate(activeParticles[i1]);
         }
     }
 
@@ -544,6 +544,11 @@ public class SimulationHandler : Handler
         volume = ScaleVolume(volumeSlider.sliderButton.Position.X);
     }
 
+    /// <summary>
+    /// Scales the value of the volume according to the position of the moust
+    /// </summary>
+    /// <param name="x">Mouse x coordinate</param>
+    /// <returns></returns>
     private double ScaleVolume(float x)
     {
         float maxX = volumeSlider.MaxX;
@@ -551,11 +556,16 @@ public class SimulationHandler : Handler
         return (changeInVolume / (minX - maxX) * (x - minX)) + maxVolume;
     }
 
-    private float InverseScale(double y)
+    /// <summary>
+    /// Finds the position of the slider according to the inputted volume
+    /// </summary>
+    /// <param name="v">Volume</param>
+    /// <returns></returns>
+    private float InverseScale(double v)
     {
         float maxX = volumeSlider.MaxX;
         float minX = volumeSlider.MinX;
-        return (float)(((y - maxVolume) / (changeInVolume / (minX - maxX))) + minX);
+        return (float)(((v - maxVolume) / (changeInVolume / (minX - maxX))) + minX);
     }
     #endregion
 
