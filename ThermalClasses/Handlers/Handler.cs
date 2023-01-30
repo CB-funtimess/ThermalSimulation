@@ -13,9 +13,6 @@ public abstract class Handler
     protected ContentManager content;
     #endregion
 
-    #region Properties
-    #endregion
-
     #region Methods
     public abstract void Initialize();
     public abstract void LoadContent();

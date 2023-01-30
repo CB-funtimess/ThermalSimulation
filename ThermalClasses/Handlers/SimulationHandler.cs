@@ -40,8 +40,7 @@ public class SimulationHandler : Handler
     #endregion
     private PhysicalConstants constants = new PhysicalConstants();
     private double volume, maxVolume, changeInVolume, minVolume; // Measured in metres cubed
-    private double pressure, rmsVelocity, avgMass; // Measured in Kelvin, Pascals, metres per second, kilograms
-    private double temperature;
+    private double pressure, rmsVelocity, avgMass, temperature; // Measured in Kelvin, Pascals, metres per second, kilograms
     private bool paused;
     private Color penColour = Color.White;
     #endregion

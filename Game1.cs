@@ -16,7 +16,7 @@ public class ThermalSim : Game
     private RenderTarget2D window; // This render target is used to draw everything correct to the game window
 
     private int windowHeight, windowWidth;
-    private Color backgroundColor = Color.Black;
+    private Color backgroundColour = Color.Black;
     private Color penColour = Color.White;
     private Color hoverColour = Color.Gray;
     private Rectangle renderRectangle;
@@ -43,7 +43,7 @@ public class ThermalSim : Game
         // Initialising and calling the Init() methods of my handlers
         simulationHandler = new(this, renderRectangle)
         {
-            BackgroundColour = backgroundColor,
+            BackgroundColour = backgroundColour,
             HoverColour = Color.Gray,
         };
         simulationHandler.Initialize();
@@ -175,7 +175,7 @@ public class ThermalSim : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(backgroundColor);
+        GraphicsDevice.Clear(backgroundColour);
 
         _graphics.GraphicsDevice.SetRenderTarget(window);
         _spriteBatch.Begin(SpriteSortMode.Deferred,

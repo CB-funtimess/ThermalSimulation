@@ -10,9 +10,6 @@ public class SliderButton : Button
     bool isMoving;
     #endregion
 
-    #region Properties
-    #endregion
-
     #region Methods
     public SliderButton(Texture2D texture, SpriteFont font, Vector2 position, Color unclickedColour, Color penColour, Point dimensions, int minX, int maxX) : base(texture, font, position, unclickedColour, penColour, dimensions)
     {
