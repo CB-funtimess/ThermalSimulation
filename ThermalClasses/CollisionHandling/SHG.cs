@@ -7,8 +7,8 @@ namespace ThermalClasses.CollisionHandling
     public class SHG
     {
         #region Attributes
-        private Dictionary<Microsoft.Xna.Framework.Vector2, List<Polygon>> spatialHashGrid;
-        private int cellHeight, cellWidth;
+        private Dictionary<Vector2, List<Polygon>> spatialHashGrid;
+        private int bucketSize;
         private Rectangle simBox;
         private List<Polygon> notInSHG;
         #endregion
@@ -23,7 +23,7 @@ namespace ThermalClasses.CollisionHandling
             this.simBox = simBox;
 
             // Bucket dimensions should be roughly double the size of a particle
-            cellHeight = cellWidth = Convert.ToInt32(avgParticleSize * 1.5);
+            bucketSize = Convert.ToInt32(avgParticleSize * 1.5);
 
             spatialHashGrid = new Dictionary<Vector2, List<Polygon>>();
             // Initialising all buckets in the grid
@@ -41,7 +41,7 @@ namespace ThermalClasses.CollisionHandling
         private Vector2 Hash(Vector2 point)
         {
             // Maps point position to a bucket value
-            return new Vector2(Convert.ToInt32(Math.Truncate((point.X - simBox.X) / cellWidth)), Convert.ToInt32(Math.Truncate((point.Y - simBox.Y) / cellHeight)));
+            return new Vector2(Convert.ToInt32(Math.Truncate((point.X - simBox.X) / bucketSize)), Convert.ToInt32(Math.Truncate((point.Y - simBox.Y) / bucketSize)));
         }
 
         // This function inserts a particle into the dictionary depending on its position

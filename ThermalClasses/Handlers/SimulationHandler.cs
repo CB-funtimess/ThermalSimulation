@@ -432,7 +432,6 @@ public class SimulationHandler : Handler
             item.PenColour = colour;
         }
         temperatureControl.ChangePenColour(colour);
-        volumeSlider.ChangePenColour(colour);
         volumeDisp.PenColour = temperatureDisp.PenColour = pressureDisp.PenColour = numParticlesDisp.PenColour = colour;
         keepConstant.ChangePenColour(colour);
     }

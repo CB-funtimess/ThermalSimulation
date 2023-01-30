@@ -5,7 +5,7 @@ namespace ThermalClasses.GameObjects.ObjectCollections;
 public class Slider : ObjectCollection
 {
     #region Fields
-    private Label slider;
+    private GameObject slider;
     private int minX, maxX;
     #endregion
 
@@ -22,7 +22,7 @@ public class Slider : ObjectCollection
         minX = (int)(position.Left + (position.Height * scale / 2));
         maxX = (int)(position.Right - (position.Height * scale / 2));
 
-        slider = new Label(labelTexture, baseColour, position, font, penColour);
+        slider = new GameObject(labelTexture, baseColour, position);
         Vector2 buttonPos = new Vector2(minX, position.Top + (position.Height / 2));
         Point buttonDimensions = new Point((int)(position.Height * scale));
         sliderButton = new SliderButton(buttonTexture, font, buttonPos, baseColour, penColour, buttonDimensions, minX, maxX)
@@ -62,8 +62,8 @@ public class Slider : ObjectCollection
         }
     }
 
-    public override void ChangePenColour(Color colour)
+    public override void ChangePenColour(Color penColour)
     {
-        slider.PenColour = colour;
+        throw new NotImplementedException();
     }
 }

@@ -11,8 +11,7 @@ public class UpDownButton : ObjectCollection
     #endregion
 
     #region Properties
-    public Button UpButton;
-    public Button DownButton;
+    public Button UpButton, DownButton;
     #endregion
 
     #region Methods
@@ -20,7 +19,7 @@ public class UpDownButton : ObjectCollection
     {
         UpButton = upButton;
         DownButton = downButton;
-        textLabel = textLabel;
+        this.textLabel = textLabel;
     }
     public UpDownButton(Texture2D upTexture, Texture2D downTexture, Texture2D labelTexture, Rectangle size, string labelText, SpriteFont font, Color penColour, Color baseColour, Color hoverColour)
     {

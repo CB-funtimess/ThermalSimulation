@@ -11,17 +11,18 @@ public class RadioButtons : ObjectCollection
     private Label surround;
     private int checkedIndex;
     private List<CheckButton> buttons;
+    private bool changedIndex;
     #endregion
 
     #region Properties
-    public bool ChangedIndex;
+    public bool ChangedIndex => changedIndex;
     public int CheckedIndex => checkedIndex;
     #endregion
 
     #region Methods
     public RadioButtons(Texture2D uncheckedTexture, Texture2D checkedTexture, Texture2D labelTexture, Texture2D surroundTexture, Rectangle rect, Vector2 buttonStartPos, string[] text, SpriteFont font, Color baseColour, Color hoverColour, Color penColour, int startIndex)
     {
-        ChangedIndex = false;
+        changedIndex = false;
         surround = new Label(surroundTexture, baseColour, rect, font, penColour);
         int numButtons = text.Length;
         Point buttonSize = new Point(15, 15);
@@ -57,13 +58,13 @@ public class RadioButtons : ObjectCollection
 
     public override void Update(GameTime gameTime)
     {
-        ChangedIndex = false;
+        changedIndex = false;
         for (var i = 0; i < buttons.Count; i++)
         {
             buttons[i].Update(gameTime);
             if (buttons[i].Clicked)
             {
-                ChangedIndex = true;
+                changedIndex = true;
                 buttons[checkedIndex].Uncheck();
                 checkedIndex = i;
                 break;
