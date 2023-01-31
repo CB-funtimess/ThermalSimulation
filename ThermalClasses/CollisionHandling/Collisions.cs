@@ -118,7 +118,7 @@ namespace ThermalClasses.CollisionHandling
         /// <param name="b">Coefficient of x</param>
         /// <param name="c">Constant</param>
         /// <returns>Array containing all roots</returns>
-        public static double[] CalcRoots(double a, double b, double c)
+        private static double[] CalcRoots(double a, double b, double c)
         {
             double[] roots = new double[]
             {

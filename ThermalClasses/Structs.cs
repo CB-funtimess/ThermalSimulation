@@ -31,13 +31,14 @@ public struct BorderCollisions
 /// </summary>
 public struct PhysicalConstants
 {
-    public bool PressureVol, PressureTemp, Temperature, Volume;
+    public bool PressureVol, PressureTemp, Temperature, Volume, ChangeParticles;
     public PhysicalConstants()
     {
         PressureVol = false; // Pressure kept constant (V can only be changed by modifying T) if true
         PressureTemp = false; // Pressure kept constant (T can only be changed by modifying V) if true
         Temperature = true; // Temperature kept constant if true
         Volume = false; // Volume kept constant if true
+        ChangeParticles = false; // Represents if particles have been added/removed - if particles are added, only the pressure is changed.
     }
 
     public void ChangeIndex(int index)

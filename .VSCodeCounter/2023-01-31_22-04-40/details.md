@@ -1,10 +1,10 @@
 # Details
 
-Date : 2023-01-21 14:20:54
+Date : 2023-01-31 22:04:40
 
 Directory /home/kayla/Documents/GitHub/ThermalSimulation
 
-Total : 56 files,  20370 codes, 188 comments, 265 blanks, all 20823 lines
+Total : 58 files,  20673 codes, 241 comments, 297 blanks, all 21211 lines
 
 [Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
 
@@ -12,8 +12,8 @@ Total : 56 files,  20370 codes, 188 comments, 265 blanks, all 20823 lines
 | filename | language | code | comment | blank | total |
 | :--- | :--- | ---: | ---: | ---: | ---: |
 | [.config/dotnet-tools.json](/.config/dotnet-tools.json) | JSON | 36 | 0 | 0 | 36 |
-| [Content/Content.mgcb](/Content/Content.mgcb) | MonoGame Content Builder | 171 | 20 | 24 | 215 |
-| [Game1.cs](/Game1.cs) | C# | 85 | 9 | 22 | 116 |
+| [Content/Content.mgcb](/Content/Content.mgcb) | MonoGame Content Builder | 231 | 26 | 30 | 287 |
+| [Game1.cs](/Game1.cs) | C# | 181 | 11 | 27 | 219 |
 | [Program.cs](/Program.cs) | C# | 2 | 0 | 2 | 4 |
 | [README.md](/README.md) | Markdown | 2 | 0 | 2 | 4 |
 | [Tests/Tests.csproj](/Tests/Tests.csproj) | XML | 21 | 0 | 5 | 26 |
@@ -29,22 +29,24 @@ Total : 56 files,  20370 codes, 188 comments, 265 blanks, all 20823 lines
 | [Tests/obj/Tests.csproj.nuget.g.props](/Tests/obj/Tests.csproj.nuget.g.props) | XML | 26 | 0 | 0 | 26 |
 | [Tests/obj/Tests.csproj.nuget.g.targets](/Tests/obj/Tests.csproj.nuget.g.targets) | XML | 9 | 0 | 0 | 9 |
 | [Tests/obj/project.assets.json](/Tests/obj/project.assets.json) | JSON | 6,168 | 0 | 0 | 6,168 |
-| [ThermalClasses/CollisionHandling/Collisions.cs](/ThermalClasses/CollisionHandling/Collisions.cs) | C# | 128 | 34 | 14 | 176 |
+| [ThermalClasses/CollisionHandling/Collisions.cs](/ThermalClasses/CollisionHandling/Collisions.cs) | C# | 115 | 40 | 14 | 169 |
 | [ThermalClasses/CollisionHandling/SHG.cs](/ThermalClasses/CollisionHandling/SHG.cs) | C# | 108 | 12 | 12 | 132 |
 | [ThermalClasses/GameObjects/Button.cs](/ThermalClasses/GameObjects/Button.cs) | C# | 70 | 2 | 14 | 86 |
-| [ThermalClasses/GameObjects/CheckButton.cs](/ThermalClasses/GameObjects/CheckButton.cs) | C# | 63 | 1 | 9 | 73 |
-| [ThermalClasses/GameObjects/GameObject.cs](/ThermalClasses/GameObjects/GameObject.cs) | C# | 79 | 4 | 14 | 97 |
-| [ThermalClasses/GameObjects/Label.cs](/ThermalClasses/GameObjects/Label.cs) | C# | 28 | 1 | 4 | 33 |
-| [ThermalClasses/GameObjects/ObjectCollections/RadioButtons.cs](/ThermalClasses/GameObjects/ObjectCollections/RadioButtons.cs) | C# | 71 | 0 | 8 | 79 |
-| [ThermalClasses/GameObjects/ObjectCollections/SimulationBox.cs](/ThermalClasses/GameObjects/ObjectCollections/SimulationBox.cs) | C# | 52 | 2 | 6 | 60 |
-| [ThermalClasses/GameObjects/ObjectCollections/Slider.cs](/ThermalClasses/GameObjects/ObjectCollections/Slider.cs) | C# | 56 | 0 | 8 | 64 |
-| [ThermalClasses/GameObjects/ObjectCollections/UpDownButton.cs](/ThermalClasses/GameObjects/ObjectCollections/UpDownButton.cs) | C# | 53 | 0 | 6 | 59 |
-| [ThermalClasses/GameObjects/Particles/Particle.cs](/ThermalClasses/GameObjects/Particles/Particle.cs) | C# | 62 | 7 | 10 | 79 |
-| [ThermalClasses/GameObjects/Particles/Polygon.cs](/ThermalClasses/GameObjects/Particles/Polygon.cs) | C# | 57 | 4 | 8 | 69 |
-| [ThermalClasses/GameObjects/SliderButton.cs](/ThermalClasses/GameObjects/SliderButton.cs) | C# | 47 | 1 | 7 | 55 |
-| [ThermalClasses/Handlers/Handler.cs](/ThermalClasses/Handlers/Handler.cs) | C# | 22 | 0 | 3 | 25 |
-| [ThermalClasses/Handlers/SimulationHandler.cs](/ThermalClasses/Handlers/SimulationHandler.cs) | C# | 451 | 27 | 49 | 527 |
-| [ThermalClasses/PhysicsLaws/PhysicsLaws.cs](/ThermalClasses/PhysicsLaws/PhysicsLaws.cs) | C# | 38 | 32 | 9 | 79 |
+| [ThermalClasses/GameObjects/CheckButton.cs](/ThermalClasses/GameObjects/CheckButton.cs) | C# | 68 | 1 | 10 | 79 |
+| [ThermalClasses/GameObjects/GameObject.cs](/ThermalClasses/GameObjects/GameObject.cs) | C# | 60 | 1 | 11 | 72 |
+| [ThermalClasses/GameObjects/Label.cs](/ThermalClasses/GameObjects/Label.cs) | C# | 40 | 1 | 8 | 49 |
+| [ThermalClasses/GameObjects/ObjectCollections/ObjectCollection.cs](/ThermalClasses/GameObjects/ObjectCollections/ObjectCollection.cs) | C# | 9 | 0 | 2 | 11 |
+| [ThermalClasses/GameObjects/ObjectCollections/RadioButtons.cs](/ThermalClasses/GameObjects/ObjectCollections/RadioButtons.cs) | C# | 78 | 0 | 7 | 85 |
+| [ThermalClasses/GameObjects/ObjectCollections/SimulationBox.cs](/ThermalClasses/GameObjects/ObjectCollections/SimulationBox.cs) | C# | 44 | 2 | 5 | 51 |
+| [ThermalClasses/GameObjects/ObjectCollections/Slider.cs](/ThermalClasses/GameObjects/ObjectCollections/Slider.cs) | C# | 60 | 0 | 9 | 69 |
+| [ThermalClasses/GameObjects/ObjectCollections/UpDownButton.cs](/ThermalClasses/GameObjects/ObjectCollections/UpDownButton.cs) | C# | 56 | 0 | 7 | 63 |
+| [ThermalClasses/GameObjects/Particles/Particle.cs](/ThermalClasses/GameObjects/Particles/Particle.cs) | C# | 53 | 6 | 9 | 68 |
+| [ThermalClasses/GameObjects/Particles/Polygon.cs](/ThermalClasses/GameObjects/Particles/Polygon.cs) | C# | 50 | 4 | 7 | 61 |
+| [ThermalClasses/GameObjects/SliderButton.cs](/ThermalClasses/GameObjects/SliderButton.cs) | C# | 55 | 1 | 7 | 63 |
+| [ThermalClasses/Handlers/Handler.cs](/ThermalClasses/Handlers/Handler.cs) | C# | 21 | 0 | 2 | 23 |
+| [ThermalClasses/Handlers/SimulationHandler.cs](/ThermalClasses/Handlers/SimulationHandler.cs) | C# | 542 | 43 | 62 | 647 |
+| [ThermalClasses/PhysicsLaws/Physics.cs](/ThermalClasses/PhysicsLaws/Physics.cs) | C# | 42 | 53 | 10 | 105 |
+| [ThermalClasses/Structs.cs](/ThermalClasses/Structs.cs) | C# | 61 | 6 | 6 | 73 |
 | [ThermalClasses/ThermalClasses.csproj](/ThermalClasses/ThermalClasses.csproj) | XML | 11 | 0 | 2 | 13 |
 | [ThermalClasses/bin/Debug/net6.0/ThermalClasses.deps.json](/ThermalClasses/bin/Debug/net6.0/ThermalClasses.deps.json) | JSON | 92 | 0 | 0 | 92 |
 | [ThermalClasses/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs](/ThermalClasses/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs) | C# | 2 | 1 | 1 | 4 |

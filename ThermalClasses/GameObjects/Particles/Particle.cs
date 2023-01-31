@@ -51,12 +51,6 @@ public class Particle : GameObject
         currentVelocity = newVelocity;
     }
 
-    // This function calculates the new velocity of the particle after a collision with another particle
-    public void CollisionParticleUpdate(Particle collidingMass)
-    {
-        currentVelocity = CollisionFunctions.NewCollisionVelocity(this, collidingMass);
-    }
-
     // This function calculates the new velocity of the particle after a collision with a boundary
     public void CollisionBoundaryUpdate(BorderCollisions borderCollisions)
     {

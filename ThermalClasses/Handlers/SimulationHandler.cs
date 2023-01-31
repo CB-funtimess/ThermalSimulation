@@ -241,6 +241,10 @@ public class SimulationHandler : Handler
 
         labelCollection.Add(dataBox);
         labelCollection.Add(constantLabel);
+        labelCollection.Add(volumeDisp);
+        labelCollection.Add(temperatureDisp);
+        labelCollection.Add(pressureDisp);
+        labelCollection.Add(numParticlesDisp);
     }
     #endregion
 
@@ -248,6 +252,7 @@ public class SimulationHandler : Handler
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
+        constants.ChangeParticles = false;
         pauseButton.Update(gameTime);
         keepConstant.Update(gameTime);
         for (var i = 0; i < buttonCollection.Count; i++)
@@ -275,6 +280,8 @@ public class SimulationHandler : Handler
         {
             UpdateParticles(gameTime);
         }
+
+        SetProperties();
     }
 
     #region Particle Updates
@@ -331,14 +338,14 @@ public class SimulationHandler : Handler
         if (CollisionFunctions.SeparatingAxisTheorem(activeParticles[i1], activeParticles[i2]))
         {
             double timeOfCollision = CollisionFunctions.TimeOfCollision(activeParticles[i1], activeParticles[i2], gameTime);
-            if (timeOfCollision < gameTime.ElapsedGameTime.TotalSeconds)
+            if (timeOfCollision <= gameTime.ElapsedGameTime.TotalSeconds)
             {
                 activeParticles[i1].SetPosition(activeParticles[i1].PreviousPosition + (activeParticles[i1].CurrentVelocity * (float)timeOfCollision));
                 activeParticles[i2].SetPosition(activeParticles[i2].PreviousPosition + (activeParticles[i2].CurrentVelocity * (float)timeOfCollision));
             }
 
-            activeParticles[i1].CollisionParticleUpdate(activeParticles[i2]);
-            activeParticles[i2].CollisionParticleUpdate(activeParticles[i1]);
+            activeParticles[i1].SetVelocity(CollisionFunctions.NewCollisionVelocity(activeParticles[i1], activeParticles[i2]));
+            activeParticles[i2].SetVelocity(CollisionFunctions.NewCollisionVelocity(activeParticles[i2], activeParticles[i1]));
         }
     }
 
@@ -358,6 +365,38 @@ public class SimulationHandler : Handler
             }
         }
         return -1;
+    }
+
+    /// <summary>
+    /// Sets the properties of the simulation.
+    /// </summary>
+    private void SetProperties()
+    {
+        // ADDING PARTICLES SHOULD ONLY CHANGE THE PRESSURE
+        if ((constants.PressureTemp || constants.PressureVol) && NumParticles > 0 && !constants.ChangeParticles) // Pressure constant so other variables evaluated
+        {
+            if (constants.PressureTemp)
+            {
+                temperature = PhysicsEquations.CalcTemperature(pressure, volume, NumParticles);
+            }
+            else
+            {
+                volume = PhysicsEquations.CalcVolume(pressure, NumParticles, temperature);
+                // Update the slider
+                simulationBox.SetVolume(InverseScale(volume));
+                volumeSlider.sliderButton.SetPosition(new Vector2(InverseScale(volume), volumeSlider.sliderButton.Position.Y));
+            }
+        }
+        else // Pressure not constant so calculated
+        {
+            pressure = PhysicsEquations.CalcPressure(volume, NumParticles, temperature, 25);
+        }
+
+        // Updating the text of the display labels
+        volumeDisp.Text = $"Volume: {Convert.ToInt32(volume)} metres cubed";
+        temperatureDisp.Text = $"Temperature: {Convert.ToInt32(temperature)}K / {Convert.ToInt32(temperature - 273)} degrees C";
+        pressureDisp.Text = $"Pressure: {pressure.ToString("e2", CultureInfo.InvariantCulture)}Pa";
+        numParticlesDisp.Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles, 25).ToString("e2", CultureInfo.InvariantCulture)}mol";
     }
     #endregion
 
@@ -384,36 +423,6 @@ public class SimulationHandler : Handler
         {
             labelCollection[i].Draw(_spriteBatch);
         }
-
-        // THIS SECTION SHOULD BE AN INDIVIDUAL FUNCTION
-        // SETTING PROPERTIES SHOULD BE HANDLED IN UPDATE()
-        // Concerning the values of the properties and their displayed values
-        if ((constants.PressureTemp || constants.PressureVol) && NumParticles > 0) // Pressure constant so other variables evaluated
-        {
-            if (constants.PressureTemp)
-            {
-                temperature = PhysicsEquations.CalcTemperature(pressure, volume, NumParticles);
-            }
-            else
-            {
-                volume = PhysicsEquations.CalcVolume(pressure, NumParticles, temperature);
-                // Update the slider
-                simulationBox.SetVolume(InverseScale(volume));
-                volumeSlider.sliderButton.SetPosition(new Vector2(InverseScale(volume), volumeSlider.sliderButton.Position.Y));
-            }
-        }
-        else // Pressure not constant so calculated
-        {
-            pressure = PhysicsEquations.CalcPressure(volume, NumParticles, temperature, 25);
-        }
-        volumeDisp.Text = $"Volume: {Convert.ToInt32(volume)} metres cubed";
-        volumeDisp.Draw(_spriteBatch);
-        temperatureDisp.Text = $"Temperature: {Convert.ToInt32(temperature)}K / {Convert.ToInt32(temperature - 273)} degrees C";
-        temperatureDisp.Draw(_spriteBatch);
-        pressureDisp.Text = $"Pressure: {pressure.ToString("e2", CultureInfo.InvariantCulture)}Pa";
-        pressureDisp.Draw(_spriteBatch);
-        numParticlesDisp.Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles, 25).ToString("e2", CultureInfo.InvariantCulture)}mol";
-        numParticlesDisp.Draw(_spriteBatch);
     }
 
     public override void ChangePenColour(Color colour)
@@ -475,6 +484,7 @@ public class SimulationHandler : Handler
                 index++;
             }
         }
+        constants.ChangeParticles = true;
     }
     #endregion
 
@@ -500,6 +510,7 @@ public class SimulationHandler : Handler
                 particleType[index].Enabled = false;
             }
         }
+        constants.ChangeParticles = true;
     }
     #endregion
 
