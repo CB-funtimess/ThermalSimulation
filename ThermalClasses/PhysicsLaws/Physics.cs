@@ -16,7 +16,7 @@ public static class PhysicsEquations
     /// <param name="N">Number of particles</param>
     /// <param name="avgMass">Average mass of particles</param>
     /// <returns>The root mean square velocity</returns>
-    public static double CalcVRMS(double p, int V, int N, double avgMass)
+    public static double CalcVRMS(double p, double V, int N, double avgMass)
     {
         return (double)Math.Sqrt(3 * p * V / (N * avgMass));
     }

@@ -95,14 +95,14 @@ namespace ThermalClasses.CollisionHandling
         {
             Polygon a1 = p1;
             Polygon a2 = p2;
-            double a = Math.Pow(a2.CurrentVelocity.Y + a2.CurrentVelocity.Y - a1.CurrentVelocity.Y - a1.CurrentVelocity.X, 2);
-            double b = 2*(a2.PreviousPosition.X + a2.PreviousPosition.Y - a1.PreviousPosition.X - a1.PreviousPosition.Y)*(a2.CurrentVelocity.Y + a2.CurrentVelocity.Y - a1.CurrentVelocity.Y - a1.CurrentVelocity.X);
-            double c = Math.Pow(a2.PreviousPosition.X + a2.PreviousPosition.Y - a1.PreviousPosition.X - a1.PreviousPosition.Y, 2) - Math.Pow(a1.YRadius + a2.YRadius, 2);
+            double a = Math.Pow(a2.CurrentVelocity.Y + a2.CurrentVelocity.Y - (a1.CurrentVelocity.Y + a1.CurrentVelocity.X), 2);
+            double b = 2*(a2.PreviousPosition.X + a2.PreviousPosition.Y - (a1.PreviousPosition.X + a1.PreviousPosition.Y))*(a2.CurrentVelocity.Y + a2.CurrentVelocity.Y - (a1.CurrentVelocity.Y + a1.CurrentVelocity.X));
+            double c = Math.Pow(a2.PreviousPosition.X + a2.PreviousPosition.Y - (a1.PreviousPosition.X + a1.PreviousPosition.Y), 2) - Math.Pow(a1.YRadius + a2.YRadius, 2);
 
             double discriminant = Math.Pow(b,2) - (4*a*c);
             if (discriminant >= 0) // if there are roots
             {
-                double[] roots = CalcRoots(a, b, c).Where(c => c >= 0).ToArray<double>(); // find all positive roots
+                double[] roots = CalcRoots(a, b, c).Where(c => c >= 0).ToArray(); // find all positive roots
                 if (roots.Length > 0)
                 {
                     return roots.Min();

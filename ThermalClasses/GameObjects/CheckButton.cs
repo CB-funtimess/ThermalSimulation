@@ -22,6 +22,7 @@ public class CheckButton : Button
         drawTexture = uncheckedTexture;
         isChecked = false;
     }
+    public CheckButton(Texture2D uncheckedTexture, Texture2D checkedTexture, SpriteFont font, Rectangle position, Color unclickedColour, Color penColour) : this(uncheckedTexture, checkedTexture, font, position.Center.ToVector2(), unclickedColour, penColour, position.Size) {  }
 
     public override void Draw(SpriteBatch _spriteBatch)
     {

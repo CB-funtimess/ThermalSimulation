@@ -31,6 +31,14 @@ public class Button : GameObject
         clicked = false;
     }
 
+    public Button(Texture2D texture, SpriteFont font, Rectangle position, Color unclickedColour, Color penColour) : base(texture, unclickedColour, position)
+    {
+        this.font = font;
+
+        PenColour = penColour;
+        clicked = false;
+    }
+
     public override void Draw(SpriteBatch _spriteBatch)
     {
         if (Enabled)
