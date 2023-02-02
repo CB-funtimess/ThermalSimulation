@@ -302,7 +302,7 @@ public class SimulationHandler : Handler
         {
             foreach (var particle in polygonList[i])
             {
-                Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect, gameTime);
+                Polygon myParticle = CollisionFunctions.BoundaryCollisionHandling(particle, simulationBox.BoxRect);
 
                 // Teleporting all particles outside of the current border back in to the box
                 // All particles outside should just be outside the x region of the box

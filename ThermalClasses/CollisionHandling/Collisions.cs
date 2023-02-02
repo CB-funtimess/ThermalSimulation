@@ -120,12 +120,11 @@ namespace ThermalClasses.CollisionHandling
         /// <returns>Array containing all roots</returns>
         private static double[] CalcRoots(double a, double b, double c)
         {
-            double[] roots = new double[]
+            return new double[]
             {
                 (-b + Math.Sqrt(Math.Pow(b,2) - (4*a*c))) / 2*a,
                 (-b - Math.Sqrt(Math.Pow(b,2) - (4*a*c))) / 2*a,
             };
-            return roots;
         }
 
         /// <summary>
@@ -134,7 +133,7 @@ namespace ThermalClasses.CollisionHandling
         /// <param name="polygon">The polygon potentially colliding with the border</param>
         /// <param name="border">The border of the simulation</param>
         /// <returns>The polygon with its velocity handled.</returns>
-        public static Polygon BoundaryCollisionHandling(Polygon polygon, Rectangle border, GameTime gameTime)
+        public static Polygon BoundaryCollisionHandling(Polygon polygon, Rectangle border)
         {
             bool borderCollision = false;
             BorderCollisions borderCollisions = new BorderCollisions();
