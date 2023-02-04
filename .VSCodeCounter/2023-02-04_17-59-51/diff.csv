@@ -1,0 +1,10 @@
+"filename", "language", "C#", "MonoGame Content Builder", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/Content/Content.mgcb", "MonoGame Content Builder", 0, 30, 3, 3, 36
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/CollisionHandling/Collisions.cs", "C#", 6, 0, -1, 0, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Button.cs", "C#", 6, 0, 0, 2, 8
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/CheckButton.cs", "C#", 1, 0, 0, 0, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/NumInput.cs", "C#", 139, 0, 0, 14, 153
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/ObjectCollections/CollisionCounter.cs", "C#", 75, 0, 0, 8, 83
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Particles/Particle.cs", "C#", 4, 0, 0, 1, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs", "C#", 101, 0, 4, 8, 113
+"Total", "-", 332, 30, 6, 36, 404
