@@ -167,3 +167,5 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/Colours/YellowColour.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/ResetButton.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/TextInputBox.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/DownButton_Box.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/UpButton_Box.xnb

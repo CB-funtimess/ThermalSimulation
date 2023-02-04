@@ -23,6 +23,8 @@ public class SimulationHandler : Handler
     private int indexSmall, indexLarge; // The index of the next particle to add
     private List<Polygon> activeParticles;
     private SHG spatialHashGrid;
+    private Queue<ParticleType> addParticlesQueue;
+    private double timeSinceDequeue;
     #endregion
     private SimulationBox simulationBox;
     #region GUIObjects
@@ -33,6 +35,7 @@ public class SimulationHandler : Handler
     private Button resetButton;
     private UpDownButton smallParticleControl;
     private UpDownButton largeParticleControl;
+    private Button add50Small, add50Large, remove50Small, remove50Large;
     private UpDownButton temperatureControl;
     private Slider volumeSlider;
     private Label dataBox, volumeDisp, temperatureDisp, pressureDisp, numParticlesDisp, constantLabel;
@@ -135,6 +138,8 @@ public class SimulationHandler : Handler
         labelCollection = new List<Label>();
         indexLarge = indexSmall = 0;
         activeParticles = new List<Polygon>();
+        addParticlesQueue = new Queue<ParticleType>();
+        timeSinceDequeue = 0;
     }
 
     public override void LoadContent()
@@ -153,6 +158,8 @@ public class SimulationHandler : Handler
         Texture2D playTexture = content.Load<Texture2D>("GeneralAssets/PlayButton");
         Texture2D resetTexture = content.Load<Texture2D>("GeneralAssets/ResetButton");
         Texture2D textInputTexture = content.Load<Texture2D>("GeneralAssets/TextInputBox");
+        Texture2D upTextureBox = content.Load<Texture2D>("GeneralAssets/UpButton_Box");
+        Texture2D downTextureBox = content.Load<Texture2D>("GeneralAssets/DownButton_Box");
 
         Color unclickedColour = Color.White;
         // Particle Initialisation
@@ -214,16 +221,42 @@ public class SimulationHandler : Handler
         };
 
         // Particle controls
+        Point add50Size = new Point(40,40);
         Point particleControlSize = new Point(200, 40);
-        Rectangle largeParticleButtonRect = new Rectangle(new Point(simulationBox.BoxRect.Right - particleControlSize.X, simulationBox.BoxRect.Bottom + 15), particleControlSize);
+        Rectangle largeParticleButtonRect = new Rectangle(new Point(simulationBox.BoxRect.Right - particleControlSize.X - add50Size.X, simulationBox.BoxRect.Bottom + 15), particleControlSize);
         Rectangle smallParticleButtonRect = new Rectangle(new Point(largeParticleButtonRect.X, largeParticleButtonRect.Y + particleControlSize.Y + 10), particleControlSize);
-        smallParticleControl = new UpDownButton(upTexture, downTexture, upDownLabelTexture, smallParticleButtonRect, "Small Particles", font, penColour, unclickedColour, HoverColour);
+        smallParticleControl = new UpDownButton(upTextureBox, downTextureBox, upDownLabelTexture, smallParticleButtonRect, "Small Particles", font, penColour, unclickedColour, HoverColour);
         smallParticleControl.DownButton.Click += RemoveSmallParticles_Click;
         smallParticleControl.UpButton.Click += AddSmallParticles_Click;
 
-        largeParticleControl = new UpDownButton(upTexture, downTexture, upDownLabelTexture, largeParticleButtonRect, "Large Particles", font, penColour, unclickedColour, HoverColour);
+        largeParticleControl = new UpDownButton(upTextureBox, downTextureBox, upDownLabelTexture, largeParticleButtonRect, "Large Particles", font, penColour, unclickedColour, HoverColour);
         largeParticleControl.DownButton.Click += RemoveLargeParticles_Click;
         largeParticleControl.UpButton.Click += AddLargeParticles_Click;
+
+        Rectangle smallAdd50 = new Rectangle(new Point(smallParticleButtonRect.Right, smallParticleButtonRect.Y), add50Size);
+        Rectangle smallRemove50 = new Rectangle(new Point(smallParticleButtonRect.X - add50Size.X, smallParticleButtonRect.Y), add50Size);
+        Rectangle largeAdd50 = new Rectangle(new Point(largeParticleButtonRect.Right, largeParticleButtonRect.Y), add50Size);
+        Rectangle largeRemove50 = new Rectangle(new Point(largeParticleButtonRect.X - add50Size.X, largeParticleButtonRect.Y), add50Size);
+        add50Small = new Button(upTexture, font, smallAdd50, unclickedColour, penColour)
+        {
+            HoverColour = HoverColour,
+        };
+        add50Small.Click += Add50SmallParticles_Click;
+        remove50Small = new Button(downTexture, font, smallRemove50, unclickedColour, penColour)
+        {
+            HoverColour = HoverColour,
+        };
+        remove50Small.Click += Remove50Small_Click;
+        add50Large = new Button(upTexture, font, largeAdd50, unclickedColour, penColour)
+        {
+            HoverColour = HoverColour,
+        };
+        add50Large.Click += Add50LargeParticles_Click;
+        remove50Large = new Button(downTexture, font, largeRemove50, unclickedColour, penColour)
+        {
+            HoverColour = HoverColour,
+        };
+        remove50Large.Click += Remove50Large_Click;
 
         // Temperature controls
         Rectangle temperatureButtonRect = new Rectangle(new Point(simulationBox.BoxRect.Right - particleControlSize.X, simulationBox.BoxRect.Top - 15 - particleControlSize.Y), particleControlSize);
@@ -253,6 +286,10 @@ public class SimulationHandler : Handler
         // Putting most objects into a list for easier updating and drawing (some must be updated manually)
         buttonCollection.Add(pauseButton);
         buttonCollection.Add(resetButton);
+        buttonCollection.Add(remove50Small);
+        buttonCollection.Add(remove50Large);
+        buttonCollection.Add(add50Small);
+        buttonCollection.Add(add50Large);
 
         upDownCollection.Add(smallParticleControl);
         upDownCollection.Add(largeParticleControl);
@@ -270,6 +307,25 @@ public class SimulationHandler : Handler
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
+        timeSinceDequeue += gameTime.ElapsedGameTime.TotalSeconds;
+        // Adding particles according to the queue and the time since last dequeue
+        if (addParticlesQueue.Count > 0)
+        {
+            if (timeSinceDequeue > 1) // If the last dequeue was greater than 1 second ago, add particles
+            {
+                ParticleType typeToAdd = addParticlesQueue.Dequeue();
+                if (typeToAdd == ParticleType.Small)
+                {
+                    AddParticles(10, ref smallParticles, ref indexSmall);
+                }
+                else
+                {
+                    AddParticles(10, ref largeParticles, ref indexLarge);
+                }
+                timeSinceDequeue = 0;
+            }
+        }
+
         constants.ChangeParticles = false;
         pauseButton.Update(gameTime);
         keepConstant.Update(gameTime);
@@ -466,6 +522,7 @@ public class SimulationHandler : Handler
         {
             label.PenColour = colour;
         }
+        counter.ChangePenColour(colour);
         temperatureControl.ChangePenColour(colour);
         volumeDisp.PenColour = temperatureDisp.PenColour = pressureDisp.PenColour = numParticlesDisp.PenColour = colour;
         keepConstant.ChangePenColour(colour);
@@ -479,7 +536,18 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            AddParticles(10, ref smallParticles, ref indexSmall);
+            addParticlesQueue.Enqueue(ParticleType.Small);
+        }
+    }
+
+    private void Add50SmallParticles_Click(object sender, EventArgs e)
+    {
+        if (!paused)
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                addParticlesQueue.Enqueue(ParticleType.Small);
+            }
         }
     }
 
@@ -487,7 +555,18 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            AddParticles(10, ref largeParticles, ref indexLarge);
+            addParticlesQueue.Enqueue(ParticleType.Large);
+        }
+    }
+
+    private void Add50LargeParticles_Click(object sender, EventArgs e)
+    {
+        if (!paused)
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                addParticlesQueue.Enqueue(ParticleType.Large);
+            }
         }
     }
 
@@ -508,7 +587,7 @@ public class SimulationHandler : Handler
                 particleType[index].SetPreviousPosition(new Vector2(simulationBox.BoxRect.Right, insertPosition.Y));
                 particleType[index].SetVelocity(insertionVelocity);
                 activeParticles.Add(particleType[index]);
-                insertPosition.Y += 20; // Inserts next particle into a space below previous particle
+                insertPosition.Y += particleType[0].YRadius * 4; // Inserts next particle into a space below previous particle
                 theta += (float)((Math.PI / 2 / amount) + rnd.NextDouble()); // Modifies angle at which the magnitude of the velocity acts in
                 index++;
             }
@@ -523,9 +602,19 @@ public class SimulationHandler : Handler
         RemoveParticles(10, ref smallParticles, ref indexSmall, ParticleType.Small);
     }
 
+    private void Remove50Small_Click(object sender, EventArgs e)
+    {
+        RemoveParticles(50, ref smallParticles, ref indexSmall, ParticleType.Small);
+    }
+
     private void RemoveLargeParticles_Click(object sender, EventArgs e)
     {
         RemoveParticles(10, ref largeParticles, ref indexLarge, ParticleType.Large);
+    }
+
+    private void Remove50Large_Click(object sender, EventArgs e)
+    {
+        RemoveParticles(50, ref largeParticles, ref indexLarge, ParticleType.Large);
     }
 
     private void RemoveParticles(int amount, ref Polygon[] particleType, ref int index, ParticleType type)

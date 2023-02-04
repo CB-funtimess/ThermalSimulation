@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/Button_Unchecked.png
 
+#begin GeneralAssets/DownButton_Box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/DownButton_Box.png
+
 #begin GeneralAssets/DownButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -235,6 +247,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/TextInputBox.png
+
+#begin GeneralAssets/UpButton_Box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/UpButton_Box.png
 
 #begin GeneralAssets/UpButton.png
 /importer:TextureImporter

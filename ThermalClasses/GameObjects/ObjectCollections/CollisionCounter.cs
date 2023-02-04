@@ -73,8 +73,6 @@ public class CollisionCounter : ObjectCollection
     {
         NoCollisions = 0;
         textLabel.Text = $"{NoCollisions}";
-        isCounting = false;
-        startCount.Check();
     }
 
     public void StartStopCount_Click(object sender, EventArgs e)
