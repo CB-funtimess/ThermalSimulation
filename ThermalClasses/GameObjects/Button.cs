@@ -73,7 +73,7 @@ public class Button : GameObject
         currentState = Mouse.GetState();
         clicked = false;
 
-        var mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
+        Rectangle mouseRectangle = new Rectangle(currentState.X, currentState.Y, 1, 1);
 
         isHovering = false;
 

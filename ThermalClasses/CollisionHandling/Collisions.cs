@@ -69,19 +69,25 @@ namespace ThermalClasses.CollisionHandling
 
         // Method for handling the velocities of colliding objects
         /// <summary>
-        /// Returns the updated velocity for particle 1 after a collision with another particle; only for use in the particle class
-        /// </summary>
+        /// Returns the updated velocity for two particles after a collision with another particle
         /// <param name="p1">First particle</param>
         /// <param name="p2">Second particle</param>
         /// <returns>The handled velocity of the first particle</returns>
-        public static Vector2 NewCollisionVelocity(Particle p1, Particle p2)
+        public static Vector2[] NewCollisionVelocity(Particle p1, Particle p2)
         {
             return NewCollisionVelocity(p1.CurrentVelocity, p2.CurrentVelocity, p1.Mass, p2.Mass, p1.Position, p2.Position);
         }
 
-        public static Vector2 NewCollisionVelocity(Vector2 v1, Vector2 v2, double m1, double m2, Vector2 x1, Vector2 x2)
+        public static Vector2[] NewCollisionVelocity(Vector2 v1, Vector2 v2, double m1, double m2, Vector2 x1, Vector2 x2)
         {
-            return v1 - (Vector2.Dot(v1 - v2, x1 - x2) / (float)(x1 - x2).LengthSquared() * (x1 - x2) * (float)(2 * m2 / (m1 + m2)));
+            Vector2 N = Vector2.Normalize(x1 - x2);
+            Vector2 relativeVelocity = Vector2.Dot(v2 - v1, N) * N;
+            Vector2[] newVelocities = new Vector2[]
+            {
+                v1 + (relativeVelocity * (float)(2*m2 / (m1 + m2))),
+                v2 - (relativeVelocity * (float)(2*m2 / (m1 + m2)))
+            };
+            return newVelocities;
         }
 
         /// <summary>

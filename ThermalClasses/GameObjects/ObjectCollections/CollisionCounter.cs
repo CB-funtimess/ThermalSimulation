@@ -14,6 +14,7 @@ public class CollisionCounter : ObjectCollection
     #endregion
 
     #region Properties
+    public bool IsCounting => isCounting;
     public int NoCollisions;
     #endregion
 
@@ -78,10 +79,6 @@ public class CollisionCounter : ObjectCollection
 
     public void StartStopCount_Click(object sender, EventArgs e)
     {
-        if (!isCounting)
-        {
-            NoCollisions = 0;
-        }
         isCounting = !isCounting;
     }
     #endregion

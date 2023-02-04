@@ -308,7 +308,7 @@ public class SimulationHandler : Handler
                 // All particles outside should just be outside the x region of the box
                 if (myParticle.Position.X + myParticle.XRadius < simulationBox.BoxRect.Left)
                 {
-                    myParticle.ChangePositionBy(new Vector2(20, 0));
+                    myParticle.ChangePositionBy(new Vector2(22, 0));
                 }
 
                 // Move particles back into original lists
@@ -347,9 +347,13 @@ public class SimulationHandler : Handler
                 activeParticles[i2].SetPosition(activeParticles[i2].PreviousPosition + (activeParticles[i2].CurrentVelocity * (float)timeOfCollision));
             }
 
-            activeParticles[i1].SetVelocity(CollisionFunctions.NewCollisionVelocity(activeParticles[i1], activeParticles[i2]));
-            activeParticles[i2].SetVelocity(CollisionFunctions.NewCollisionVelocity(activeParticles[i2], activeParticles[i1]));
-            counter.NoCollisions++;
+            Vector2[] newVelocities = CollisionFunctions.NewCollisionVelocity(activeParticles[i1], activeParticles[i2]);
+            activeParticles[i1].SetVelocity(newVelocities[0]);
+            activeParticles[i2].SetVelocity(newVelocities[1]);
+            if (counter.IsCounting)
+            {
+                counter.NoCollisions++;
+            }
         }
     }
 
@@ -482,6 +486,7 @@ public class SimulationHandler : Handler
                 Vector2 insertionVelocity = new Vector2((float)(-1 * (float)Math.Sin(theta) * rmsVelocity), (float)((float)Math.Cos(theta) * rmsVelocity));
                 particleType[index].Enabled = true;
                 particleType[index].SetPosition(insertPosition);
+                particleType[index].SetPreviousPosition(new Vector2(simulationBox.BoxRect.Right, insertPosition.Y));
                 particleType[index].SetVelocity(insertionVelocity);
                 activeParticles.Add(particleType[index]);
                 insertPosition.Y += 20; // Inserts next particle into a space below previous particle

@@ -51,6 +51,11 @@ public class Particle : GameObject
         currentVelocity = newVelocity;
     }
 
+    public void SetPreviousPosition(Vector2 prevPos)
+    {
+        this.prevPos = prevPos;
+    }
+
     // This function calculates the new velocity of the particle after a collision with a boundary
     public void CollisionBoundaryUpdate(BorderCollisions borderCollisions)
     {
