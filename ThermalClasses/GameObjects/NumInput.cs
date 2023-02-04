@@ -4,16 +4,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ThermalClasses.GameObjects.Particles;
 
-/// <summary>
-/// 
-/// </summary>
 public class NumInput : GameObject
 {
     #region Fields
     private bool selected;
     private bool isHovering;
     private KeyboardState prevKeyState, keyState;
-    private MouseState prevMouseState, mouseState;
+    private MouseState mouseState;
     private SpriteFont font;
     private string text;
     #endregion
@@ -66,7 +63,6 @@ public class NumInput : GameObject
 
     public override void Update(GameTime gameTime)
     {
-        prevMouseState = mouseState;
         prevKeyState = keyState;
         mouseState = Mouse.GetState();
         keyState = Keyboard.GetState();
@@ -81,7 +77,7 @@ public class NumInput : GameObject
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
                 selected = true;
-                if (text == "Enter a temperature:")
+                if (text == DefaultText)
                 {
                     text = "";
                 }
