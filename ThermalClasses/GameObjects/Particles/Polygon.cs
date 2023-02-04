@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ThermalClasses.CollisionHandling;
 namespace ThermalClasses.GameObjects.Particles;
 
 // Subclass to deal with the mathematical properties of the particle
@@ -12,17 +13,16 @@ public class Polygon : Particle
     #endregion
 
     #region Properties
-    public int Sides { get { return sides; } }
-    public Vector2[] Points { get; } // Vectors of the vertices; Index 0 represents the most top right point
-    public Rectangle BoundingBox { get; private set; }
+    public int Sides => sides;
+    public Vector2[] Points => GeneratePoints(); // Vectors of the vertices; Index 0 represents the topmost middle point
     #endregion
 
     #region Methods
-    public Polygon(Texture2D texture, Vector2 centrePosition, Vector2 velocity, float mass, int noSides, Color colour, Point dimensions) : base(texture, centrePosition, velocity, mass, colour, dimensions)
+    public Polygon(Texture2D texture, Vector2 centrePosition, Vector2 velocity, double mass, int noSides, Color colour, Point dimensions) : base(texture, centrePosition, velocity, mass, colour, dimensions)
     {
         sides = noSides;
-        Points = new Vector2[sides];
         unitPoints = new Vector2[sides];
+        position = centrePosition;
         InitialisePoints();
     }
 
@@ -35,38 +35,27 @@ public class Polygon : Particle
             Points[i] = new();
         }
 
-        float theta = 360 / sides;
-        unitPoints[0] = new Vector2(0, yRadius);
+        float theta = (float)(2 * Math.PI / sides);
+        unitPoints[0] = new Vector2(0, -YRadius);
 
         // 2-D Matrix transformation to generate points
         // Clockwise matrix rotation
         for (int i = 1; i < sides; i++)
         {
-            float x = (float)((unitPoints[i - 1].X * Math.Cos(theta)) + (unitPoints[i - 1].Y * Math.Sin(theta)));
-            float y = (float)(-(unitPoints[i - 1].X * Math.Sin(theta)) + (unitPoints[i - 1].Y * Math.Cos(theta)));
+            float x = (float)((unitPoints[i - 1].X * Math.Cos(theta)) - (unitPoints[i - 1].Y * Math.Sin(theta)));
+            float y = (float)((unitPoints[i - 1].X * Math.Sin(theta)) + (unitPoints[i - 1].Y * Math.Cos(theta)));
             unitPoints[i] = new Vector2(x, y);
         }
-
-        // Translate all points to their correct location
-        TranslatePoints(Points, position);
     }
 
-    // Translates all vertex points by a specific amount
-    private void TranslatePoints(Vector2[] points, Vector2 translator)
+    private Vector2[] GeneratePoints()
     {
-        for (var i = 0; i < sides; i++)
+        Vector2[] points = new Vector2[sides];
+        for (var i = 0; i < points.Length; i++)
         {
-            points[i] = Vector2.Add(points[i], translator);
+            points[i] = Vector2.Add(unitPoints[i], position);
         }
-    }
-
-    public override void Update(GameTime gameTime)
-    {
-        if(Enabled)
-        {
-            base.Update(gameTime);
-            TranslatePoints(unitPoints, position);
-        }
+        return points;
     }
     #endregion
 }

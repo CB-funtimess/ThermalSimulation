@@ -2,6 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ThermalClasses.CollisionHandling;
+using ThermalClasses.PhysicsLaws;
+using ThermalClasses.Handlers;
+
 namespace ThermalClasses.GameObjects.Particles;
 
 // NEED TO ADD ACCOMMODATION FOR PROPERTIES OF SIMULATION TO BE CHANGED
@@ -10,57 +14,58 @@ namespace ThermalClasses.GameObjects.Particles;
 public class Particle : GameObject
 {
     #region Fields
-    protected Vector2 prevPos, prevVelocity; // Prev values are only useful in case a backtracking algorithm is used for advanced collision handling
+    protected Vector2 prevPos, currentVelocity; // Prev values are only useful in case a backtracking algorithm is used for advanced collision handling
+    protected double mass;
     #endregion
 
     #region Properties
-    public bool colliding;
-    public bool paused;
-    public float Mass { get; }
-    public Vector2 CurrentVelocity { get; private set; }
+    public double Mass => mass;
+    public Vector2 PreviousPosition => prevPos;
+    public Vector2 CurrentVelocity => currentVelocity;
+    public ParticleType Type { get; set; } // Type of ball ("Small" and "Large")
+    public int Identifier { get; set; } // Unique identifier for the ball type that describes its position in the array
     #endregion
 
     #region Methods
-    public Particle(Texture2D texture, Vector2 position, Vector2 velocity, float Mass, Color colour, Point dimensions) : base(texture, position, colour, dimensions)
+    public Particle(Texture2D texture, Vector2 position, Vector2 velocity, double Mass, Color colour, Point dimensions) : base(texture, position, colour, dimensions)
     {
-        colliding = false;
-        paused = false;
-        CurrentVelocity = velocity;
-        this.Mass = Mass;
+        currentVelocity = velocity;
+        mass = Mass;
     }
 
     public override void Update(GameTime gameTime)
     {
-        if(Enabled && !paused)
+        if (Enabled)
         {
             prevPos = position;
             // If there is no collision, the position is the only thing that changes
             // When there is no collision, the velocity of the particle is effectively zero: as such, it does not move on the GUI
             // Collision handling is outside the scope of a single instance of this object: therefore, only the movement of the object can be handled in the Update() function
-            if (!colliding)
-            {
-                position.X += (float)(CurrentVelocity.X * gameTime.ElapsedGameTime.TotalSeconds);
-                position.Y += (float)(CurrentVelocity.Y * gameTime.ElapsedGameTime.TotalSeconds);
-            }
+            position.X += (float)(CurrentVelocity.X * gameTime.ElapsedGameTime.TotalSeconds);
+            position.Y += (float)(CurrentVelocity.Y * gameTime.ElapsedGameTime.TotalSeconds);
         }
     }
 
-    // This function calculates the new velocity of the particle after a collision with another particle
-    public void CollisionUpdate(Particle collidingMass)
+    public void SetVelocity(Vector2 newVelocity)
     {
-        CurrentVelocity = CollisionHandling.CollisionFunctions.NewCollisionVelocities(this, collidingMass);
+        currentVelocity = newVelocity;
+    }
+
+    public void SetPreviousPosition(Vector2 prevPos)
+    {
+        this.prevPos = prevPos;
     }
 
     // This function calculates the new velocity of the particle after a collision with a boundary
-    public void BoundaryUpdate(bool xCollision)
+    public void CollisionBoundaryUpdate(BorderCollisions borderCollisions)
     {
-        if (xCollision)
+        if ((borderCollisions.left && CurrentVelocity.X < 0) || (borderCollisions.right && CurrentVelocity.X > 0)) // If colliding with the left or right walls
         {
-            CurrentVelocity = new Vector2(-1 * CurrentVelocity.X, CurrentVelocity.Y);
+            currentVelocity = new Vector2(CurrentVelocity.X * -1, CurrentVelocity.Y);
         }
-        else
+        if ((borderCollisions.top && CurrentVelocity.Y < 0) || (borderCollisions.bottom && CurrentVelocity.Y > 0))
         {
-            CurrentVelocity = new Vector2(CurrentVelocity.X, -1 * CurrentVelocity.Y);
+            currentVelocity = new Vector2(CurrentVelocity.X, CurrentVelocity.Y * -1);
         }
     }
     #endregion

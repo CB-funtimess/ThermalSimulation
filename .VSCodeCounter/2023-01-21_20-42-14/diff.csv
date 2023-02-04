@@ -1,0 +1,14 @@
+"filename", "language", "C#", "MonoGame Content Builder", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/Content/Content.mgcb", "MonoGame Content Builder", 0, 60, 6, 6, 72
+"/home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs", "C#", 103, 0, 0, 10, 113
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/CheckButton.cs", "C#", 5, 0, 0, 1, 6
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/GameObject.cs", "C#", -3, 0, 0, 0, -3
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Label.cs", "C#", 10, 0, 0, 2, 12
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/ObjectCollections/RadioButtons.cs", "C#", 6, 0, 0, -1, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/ObjectCollections/Slider.cs", "C#", 4, 0, 0, 1, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/ObjectCollections/UpDownButton.cs", "C#", 4, 0, 0, 1, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Particles/Particle.cs", "C#", 1, 0, 0, 0, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/SliderButton.cs", "C#", 10, 0, 0, 1, 11
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs", "C#", 108, 0, 2, 10, 120
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/PhysicsLaws.cs", "C#", 4, 0, 0, 2, 6
+"Total", "-", 252, 60, 8, 33, 353

@@ -13,13 +13,11 @@ public abstract class Handler
     protected ContentManager content;
     #endregion
 
-    #region Properties
-    #endregion
-
     #region Methods
     public abstract void Initialize();
     public abstract void LoadContent();
     public abstract void Update(GameTime gameTime);
     public abstract void Draw(GameTime gameTime, SpriteBatch _spriteBatch);
+    public abstract void ChangePenColour(Color colour);
     #endregion
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Xml.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,85 +11,61 @@ public class GameObject
     protected Texture2D texture;
     protected Vector2 position; // The central position of the object
     protected Color colour;
-    protected float xRadius, yRadius;
     protected Point dimensions;
     #endregion
 
     #region Properties
     public bool Enabled;
-    public Vector2 Position { get { return position; } }
-    public Vector2 TopLeftPoint { get; private set; }
-    public float XRadius { get; }
-    public float YRadius { get; }
+    public Vector2 Position => position;
+    public Vector2 TopLeftPoint => new Vector2(position.X - XRadius, position.Y - YRadius);
+    public Rectangle ObjectRectangle => new Rectangle((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y);
+    public int XRadius => dimensions.X / 2;
+    public int YRadius => dimensions.Y / 2;
     #endregion
 
     #region Methods
-    public GameObject(Texture2D texture, Vector2 position, Color colour, Point dimensions)
+    public GameObject(Texture2D texture, Vector2 centralPosition, Color colour, Point dimensions)
     {
         this.dimensions = dimensions;
         this.texture = texture;
-        this.position = position;
+        position = centralPosition;
         this.colour = colour;
-        xRadius = dimensions.X / 2;
-        yRadius = dimensions.Y / 2;
         Enabled = true;
-        TopLeftPoint = new Vector2(position.X - xRadius, position.Y - yRadius);
     }
 
     public GameObject(Texture2D texture, Color colour, Rectangle size)
     {
         dimensions = size.Size;
         this.texture = texture;
-        TopLeftPoint = new Vector2(size.Left, size.Top);
         this.colour = colour;
-        xRadius = dimensions.X / 2;
-        yRadius = dimensions.Y / 2;
         Enabled = true;
-        position = new Vector2(TopLeftPoint.X + xRadius, TopLeftPoint.Y + yRadius);
-    }
-
-    // Initialises a basic GameObject
-    protected GameObject(Texture2D texture) : this(texture, new Vector2(0, 0), new Color(0, 0, 0), new Point()) { }
-
-    // Draws objects with the scale of the texture
-    public virtual void TextureScaleDraw(GameTime gameTime, SpriteBatch _spritebatch)
-    {
-        if (Enabled)
-        {
-            _spritebatch.Draw(texture, TopLeftPoint, colour);
-        }
+        position = size.Center.ToVector2();
     }
 
     // Method to draw objects using a rectangle
-    public virtual void Draw(SpriteBatch _spritebatch)
+    public virtual void Draw(SpriteBatch _spriteBatch)
     {
         if (Enabled)
         {
-            Rectangle scaleDraw = new((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y);
-            _spritebatch.Draw(texture, scaleDraw, colour);
-        }
-    }
-
-    // Method to draw objects to scale
-    public virtual void ScaleDraw(SpriteBatch _spritebatch)
-    {
-        if (Enabled)
-        {
-            Rectangle scaleDraw = new((int)TopLeftPoint.X, (int)TopLeftPoint.Y, dimensions.X, dimensions.Y);
-            _spritebatch.Draw(texture, TopLeftPoint, scaleDraw, colour);
+            _spriteBatch.Draw(texture, ObjectRectangle, colour);
         }
     }
 
     public virtual void Update(GameTime gameTime) { }
 
-    public void ChangePosition(Vector2 changeBy)
+    public void ChangePositionBy(Vector2 changeBy)
     {
         position = Vector2.Add(position, changeBy);
     }
 
-    public void ChangePosition(int changeToX, int changeToY)
+    public void SetPosition(Vector2 newPosition)
     {
-        position = new Vector2(changeToX, changeToY);
+        position = newPosition;
+    }
+
+    public void SetXPosition(float xValue)
+    {
+        position.X = xValue;
     }
     #endregion
 }
