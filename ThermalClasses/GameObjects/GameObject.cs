@@ -39,7 +39,7 @@ public class GameObject
         this.texture = texture;
         this.colour = colour;
         Enabled = true;
-        position = new Vector2(size.Left + XRadius, size.Top + YRadius);
+        position = size.Center.ToVector2();
     }
 
     // Method to draw objects using a rectangle
