@@ -4,7 +4,8 @@ namespace ThermalClasses.PhysicsLaws;
 public static class PhysicsEquations
 {
     #region Constants
-    private const double k = 1.23E-23f;
+    private const double k = 1.23E-23;
+    private const double r = 8.31;
     #endregion
 
     #region Methods
@@ -42,7 +43,7 @@ public static class PhysicsEquations
     /// <returns>The volume of the simulation</returns>
     public static double CalcVolume(double p, int N, double T)
     {
-        return N * k * T/p;
+        return N * k * T / p;
     }
 
     /// <summary>
@@ -54,7 +55,7 @@ public static class PhysicsEquations
     /// <returns>The pressure of the simulation</returns>
     public static double CalcPressure(double V, int N, double T, int roundTo)
     {
-        return RoundDouble(N*k*T/V, roundTo);
+        return RoundDouble(N * k * T / V, roundTo);
     }
 
     /// <summary>
@@ -66,7 +67,7 @@ public static class PhysicsEquations
     /// <returns>The temperature of the simulation</returns>
     public static double CalcTemperature(double p, double V, int N)
     {
-        return p*V/(N*k);
+        return p * V / (N * k);
     }
 
     /// <summary>
@@ -87,7 +88,22 @@ public static class PhysicsEquations
     /// <returns>The number of moles in the simulation</returns>
     public static double NumberToMoles(int N, int roundTo)
     {
-        return RoundDouble(N * k / 8.31, roundTo);
+        return RoundDouble(N * k / r, roundTo);
+    }
+
+    public static double NumberToMoles(int N)
+    {
+        return N * k / r;
+    }
+
+    /// <summary>
+    /// Returns the number of particles from a given number of moles using N = nR/k
+    /// </summary>
+    /// <param name="moles">Number of moles</param>
+    /// <returns>The number of particles</returns>
+    public static double MolesToNumber(double moles)
+    {
+        return moles * r / k;
     }
 
     /// <summary>
@@ -99,6 +115,29 @@ public static class PhysicsEquations
     private static double RoundDouble(double value, int roundTo)
     {
         return Convert.ToDouble(Math.Round(Convert.ToDecimal(value), roundTo));
+    }
+
+    /// <summary>
+    /// Calculates the volume for a box from the given inputs.
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <param name="length"></param>
+    /// <returns></returns>
+    public static double CalcVolume(double width, double height, double length)
+    {
+        return width * height * length;
+    }
+
+    /// <summary>
+    /// Calculates the volume for a cylinder
+    /// </summary>
+    /// <param name="length"></param>
+    /// <param name="area"></param>
+    /// <returns></returns>
+    public static double CalcVolume(double length, double radius)
+    {
+        return length * (Math.Pow(radius, 2) * Math.PI);
     }
     #endregion
 }
