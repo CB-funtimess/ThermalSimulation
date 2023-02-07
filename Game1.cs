@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using ThermalClasses.CollisionHandling;
 using ThermalClasses.GameObjects;
 using ThermalClasses.GameObjects.Particles;
@@ -59,13 +60,37 @@ public class ThermalSim : Game
     private void InitializeRenderTarget()
     {
         // My preferred screen ratio: 16:9
-        windowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-        windowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        windowWidth = 1920;//GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+        windowHeight = 1080;//GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         _graphics.PreferredBackBufferHeight = windowHeight; // Values laptop screen: 1200, monitor: 1080
         _graphics.PreferredBackBufferWidth = windowWidth; // Values laptop screen: 1920, monitor: 1920
         _graphics.ApplyChanges();
-        renderRectangle = new(0, 0, windowWidth, windowHeight);
-        window = new RenderTarget2D(GraphicsDevice, windowWidth, windowHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat, GraphicsDevice.PresentationParameters.DepthStencilFormat);
+        if (windowWidth / (double)windowHeight < 16 / (double)9)
+        {
+            // Output is taller than it is wide (relative to screen ratio)
+            int outputHeight = (int)((windowWidth / (16/(double)9)) + 0.5);
+            int barHeight = (windowHeight - outputHeight) / 2;
+            renderRectangle = new Rectangle(0, barHeight, windowWidth, outputHeight);
+        }
+        else if (windowWidth / (double)windowHeight > 16 / (double)9)
+        {
+            // Output is wider than it is tall (relative to screen ratio)
+            int outputWidth = (int)((windowHeight * (16/(double)9)) + 0.5);
+            int barWidth = (windowWidth - outputWidth) / 2;
+            renderRectangle = new Rectangle(barWidth, 0, outputWidth, windowHeight);
+            System.Console.WriteLine(outputWidth);
+        }
+        else
+        {
+            renderRectangle = new Rectangle(0, 0, windowWidth, windowHeight);
+            System.Console.WriteLine("Avoid");
+        }
+        window = new RenderTarget2D(GraphicsDevice, renderRectangle.Width, renderRectangle.Height, false, SurfaceFormat.Color, DepthFormat.None, 1, RenderTargetUsage.DiscardContents);
+
+        // Resizing the touch panel to handle input correctly
+        TouchPanel.DisplayHeight = renderRectangle.Height;
+        TouchPanel.DisplayWidth = renderRectangle.Width;
+        TouchPanel.EnableMouseTouchPoint = true;
     }
 
     protected override void LoadContent()
@@ -195,6 +220,8 @@ public class ThermalSim : Game
 
         _spriteBatch.End();
         _graphics.GraphicsDevice.SetRenderTarget(null);
+
+        GraphicsDevice.Clear(ClearOptions.Target, backgroundColour, 1.0f, 0);
 
         // Draw render target to back buffer
         _spriteBatch.Begin(SpriteSortMode.Deferred,
