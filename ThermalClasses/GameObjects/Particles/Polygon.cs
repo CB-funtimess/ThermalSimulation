@@ -39,7 +39,7 @@ public class Polygon : Particle
         unitPoints[0] = new Vector2(0, -YRadius);
 
         // 2-D Matrix transformation to generate points
-        // Clockwise matrix rotation
+        // Counter-clockwise matrix rotation
         for (int i = 1; i < sides; i++)
         {
             float x = (float)((unitPoints[i - 1].X * Math.Cos(theta)) - (unitPoints[i - 1].Y * Math.Sin(theta)));
