@@ -78,12 +78,10 @@ public class ThermalSim : Game
             int outputWidth = (int)((windowHeight * (16/(double)9)) + 0.5);
             int barWidth = (windowWidth - outputWidth) / 2;
             renderRectangle = new Rectangle(barWidth, 0, outputWidth, windowHeight);
-            System.Console.WriteLine(outputWidth);
         }
         else
         {
             renderRectangle = new Rectangle(0, 0, windowWidth, windowHeight);
-            System.Console.WriteLine("Avoid");
         }
         window = new RenderTarget2D(GraphicsDevice, renderRectangle.Width, renderRectangle.Height, false, SurfaceFormat.Color, DepthFormat.None, 1, RenderTargetUsage.DiscardContents);
 

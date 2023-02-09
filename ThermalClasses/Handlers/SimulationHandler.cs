@@ -307,6 +307,8 @@ public class SimulationHandler : Handler
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
     public override void Update(GameTime gameTime)
     {
+        constants.ChangeParticles = false;
+
         timeSinceDequeue += gameTime.ElapsedGameTime.TotalSeconds;
         // Adding particles according to the queue and the time since last dequeue
         if (addParticlesQueue.Count > 0)
@@ -326,7 +328,6 @@ public class SimulationHandler : Handler
             }
         }
 
-        constants.ChangeParticles = false;
         pauseButton.Update(gameTime);
         keepConstant.Update(gameTime);
         counter.Update(gameTime);
@@ -345,7 +346,10 @@ public class SimulationHandler : Handler
         }
         if (!constants.Volume && !constants.PressureVol)
         {
-            volumeSlider.Update(gameTime);
+            if ((NumParticles > 0 && constants.PressureTemp) || !constants.PressureTemp)
+            {
+                volumeSlider.Update(gameTime);
+            }
         }
         if (!constants.Temperature && !constants.PressureTemp)
         {
@@ -667,8 +671,11 @@ public class SimulationHandler : Handler
     #region Changing Volume
     private void ChangeVolume_Click(object sender, EventArgs e)
     {
-        simulationBox.SetVolume(volumeSlider.sliderButton.Position.X);
-        volume = ScaleVolume(volumeSlider.sliderButton.Position.X);
+        if ((NumParticles > 0 && constants.PressureTemp) || !constants.PressureTemp)
+        {
+            simulationBox.SetVolume(volumeSlider.sliderButton.Position.X);
+            volume = ScaleVolume(volumeSlider.sliderButton.Position.X);
+        }
     }
 
     /// <summary>
@@ -748,10 +755,14 @@ public class SimulationHandler : Handler
         {
             newTemperature = temperature;
         }
+
         if (newTemperature <= maxTemperature && newTemperature >= minTemperature)
         {
-            temperature = newTemperature;
-            ChangeVRMS();
+            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) >= minVolume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) <= maxVolume) || constants.Volume)
+            {
+                temperature = newTemperature;
+                ChangeVRMS();
+            }
         }
     }
     #endregion
