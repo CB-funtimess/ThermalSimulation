@@ -35,8 +35,8 @@ public class SimulationHandler : Handler
     private Button resetButton;
     private UpDownButton smallParticleControl;
     private UpDownButton largeParticleControl;
-    private Button add50Small, add50Large, remove50Small, remove50Large;
     private UpDownButton temperatureControl;
+    private Button add50Small, add50Large, remove50Small, remove50Large;
     private Slider volumeSlider;
     private Label dataBox, volumeDisp, temperatureDisp, pressureDisp, numParticlesDisp, constantLabel;
     private RadioButtons keepConstant;
@@ -407,6 +407,7 @@ public class SimulationHandler : Handler
             }
         }
 
+        // Update particles
         for (var i = 0; i < activeParticles.Count; i++)
         {
             activeParticles[i].Update(gameTime);
@@ -514,6 +515,7 @@ public class SimulationHandler : Handler
 
     public override void ChangePenColour(Color colour)
     {
+        penColour = colour;
         for (var i = 0; i < buttonCollection.Count; i++)
         {
             buttonCollection[i].PenColour = colour;
