@@ -82,12 +82,11 @@ namespace ThermalClasses.CollisionHandling
         {
             Vector2 N = Vector2.Normalize(x1 - x2);
             Vector2 relativeVelocity = Vector2.Dot(v2 - v1, N) * N;
-            Vector2[] newVelocities = new Vector2[]
+            return new Vector2[]
             {
                 v1 + (relativeVelocity * (float)(2*m2 / (m1 + m2))),
                 v2 - (relativeVelocity * (float)(2*m2 / (m1 + m2)))
             };
-            return newVelocities;
         }
 
         /// <summary>

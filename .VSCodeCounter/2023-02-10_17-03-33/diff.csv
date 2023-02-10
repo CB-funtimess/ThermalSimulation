@@ -1,0 +1,7 @@
+"filename", "language", "C#", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs", "C#", -2, 0, 0, -2
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/CollisionHandling/Collisions.cs", "C#", -1, 0, 0, -1
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs", "C#", 10, 1, 2, 13
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/Physics.cs", "C#", 17, 18, 4, 39
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Questions/Questions.cs", "C#", 65, 10, 8, 83
+"Total", "-", 89, 29, 14, 132
