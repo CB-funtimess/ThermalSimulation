@@ -146,6 +146,7 @@ public class NumInput : GameObject
             Keys.D9 => '9',
             Keys.Decimal => '.',
             Keys.E => 'E',
+            Keys.OemMinus => '-',
             _ => 'A',
         };
     }

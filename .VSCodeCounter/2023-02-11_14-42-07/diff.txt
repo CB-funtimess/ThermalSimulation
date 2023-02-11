@@ -1,0 +1,66 @@
+Date : 2023-02-11 14:42:07
+Directory : /home/kayla/Documents/GitHub/ThermalSimulation
+Total : 22 files,  1896 codes, 28 comments, 46 blanks, all 1970 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          8 |      1,639 |          0 |          0 |      1,639 |
+| C#         |          6 |        211 |         28 |         41 |        280 |
+| XML        |          7 |         36 |          0 |          4 |         40 |
+| Properties |          1 |         10 |          0 |          1 |         11 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                        | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                           |         22 |      1,896 |         28 |         46 |      1,970 |
+| . (Files)                                                                                                                                   |          1 |          2 |          0 |          0 |          2 |
+| QuestionDatabase                                                                                                                            |         12 |        938 |         28 |         45 |      1,011 |
+| QuestionDatabase (Files)                                                                                                                    |          3 |        202 |         17 |         37 |        256 |
+| QuestionDatabase/bin                                                                                                                        |          1 |        241 |          0 |          0 |        241 |
+| QuestionDatabase/bin/Debug                                                                                                                  |          1 |        241 |          0 |          0 |        241 |
+| QuestionDatabase/bin/Debug/net6.0                                                                                                           |          1 |        241 |          0 |          0 |        241 |
+| QuestionDatabase/obj                                                                                                                        |          8 |        495 |         11 |          8 |        514 |
+| QuestionDatabase/obj (Files)                                                                                                                |          4 |        474 |          0 |          0 |        474 |
+| QuestionDatabase/obj/Debug                                                                                                                  |          4 |         21 |         11 |          8 |         40 |
+| QuestionDatabase/obj/Debug/net6.0                                                                                                           |          4 |         21 |         11 |          8 |         40 |
+| Tests                                                                                                                                       |          6 |        634 |          0 |          1 |        635 |
+| Tests (Files)                                                                                                                               |          2 |          9 |          0 |          1 |         10 |
+| Tests/bin                                                                                                                                   |          1 |        229 |          0 |          0 |        229 |
+| Tests/bin/Debug                                                                                                                             |          1 |        229 |          0 |          0 |        229 |
+| Tests/bin/Debug/net6.0                                                                                                                      |          1 |        229 |          0 |          0 |        229 |
+| Tests/obj                                                                                                                                   |          3 |        396 |          0 |          0 |        396 |
+| obj                                                                                                                                         |          3 |        322 |          0 |          0 |        322 |
++---------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                                    | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/Question.cs                                                                 | C#         |         39 |         17 |          6 |         62 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/QuestionDatabase.cs                                                         | C#         |        153 |          0 |         27 |        180 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/QuestionDatabase.csproj                                                     | XML        |         10 |          0 |          4 |         14 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/bin/Debug/net6.0/QuestionDatabase.deps.json                                 | JSON       |        241 |          0 |          0 |        241 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs             | C#         |          2 |          1 |          1 |          4 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/Debug/net6.0/QuestionDatabase.AssemblyInfo.cs                           | C#         |          2 |          9 |          5 |         16 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/Debug/net6.0/QuestionDatabase.GeneratedMSBuildEditorConfig.editorconfig | Properties |         10 |          0 |          1 |         11 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/Debug/net6.0/QuestionDatabase.GlobalUsings.g.cs                         | C#         |          7 |          1 |          1 |          9 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/QuestionDatabase.csproj.nuget.dgspec.json                               | JSON       |         66 |          0 |          0 |         66 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/QuestionDatabase.csproj.nuget.g.props                                   | XML        |         15 |          0 |          0 |         15 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/QuestionDatabase.csproj.nuget.g.targets                                 | XML        |          6 |          0 |          0 |          6 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/obj/project.assets.json                                                     | JSON       |        387 |          0 |          0 |        387 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj                                                                           | XML        |          1 |          0 |          0 |          1 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/UnitTest1.cs                                                                           | C#         |          8 |          0 |          1 |          9 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/Tests.deps.json                                                       | JSON       |        229 |          0 |          0 |        229 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.dgspec.json                                                     | JSON       |         61 |          0 |          0 |         61 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.g.targets                                                       | XML        |          1 |          0 |          0 |          1 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/project.assets.json                                                                | JSON       |        334 |          0 |          0 |        334 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalSimulation.csproj                                                                     | XML        |          2 |          0 |          0 |          2 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/obj/ThermalSimulation.csproj.nuget.dgspec.json                                               | JSON       |          4 |          0 |          0 |          4 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/obj/ThermalSimulation.csproj.nuget.g.targets                                                 | XML        |          1 |          0 |          0 |          1 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/obj/project.assets.json                                                                      | JSON       |        317 |          0 |          0 |        317 |
+| Total                                                                                                                                       |            |      1,896 |         28 |         46 |      1,970 |
++---------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

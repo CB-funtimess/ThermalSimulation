@@ -1,0 +1,8 @@
+Volume: "A box under a pressure of ___Pa has a temperature of ___K and is filled with ___mol of gas. Calculate the volume."
+"A box under a pressure of ___Pa has a temperature of ___K and is filled with ___ gas particles. Calculate the volume."
+Temperature: "A box of volume ___m^3 under a pressure of ___Pa contains ___mol of gas. Calculate the temperature."
+Temperature: "A box of volume ___m^3 under a pressure of ___Pa contains ___ gas particles. Calculate the temperature."
+Pressure: "A box of volume ___m^3 under a temperature of ___K contains ___mol of gas. Calculate the pressure."
+Pressure: "A box of volume ___m^3 under a temperature of ___K contains ___ gas particles. Calculate the pressure."
+Moles: "A box of volume ___m^3 under a temperature of ___K has a pressure of ___Pa. Calculate the number of moles of gas in the box."
+Particles: "A box of volume ___m^3 under a temperature of ___K has a pressure of ___Pa. Calculate the number gas particles in the box."

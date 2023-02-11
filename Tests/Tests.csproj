@@ -20,6 +20,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <ProjectReference Include="..\ThermalClasses\ThermalClasses.csproj" />
+    <ProjectReference Include="..\QuestionDatabase\QuestionDatabase.csproj" />
   </ItemGroup>
 
 </Project>

@@ -82,6 +82,23 @@ public static class PhysicsEquations
     }
 
     /// <summary>
+    /// Calculates the number of moles in a given volume, temperature and pressure.
+    /// </summary>
+    /// <param name="V">Volume</param>
+    /// <param name="T">Temperature</param>
+    /// <param name="p">Pressure</param>
+    /// <returns></returns>
+    public static double CalcMoles(int V, double T, double p)
+    {
+        return p*V/(r*T);
+    }
+
+    public static double CalcParticles(int V, double T, double p)
+    {
+        return p*V/(k*T);
+    }
+
+    /// <summary>
     /// Returns the number of moles from a given number of particles using n = Nk/R
     /// </summary>
     /// <param name="N">Number of particles</param>

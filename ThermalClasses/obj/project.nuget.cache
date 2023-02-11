@@ -1,11 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "tgnmt3IxjH/i2FtzdhpTrBIOxd/EcdVJSaKWO4qAxbmaf7gnnvcaptykjXnOdylR8xQA56OrvoojfGwo55q4KQ==",
+  "dgSpecHash": "pQID75SaZiKg2niWYI8Hh/jAqceoaf862CZxQAI+CMci7WWZiCK5XRjrvEgq11S6LbcahpL6lqynekFh57Rviw==",
   "success": true,
   "projectFilePath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
   "expectedPackageFiles": [
+    "/home/kayla/.nuget/packages/microsoft.data.sqlite/7.0.2/microsoft.data.sqlite.7.0.2.nupkg.sha512",
+    "/home/kayla/.nuget/packages/microsoft.data.sqlite.core/7.0.2/microsoft.data.sqlite.core.7.0.2.nupkg.sha512",
     "/home/kayla/.nuget/packages/monogame.content.builder.task/3.8.1.303/monogame.content.builder.task.3.8.1.303.nupkg.sha512",
-    "/home/kayla/.nuget/packages/monogame.framework.desktopgl/3.8.1.303/monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"
+    "/home/kayla/.nuget/packages/monogame.framework.desktopgl/3.8.1.303/monogame.framework.desktopgl.3.8.1.303.nupkg.sha512",
+    "/home/kayla/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.2/sqlitepclraw.bundle_e_sqlite3.2.1.2.nupkg.sha512",
+    "/home/kayla/.nuget/packages/sqlitepclraw.core/2.1.2/sqlitepclraw.core.2.1.2.nupkg.sha512",
+    "/home/kayla/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.2/sqlitepclraw.lib.e_sqlite3.2.1.2.nupkg.sha512",
+    "/home/kayla/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.2/sqlitepclraw.provider.e_sqlite3.2.1.2.nupkg.sha512",
+    "/home/kayla/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }
