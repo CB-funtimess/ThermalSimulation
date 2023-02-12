@@ -1,0 +1,10 @@
+"filename", "language", "JSON", "C#", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs", "C#", 0, 11, 0, 0, 11
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/QuestionHandler.cs", "C#", 0, 20, 0, 3, 23
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionDatabase.cs", "C#", 0, 107, 1, 9, 117
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionInterface.cs", "C#", 0, 19, 0, 0, 19
+"/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Tests.deps.json", "JSON", -15, 0, 0, 0, -15
+"/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/ThermalSimulation.deps.json", "JSON", -16, 0, 0, 0, -16
+"/home/kayla/Documents/GitHub/ThermalSimulation/obj/ThermalSimulation.csproj.nuget.dgspec.json", "JSON", -68, 0, 0, 0, -68
+"/home/kayla/Documents/GitHub/ThermalSimulation/obj/project.assets.json", "JSON", -24, 0, 0, 0, -24
+"Total", "-", -123, 157, 1, 12, 47

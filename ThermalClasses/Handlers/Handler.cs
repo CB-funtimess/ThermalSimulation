@@ -12,6 +12,11 @@ public abstract class Handler
     protected ContentManager content;
     #endregion
 
+    #region Properties
+    public Color BackgroundColour { get; set; }
+    public Color HoverColour { get; set; }
+    #endregion
+
     #region Methods
     public abstract void Initialize();
     public abstract void LoadContent();

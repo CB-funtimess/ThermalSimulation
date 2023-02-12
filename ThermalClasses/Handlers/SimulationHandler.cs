@@ -53,8 +53,6 @@ public class SimulationHandler : Handler
     #endregion
 
     #region Properties
-    public Color BackgroundColour { get; set; }
-    public Color HoverColour { get; set; }
     public int NumParticles => activeParticles.Count;
     #endregion
 

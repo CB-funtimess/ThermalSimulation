@@ -8,6 +8,7 @@ public class Question
 
     #region Properties
     public string question;
+    public string questionType;
     public QuestionType type;
     public double difficulty;
     public string first;
@@ -24,9 +25,10 @@ public class Question
     /// <param name="type">Mathematical question type</param>
     /// <param name="difficulty">Rating of difficulty between 0 and 1</param>
     /// <param name="answer">answer to the question</param>
-    public Question(string q, QuestionType type, double difficulty, string answer)
+    public Question(string q, string questionType, QuestionType type, double difficulty, string answer)
     {
         question = q;
+        this.questionType = questionType;
         this.type = type;
         this.difficulty = difficulty;
         this.answer = answer;
@@ -42,7 +44,7 @@ public class Question
     /// <param name="firstAns">An incorrect answer</param>
     /// <param name="secondAns">An incorrect answer</param>
     /// <param name="thirdAns">An incorrect answer</param>
-    public Question(string q, QuestionType type, double difficulty, string answer, string firstAns, string secondAns, string thirdAns) : this(q, type, difficulty, answer)
+    public Question(string q, string questionType, QuestionType type, double difficulty, string answer, string firstAns, string secondAns, string thirdAns) : this(q, questionType, type, difficulty, answer)
     {
         first = firstAns;
         second = secondAns;

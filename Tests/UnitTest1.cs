@@ -3,7 +3,8 @@ using ThermalClasses.PhysicsLaws;
 using Xunit;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QuestionDatabase;
+using ThermalClasses.QuestionHandling;
+
 namespace Tests;
 
 public class UnitTest1
@@ -28,7 +29,7 @@ public class UnitTest1
     [Fact]
     public void EnumTest()
     {
-        string type = QuestionType.Mathematical.ToString();
+        string type = nameof(QuestionType.Mathematical);
         Assert.Equal("Mathematical", type);
     }
 }

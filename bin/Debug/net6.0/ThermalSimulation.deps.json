@@ -11,7 +11,6 @@
           "Microsoft.Data.Sqlite": "7.0.2",
           "MonoGame.Content.Builder.Task": "3.8.1.303",
           "MonoGame.Framework.DesktopGL": "3.8.1.303",
-          "QuestionDatabase": "1.0.0",
           "Tests": "1.0.0",
           "ThermalClasses": "1.0.0"
         },
@@ -1306,19 +1305,9 @@
           }
         }
       },
-      "QuestionDatabase/1.0.0": {
-        "dependencies": {
-          "Microsoft.Data.Sqlite": "7.0.2",
-          "ThermalClasses": "1.0.0"
-        },
-        "runtime": {
-          "QuestionDatabase.dll": {}
-        }
-      },
       "Tests/1.0.0": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "17.1.0",
-          "QuestionDatabase": "1.0.0",
           "ThermalClasses": "1.0.0",
           "xunit": "2.4.1"
         },
@@ -2036,11 +2025,6 @@
       "sha512": "sha512-7e/1jqBpcb7frLkB6XDrHCGXAbKN4Rtdb88epYxCSRQuZDRW8UtTfdTEVpdTl8s4T56e07hOBVd4G0OdCxIY2A==",
       "path": "xunit.extensibility.execution/2.4.1",
       "hashPath": "xunit.extensibility.execution.2.4.1.nupkg.sha512"
-    },
-    "QuestionDatabase/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "Tests/1.0.0": {
       "type": "project",

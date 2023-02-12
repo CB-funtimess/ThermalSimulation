@@ -2,7 +2,7 @@ using ThermalClasses.PhysicsLaws;
 
 namespace ThermalClasses.QuestionHandling;
 
-public class QuestionHandler
+public class QuestionInterface
 {
     #region Fields
     private int correctQuestions, questionsAnswered, correctStreak, incorrectStreak;
@@ -18,7 +18,7 @@ public class QuestionHandler
     #endregion
 
     #region Methods
-    public QuestionHandler()
+    public QuestionInterface()
     {
         correctQuestions = questionsAnswered = 0;
         correctStreak = incorrectStreak = 0;
@@ -55,38 +55,83 @@ public class QuestionHandler
             if (keyWords[i].Contains("___"))
             {
                 keyWords[i] = keyWords[i].Where(x => x != '_').ToString();
-                double currentNum = rnd.Next(1, 200) * (1 + rnd.NextDouble());
+                double currentNum = Math.Round(rnd.Next(1, 250) * (1 + rnd.NextDouble()), 2);
                 numbers.Add(currentNum);
                 keyWords[i] = currentNum.ToString() + keyWords[i];
             }
         }
 
-        if (keyWords[0].Contains("Volume"))
+        if (CurrentQuestion.questionType.Contains("Volume"))
         {
             CurrentQuestion.SetAnswer(PhysicsEquations.CalcVolume(numbers[0], (int)numbers[2], numbers[1]).ToString());
         }
-        else if (keyWords[0].Contains("Temperature"))
+        else if (CurrentQuestion.questionType.Contains("Temperature"))
         {
             CurrentQuestion.SetAnswer(PhysicsEquations.CalcTemperature(numbers[1], numbers[0], (int)numbers[2]).ToString());
         }
-        else if (keyWords[0].Contains("Pressure"))
+        else if (CurrentQuestion.questionType.Contains("Pressure"))
         {
             CurrentQuestion.SetAnswer(PhysicsEquations.CalcPressure(numbers[0], (int)numbers[2], numbers[1], 4).ToString());
         }
-        else if (keyWords[0].Contains("Moles"))
+        else if (CurrentQuestion.questionType.Contains("Moles"))
         {
             CurrentQuestion.SetAnswer(PhysicsEquations.CalcMoles((int)numbers[0], numbers[1], numbers[2]).ToString());
         }
-        else if (keyWords[0].Contains("Particles"))
+        else if (CurrentQuestion.questionType.Contains("Particles"))
         {
             CurrentQuestion.SetAnswer(PhysicsEquations.CalcParticles((int)numbers[0], numbers[1], numbers[2]).ToString());
+        }
+        else if (CurrentQuestion.questionType.Contains("Proportion"))
+        {
+            if (CurrentQuestion.questionType.Contains('1'))
+            {
+                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionPressure(numbers[1], (int)numbers[0], numbers[2], (int)numbers[0], numbers[3]).ToString());
+            }
+            else if (CurrentQuestion.questionType.Contains('2'))
+            {
+                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionTemperature(numbers[1], (int)numbers[0], numbers[2], numbers[1], (int)numbers[3]).ToString());
+            }
+            else if (CurrentQuestion.questionType.Contains('3'))
+            {
+                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionPressure(numbers[1], (int)numbers[0], numbers[2], (int)numbers[3], numbers[2]).ToString());
+            }
+        }
+        else if (CurrentQuestion.questionType.Contains("VRMS"))
+        {
+            if (CurrentQuestion.questionType.Contains('1'))
+            {
+                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVRMS(numbers[1], numbers[0], (int)numbers[2], numbers[3] * 0.001).ToString());
+            }
+            else if (CurrentQuestion.questionType.Contains('2'))
+            {
+                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVRMS(numbers[0], numbers[1] * 0.001).ToString());
+            }
+        }
+        else if (CurrentQuestion.questionType.Contains("BasicV"))
+        {
+            if (numbers.Count == 2)
+            {
+                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVolume(numbers[0], numbers[1]).ToString());
+            }
+            else
+            {
+                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVolume(numbers[0], numbers[1], numbers[2]).ToString());
+            }
+        }
+        else if (CurrentQuestion.questionType.Contains("BasicM"))
+        {
+            CurrentQuestion.SetAnswer(PhysicsEquations.MolesToNumber(numbers[0]).ToString());
+        }
+        else if (CurrentQuestion.questionType.Contains("BasicP"))
+        {
+            CurrentQuestion.SetAnswer(PhysicsEquations.NumberToMoles((int)numbers[0]).ToString());
         }
 
         keyWords[0] = "";
         CurrentQuestion.question = ListToString(keyWords);
     }
 
-    private string ListToString(string[] input)
+    private static string ListToString(string[] input)
     {
         string output = "";
         for (var i = 0; i < input.Length; i++)
@@ -126,7 +171,7 @@ public class QuestionHandler
     public bool AnswerMathematicalQuestion(double answer)
     {
         questionsAnswered++;
-        bool isCorrect = CurrentQuestion.CheckAnswer(answer, answer * 0.02); // 2% uncertainty
+        bool isCorrect = CurrentQuestion.CheckAnswer(answer, answer * 0.05); // 5% uncertainty
         if (isCorrect)
         {
             incorrectStreak = 0;

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace ThermalClasses.GameObjects.Particles;
+namespace ThermalClasses.GameObjects;
 
 public class NumInput : GameObject
 {

@@ -22,6 +22,7 @@ public class ThermalSim : Game
     private Color hoverColour = Color.Gray;
     private Rectangle renderRectangle;
     private SimulationHandler simulationHandler;
+    private QuestionHandler questionHandler;
     private Button whiteButton, greenButton, orangeButton, cyanButton, yellowButton;
     private List<Button> colourButtonList;
     private List<Color> colourList;
@@ -47,7 +48,13 @@ public class ThermalSim : Game
             BackgroundColour = backgroundColour,
             HoverColour = Color.Gray,
         };
+        questionHandler = new QuestionHandler(this, renderRectangle)
+        {
+            BackgroundColour = backgroundColour,
+            HoverColour = Color.Gray,
+        };
         simulationHandler.Initialize();
+        questionHandler.Initialize();
 
         // Other basic statements used in the Init() function
         IsMouseVisible = true;
@@ -98,6 +105,7 @@ public class ThermalSim : Game
         LoadColours();
         // Calling the LoadContent() methods of my handlers
         simulationHandler.LoadContent();
+        questionHandler.LoadContent();
     }
 
     private void LoadColours()
@@ -179,6 +187,7 @@ public class ThermalSim : Game
     private void ChangeAllPenColour()
     {
         simulationHandler.ChangePenColour(penColour);
+        questionHandler.ChangePenColour(penColour);
         penColourLabel.PenColour = penColour;
     }
     #endregion
@@ -187,6 +196,7 @@ public class ThermalSim : Game
     {
         // Calling the Update methods of my handlers
         simulationHandler.Update(gameTime);
+        questionHandler.Update(gameTime);
 
         for (var i = 0; i < colourButtonList.Count; i++)
         {
@@ -215,6 +225,7 @@ public class ThermalSim : Game
         colourLabel.Draw(_spriteBatch);
         // Calling the Draw methods of my handlers
         simulationHandler.Draw(gameTime, _spriteBatch);
+        questionHandler.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
         _graphics.GraphicsDevice.SetRenderTarget(null);

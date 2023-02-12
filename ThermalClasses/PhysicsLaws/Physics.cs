@@ -87,12 +87,19 @@ public static class PhysicsEquations
     /// <param name="V">Volume</param>
     /// <param name="T">Temperature</param>
     /// <param name="p">Pressure</param>
-    /// <returns></returns>
+    /// <returns>The number of moles in the simulation</returns>
     public static double CalcMoles(int V, double T, double p)
     {
         return p*V/(r*T);
     }
 
+    /// <summary>
+    /// Calculates the number of particles in a given volume, temperature and pressure.
+    /// </summary>
+    /// <param name="V">Volume</param>
+    /// <param name="T">Temperature</param>
+    /// <param name="p">Pressure</param>
+    /// <returns>The number of particles in the simulation</returns>
     public static double CalcParticles(int V, double T, double p)
     {
         return p*V/(k*T);
@@ -140,7 +147,7 @@ public static class PhysicsEquations
     /// <param name="width"></param>
     /// <param name="height"></param>
     /// <param name="length"></param>
-    /// <returns></returns>
+    /// <returns>The volume of the box</returns>
     public static double CalcVolume(double width, double height, double length)
     {
         return width * height * length;
@@ -151,10 +158,52 @@ public static class PhysicsEquations
     /// </summary>
     /// <param name="length"></param>
     /// <param name="area"></param>
-    /// <returns></returns>
+    /// <returns>The volume of the cylinder.</returns>
     public static double CalcVolume(double length, double radius)
     {
         return length * (Math.Pow(radius, 2) * Math.PI);
+    }
+
+    /// <summary>
+    /// Calculates the change in pressure for changing conditions.
+    /// </summary>
+    /// <param name="p1">Initial pressure</param>
+    /// <param name="V1">Initial volume</param>
+    /// <param name="T1">Initial temperature</param>
+    /// <param name="V2">Final volume</param>
+    /// <param name="T2">Final temperature</param>
+    /// <returns>The final pressure</returns>
+    public static double ProportionPressure(double p1, int V1, double T1, int V2, double T2)
+    {
+        return p1 * V1 * T2 / (T1 * V2);
+    }
+
+    /// <summary>
+    /// Calculates the change in temperature for changing conditions.
+    /// </summary>
+    /// <param name="p1">Initial pressure</param>
+    /// <param name="V1">Initial volume</param>
+    /// <param name="T1">Initial temperature</param>
+    /// <param name="p2">Final pressure</param>
+    /// <param name="V2">Final volume</param>
+    /// <returns>The final temperature</returns>
+    public static double ProportionTemperature(double p1, int V1, double T1, double p2, int V2)
+    {
+        return p2 * V2 * T1 / (p1 * V1);
+    }
+
+    /// <summary>
+    /// Calculates the change in volume for changing conditions.
+    /// </summary>
+    /// <param name="p1">Initial pressure</param>
+    /// <param name="V1">Initial volume</param>
+    /// <param name="T1">Initial temperature</param>
+    /// <param name="p2">Final pressure</param>
+    /// <param name="T2">Final pressure</param>
+    /// <returns>The final volume</returns>
+    public static double ProportionVolume(double p1, int V1, double T1, double p2, int T2)
+    {
+        return p1 * V1 * T2 / (T1 * p2);
     }
     #endregion
 }

@@ -1896,20 +1896,6 @@
           "build/netcoreapp2.1/xunit.runner.visualstudio.props": {}
         }
       },
-      "QuestionDatabase/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.Data.Sqlite": "7.0.2",
-          "ThermalClasses": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/QuestionDatabase.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/QuestionDatabase.dll": {}
-        }
-      },
       "ThermalClasses/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -6396,11 +6382,6 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "QuestionDatabase/1.0.0": {
-      "type": "project",
-      "path": "../QuestionDatabase/QuestionDatabase.csproj",
-      "msbuildProject": "../QuestionDatabase/QuestionDatabase.csproj"
-    },
     "ThermalClasses/1.0.0": {
       "type": "project",
       "path": "../ThermalClasses/ThermalClasses.csproj",
@@ -6410,7 +6391,6 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.NET.Test.Sdk >= 17.1.0",
-      "QuestionDatabase >= 1.0.0",
       "ThermalClasses >= 1.0.0",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.1",
@@ -6442,9 +6422,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/QuestionDatabase.csproj": {
-              "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/QuestionDatabase/QuestionDatabase.csproj"
-            },
             "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
               "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj"
             }

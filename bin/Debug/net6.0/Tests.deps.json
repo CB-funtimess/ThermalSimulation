@@ -9,7 +9,6 @@
       "Tests/1.0.0": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "17.1.0",
-          "QuestionDatabase": "1.0.0",
           "ThermalClasses": "1.0.0",
           "coverlet.collector": "3.1.2",
           "xunit": "2.4.1",
@@ -1308,15 +1307,6 @@
         }
       },
       "xunit.runner.visualstudio/2.4.3": {},
-      "QuestionDatabase/1.0.0": {
-        "dependencies": {
-          "Microsoft.Data.Sqlite": "7.0.2",
-          "ThermalClasses": "1.0.0"
-        },
-        "runtime": {
-          "QuestionDatabase.dll": {}
-        }
-      },
       "ThermalClasses/1.0.0": {
         "dependencies": {
           "Microsoft.Data.Sqlite": "7.0.2",
@@ -2041,11 +2031,6 @@
       "sha512": "sha512-kZZSmOmKA8OBlAJaquPXnJJLM9RwQ27H7BMVqfMLUcTi9xHinWGJiWksa3D4NEtz0wZ/nxd2mogObvBgJKCRhQ==",
       "path": "xunit.runner.visualstudio/2.4.3",
       "hashPath": "xunit.runner.visualstudio.2.4.3.nupkg.sha512"
-    },
-    "QuestionDatabase/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "ThermalClasses/1.0.0": {
       "type": "project",

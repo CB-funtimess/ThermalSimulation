@@ -1,0 +1,15 @@
+"filename", "language", "JSON", "C#", "XML", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj", "XML", 0, 0, -1, 0, 0, -1
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/UnitTest1.cs", "C#", 0, 0, 0, 0, 1, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/bin/Debug/net6.0/Tests.deps.json", "JSON", -15, 0, 0, 0, 0, -15
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/Tests.csproj.nuget.dgspec.json", "JSON", -65, 0, 0, 0, 0, -65
+"/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/project.assets.json", "JSON", -23, 0, 0, 0, 0, -23
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/Handler.cs", "C#", 0, 4, 0, 0, 1, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/QuestionHandler.cs", "C#", 0, 1, 0, 0, 0, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs", "C#", 0, -2, 0, 0, 0, -2
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/Physics.cs", "C#", 0, 12, 0, 34, 3, 49
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/Question.cs", "C#", 0, 2, 0, 0, 0, 2
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionDatabase.cs", "C#", 0, 6, 0, 0, 0, 6
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionHandler.cs", "C#", 0, -140, 0, -2, -17, -159
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionInterface.cs", "C#", 0, 166, 0, 2, 17, 185
+"Total", "-", -103, 49, -1, 34, 5, -16
