@@ -47,11 +47,13 @@ public class ThermalSim : Game
         {
             BackgroundColour = backgroundColour,
             HoverColour = Color.Gray,
+            PenColour = Color.White
         };
         questionHandler = new QuestionHandler(this, renderRectangle)
         {
             BackgroundColour = backgroundColour,
             HoverColour = Color.Gray,
+            PenColour = Color.White
         };
         simulationHandler.Initialize();
         questionHandler.Initialize();
@@ -186,8 +188,10 @@ public class ThermalSim : Game
 
     private void ChangeAllPenColour()
     {
-        simulationHandler.ChangePenColour(penColour);
-        questionHandler.ChangePenColour(penColour);
+        simulationHandler.PenColour = penColour;
+        questionHandler.PenColour = penColour;
+        simulationHandler.ChangePenColour();
+        questionHandler.ChangePenColour();
         penColourLabel.PenColour = penColour;
     }
     #endregion

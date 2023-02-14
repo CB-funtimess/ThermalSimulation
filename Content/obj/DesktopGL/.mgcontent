@@ -26,6 +26,7 @@
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/TextInputBox.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/UpButton_Box.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/UpButton.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/QuestionAssets/File.spritefont</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/BlueParticle.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/FixedBox.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/MovingBox.png</File>
@@ -54,6 +55,7 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File>QuestionAssets/SmallArial.spritefont</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

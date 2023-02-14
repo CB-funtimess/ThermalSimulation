@@ -15,6 +15,8 @@ public abstract class Handler
     #region Properties
     public Color BackgroundColour { get; set; }
     public Color HoverColour { get; set; }
+    public Color PenColour { get; set;}
+    public bool Enabled;
     #endregion
 
     #region Methods
@@ -22,6 +24,6 @@ public abstract class Handler
     public abstract void LoadContent();
     public abstract void Update(GameTime gameTime);
     public abstract void Draw(GameTime gameTime, SpriteBatch _spriteBatch);
-    public abstract void ChangePenColour(Color colour);
+    public abstract void ChangePenColour();
     #endregion
 }

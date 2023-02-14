@@ -272,6 +272,13 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/UpButton.png
 
+#begin QuestionAssets/File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:QuestionAssets/File.spritefont;QuestionAssets/SmallArial.spritefont
+
 #begin SimulationAssets/BlueParticle.png
 /importer:TextureImporter
 /processor:TextureProcessor

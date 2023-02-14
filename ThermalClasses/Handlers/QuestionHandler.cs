@@ -13,6 +13,7 @@ public class QuestionHandler : Handler
 {
     #region Fields
     private QuestionInterface questions;
+    private Label scoreLabel;
     private Label questionLabel;
     private Button submitButton;
     private Button resetQuestionButton;
@@ -31,6 +32,9 @@ public class QuestionHandler : Handler
         this.game = game;
         this.renderRectangle = renderRectangle;
         content = game.Content;
+
+        Enabled = true;
+
         DatabaseConnection.InitialiseTable();
         DatabaseConnection.FillTableMathematical();
     }
@@ -46,36 +50,55 @@ public class QuestionHandler : Handler
     {
         Color unclickedColour = Color.White;
 
-        Texture2D outputBox = content.Load<Texture2D>("GeneralAssets/DataBox");
+        SpriteFont smallFont = content.Load<SpriteFont>("QuestionAssets/SmallArial");
+        SpriteFont font = content.Load<SpriteFont>("GeneralAssets/Arial");
 
+        Texture2D outputBox = content.Load<Texture2D>("GeneralAssets/DataBox");
+        Texture2D labelBox = content.Load<Texture2D>("GeneralAssets/LabelBox1");
+
+        // Surrounding box - may need to be moved to game class
         Rectangle surroundRect = new Rectangle(new Point((int)(renderRectangle.Width * 0.73), 0), new Point((int)(renderRectangle.Width * 0.27), (int)(renderRectangle.Height * 0.6)));
         surroundBox = new GameObject(outputBox, unclickedColour, surroundRect);
 
+        // Score label - needs insetting
+        Rectangle scoreRect = new Rectangle(new Point(surroundRect.Right - (int)((surroundRect.Width * 0.1) + 1), 0), new Point((int)(surroundRect.Width * 0.1) + 1, 21));
+        scoreLabel = new Label(labelBox, unclickedColour, scoreRect, font, PenColour)
+        {
+            Text = $"{questions.CorrectQuestions}/{questions.QuestionsAnswered}"
+        };
+
         objects.Add(surroundBox);
+        objects.Add(scoreLabel);
     }
     #endregion
 
     #region Drawing and Updating
     public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
     {
-        for (var i = 0; i < objects.Count; i++)
+        if (Enabled)
         {
-            objects[i].Draw(_spriteBatch);
+            for (var i = 0; i < objects.Count; i++)
+            {
+                objects[i].Draw(_spriteBatch);
+            }
         }
     }
 
     public override void Update(GameTime gameTime)
     {
-        for (var i = 0; i < objects.Count; i++)
+        if (Enabled)
         {
-            objects[i].Update(gameTime);
+            for (var i = 0; i < objects.Count; i++)
+            {
+                objects[i].Update(gameTime);
+            }
         }
     }
     #endregion
 
-    public override void ChangePenColour(Color colour)
+    public override void ChangePenColour()
     {
-        
+
     }
     #endregion
 }
