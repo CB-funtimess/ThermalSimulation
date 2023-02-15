@@ -22,6 +22,7 @@ public class RadioButtons : ObjectCollection
     #region Methods
     public RadioButtons(Texture2D uncheckedTexture, Texture2D checkedTexture, Texture2D labelTexture, Texture2D surroundTexture, Rectangle rect, Vector2 buttonStartPos, string[] text, SpriteFont font, Color baseColour, Color hoverColour, Color penColour, int startIndex)
     {
+        Enabled = true;
         changedIndex = false;
         surround = new Label(surroundTexture, baseColour, rect, font, penColour);
         int numButtons = text.Length;
@@ -48,11 +49,14 @@ public class RadioButtons : ObjectCollection
 
     public override void Draw(SpriteBatch _spriteBatch)
     {
-        surround.Draw(_spriteBatch);
-        for (var i = 0; i < buttons.Count; i++)
+        if (Enabled)
         {
-            labels[i].DrawStringUncentered(_spriteBatch);
-            buttons[i].Draw(_spriteBatch);
+            surround.Draw(_spriteBatch);
+            for (var i = 0; i < buttons.Count; i++)
+            {
+                labels[i].DrawStringUncentered(_spriteBatch);
+                buttons[i].Draw(_spriteBatch);
+            }
         }
     }
 
@@ -79,6 +83,14 @@ public class RadioButtons : ObjectCollection
         {
             buttons[i].PenColour = colour;
             labels[i].PenColour = colour;
+        }
+    }
+
+    public void ChangeText(string[] text)
+    {
+        for (var i = 0; i < labels.Count; i++)
+        {
+            labels[i].Text = text[i];
         }
     }
     #endregion

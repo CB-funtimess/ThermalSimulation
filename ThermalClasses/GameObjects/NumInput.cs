@@ -150,5 +150,10 @@ public class NumInput : GameObject
             _ => 'A',
         };
     }
+
+    public void ClearText()
+    {
+        text = "";
+    }
     #endregion
 }

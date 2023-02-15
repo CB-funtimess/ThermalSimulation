@@ -25,7 +25,7 @@ public class SimulationHandler : Handler
     private SHG spatialHashGrid;
     private Queue<ParticleType> addParticlesQueue;
     private double timeSinceDequeue;
-    #endregion
+    #endregion Particles
     private SimulationBox simulationBox;
     #region GUIObjects
     private List<Button> buttonCollection;
@@ -42,18 +42,18 @@ public class SimulationHandler : Handler
     private RadioButtons keepConstant;
     private CollisionCounter counter;
     private NumInput temperatureInput;
-    #endregion
-    #endregion
+    #endregion GUIObjects
+    #endregion Objects
     private PhysicalConstants constants = new PhysicalConstants();
     private double volume, maxVolume, changeInVolume, minVolume; // Measured in metres cubed
     private double pressure, rmsVelocity, avgMass; // Measured in Kelvin, Pascals, metres per second, kilograms
     private double temperature, minTemperature, maxTemperature; // Measured in Kelvin
     private bool paused;
-    #endregion
+    #endregion Fields
 
     #region Properties
     public int NumParticles => activeParticles.Count;
-    #endregion
+    #endregion Properties
 
     #region Methods
     public SimulationHandler(Game game, Rectangle renderRectangle)
@@ -79,6 +79,7 @@ public class SimulationHandler : Handler
 
     #region Initialisation
 
+    #region Game Object Initialisation
     #region Particle Initialisation
     private void InitialiseParticles()
     {
@@ -108,9 +109,7 @@ public class SimulationHandler : Handler
             Identifier = identifier,
         };
     }
-    #endregion
-
-    #region Game Object Initialisation
+    #endregion Particle Initialisation
     private void InitialiseSimBox()
     {
         Point fixedStart = new(renderRectangle.Left, (int)(renderRectangle.Top + (renderRectangle.Height * 0.15)));
@@ -124,7 +123,7 @@ public class SimulationHandler : Handler
 
         simulationBox = new SimulationBox(fixedBox, movingBox, (int)(renderRectangle.Width * 0.55), 0);
     }
-    #endregion
+    #endregion Game Object Initialisation
 
     public override void Initialize()
     {
@@ -299,7 +298,7 @@ public class SimulationHandler : Handler
         labelCollection.Add(pressureDisp);
         labelCollection.Add(numParticlesDisp);
     }
-    #endregion
+    #endregion Initialisation
 
     #region Updating & Drawing
     // Calls the update method of all objects that need updating (buttons, particles, sliders etc.)
@@ -485,7 +484,7 @@ public class SimulationHandler : Handler
         pressureDisp.Text = $"Pressure: {pressure.ToString("e2", CultureInfo.InvariantCulture)}Pa";
         numParticlesDisp.Text = $"Number of moles: {PhysicsEquations.NumberToMoles(NumParticles, 25).ToString("e2", CultureInfo.InvariantCulture)}mol";
     }
-    #endregion
+    #endregion Particle Updates
 
     // Calls the draw methods of all GameObjects
     public override void Draw(GameTime gameTime, SpriteBatch _spriteBatch)
@@ -537,7 +536,7 @@ public class SimulationHandler : Handler
         keepConstant.ChangePenColour(PenColour);
         temperatureInput.PenColour = PenColour;
     }
-    #endregion
+    #endregion Updating & Drawing
 
     #region Events
     #region Adding Particles
@@ -603,7 +602,7 @@ public class SimulationHandler : Handler
         }
         constants.ChangeParticles = true;
     }
-    #endregion
+    #endregion Adding Particles
 
     #region Removing Particles
     private void RemoveSmallParticles_Click(object sender, EventArgs e)
@@ -639,7 +638,7 @@ public class SimulationHandler : Handler
         }
         constants.ChangeParticles = true;
     }
-    #endregion
+    #endregion Removing Particles
 
     private void PauseSimulation_Click(object sender, EventArgs e)
     {
@@ -706,7 +705,7 @@ public class SimulationHandler : Handler
         float minX = volumeSlider.MinX;
         return (float)(((v - maxVolume) / (changeInVolume / (minX - maxX))) + minX);
     }
-    #endregion
+    #endregion Changing Volume
 
     #region Changing Temperature
     private void IncreaseTemperature_Click(object sender, EventArgs e)
@@ -770,7 +769,7 @@ public class SimulationHandler : Handler
             }
         }
     }
-    #endregion
-    #endregion
-    #endregion
+    #endregion Changing Temperature
+    #endregion Events
+    #endregion Methods
 }

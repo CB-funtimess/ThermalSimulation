@@ -18,6 +18,7 @@ public class Slider : ObjectCollection
 
     public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle position, float scale, Color baseColour, Color penColour)
     {
+        Enabled = true;
         Moveable = true;
         minX = (int)(position.Left + (position.Height * scale / 2));
         maxX = (int)(position.Right - (position.Height * scale / 2));
@@ -34,6 +35,7 @@ public class Slider : ObjectCollection
 
     public Slider(Texture2D buttonTexture, Texture2D hoverTexture, Texture2D labelTexture, SpriteFont font, Rectangle buttonMovement, Rectangle sliderPos, float scale, Color baseColour, Color penColour)
     {
+        Enabled = true;
         Moveable = true;
         minX = (int)(buttonMovement.Left + (buttonMovement.Height * scale / 2));
         maxX = (int)(buttonMovement.Right - (buttonMovement.Height * scale / 2));
@@ -50,15 +52,21 @@ public class Slider : ObjectCollection
 
     public override void Draw(SpriteBatch _spriteBatch)
     {
-        slider.Draw(_spriteBatch);
-        sliderButton.Draw(_spriteBatch);
+        if (Enabled)
+        {
+            slider.Draw(_spriteBatch);
+            sliderButton.Draw(_spriteBatch);
+        }
     }
 
     public override void Update(GameTime gameTime)
     {
-        if (Moveable)
+        if (Enabled)
         {
-            sliderButton.Update(gameTime);
+            if (Moveable)
+            {
+                sliderButton.Update(gameTime);
+            }
         }
     }
 

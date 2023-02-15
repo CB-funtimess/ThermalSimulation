@@ -78,9 +78,3 @@ public class Question
     }
     #endregion
 }
-
-public enum QuestionType
-{
-    MCQ,
-    Mathematical
-}

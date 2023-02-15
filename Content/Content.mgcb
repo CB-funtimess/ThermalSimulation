@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:../../../../Downloads/DataBox.png;GeneralAssets/DataBox.png
 
+#begin ../Assets/GeneralAssets/DownButton_Box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Assets/GeneralAssets/DownButton_Box.png;GeneralAssets/DownButton_Box.png
+
 #begin Colours/CyanColour.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -108,18 +120,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/Button_Unchecked.png
-
-#begin GeneralAssets/DownButton_Box.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:GeneralAssets/DownButton_Box.png
 
 #begin GeneralAssets/DownButton.png
 /importer:TextureImporter
@@ -248,6 +248,18 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/TextInputBox.png
 
+#begin GeneralAssets/TickButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/TickButton.png
+
 #begin GeneralAssets/UpButton_Box.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -278,6 +290,18 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:QuestionAssets/File.spritefont;QuestionAssets/SmallArial.spritefont
+
+#begin QuestionAssets/ScoreBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:QuestionAssets/ScoreBox.png
 
 #begin SimulationAssets/BlueParticle.png
 /importer:TextureImporter
