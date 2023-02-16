@@ -33,9 +33,6 @@ public class QuestionHandler : Handler
         content = game.Content;
 
         Enabled = true;
-
-        DatabaseConnection.InitialiseTable();
-        DatabaseConnection.FillTableMathematical();
     }
 
     #region Initialisation
@@ -49,7 +46,7 @@ public class QuestionHandler : Handler
     {
         Color unclickedColour = Color.White;
 
-        SpriteFont smallFont = content.Load<SpriteFont>("QuestionAssets/SmallArial");
+        SpriteFont smallFont = content.Load<SpriteFont>("GeneralAssets/SmallArial");
         SpriteFont font = content.Load<SpriteFont>("GeneralAssets/Arial");
 
         Texture2D surroundTexture = content.Load<Texture2D>("GeneralAssets/DataBox");
@@ -57,8 +54,11 @@ public class QuestionHandler : Handler
         Texture2D scoreTexture = content.Load<Texture2D>("QuestionAssets/ScoreBox");
         Texture2D tickboxTexture = content.Load<Texture2D>("GeneralAssets/TickButton");
         Texture2D resetTexture = content.Load<Texture2D>("GeneralAssets/ResetButton");
+        Texture2D largeTextInputTexture = content.Load<Texture2D>("GeneralAssets/LargeTextInputBox");
+        Texture2D buttonUnchecked = content.Load<Texture2D>("GeneralAssets/Button_Unchecked");
+        Texture2D buttonChecked = content.Load<Texture2D>("GeneralAssets/Button_Checked");
 
-        // Surrounding box - may need to be moved to game class
+        // Surrounding box
         Rectangle surroundRect = new Rectangle(new Point((int)(renderRectangle.Width * 0.73), 0), new Point((int)(renderRectangle.Width * 0.27), (int)(renderRectangle.Height * 0.6)));
         surroundBox = new GameObject(surroundTexture, unclickedColour, surroundRect);
 
@@ -72,31 +72,46 @@ public class QuestionHandler : Handler
         // Submit button - used to mark a question
         Point buttonSize = new Point(40, 40);
         Rectangle submitRect = new Rectangle(new Point(surroundRect.Right - 20 - buttonSize.X, surroundRect.Bottom - 20 - buttonSize.Y), buttonSize);
-        submitButton = new Button(tickboxTexture, font, submitRect, unclickedColour, PenColour);
+        submitButton = new Button(tickboxTexture, font, submitRect, unclickedColour, PenColour)
+        {
+            HoverColour = HoverColour
+        };
         submitButton.Click += SubmitButton_Click;
 
         // Reset button - used to generate a new question
         Rectangle resetRect = new Rectangle(new Point(submitRect.X - 20 - buttonSize.X, submitRect.Y), buttonSize);
-        resetQuestionButton = new Button(resetTexture, font, resetRect, unclickedColour, PenColour);
+        resetQuestionButton = new Button(resetTexture, font, resetRect, unclickedColour, PenColour)
+        {
+            HoverColour = HoverColour
+        };
         resetQuestionButton.Click += ResetButton_Click;
 
+        // Question label
+        Point questionSize = new Point((int)(surroundRect.Width * 0.85), 80);
+        Rectangle questionRect = new Rectangle(new Point(surroundRect.Center.X - (questionSize.X / 2), surroundRect.Top + 40), questionSize);
+        questionLabel = new Label(labelTexture, unclickedColour, questionRect, font, PenColour);
+
         // Input for mathematical questions
-        Rectangle mathsRect = new Rectangle();
-        mathematical = new NumInput()
+        Point mathsSize = new Point(questionSize.X, (int)(surroundRect.Height * 0.5));
+        Rectangle mathsRect = new Rectangle(new Point(surroundRect.Center.X - (mathsSize.X / 2), questionRect.Bottom + 20), mathsSize);
+        mathematical = new NumInput(largeTextInputTexture, mathsRect, font, unclickedColour, PenColour, "Enter text here...")
         {
-            DefaultText = ""
+            HoverColour = HoverColour
         };
 
         // Input for MCQ
-        Rectangle mcqRect = new Rectangle();
+        Rectangle mcqRect = mathsRect;
         correctMCQIndex = 0;
-        multipleChoice = new RadioButtons();
+        multipleChoice = new RadioButtons(buttonUnchecked, buttonChecked, labelTexture, surroundTexture, mcqRect, new Vector2(mcqRect.Left + 20, mcqRect.Top + 20), new string[]{"", "", "", ""}, font, unclickedColour, HoverColour, PenColour, 0);
 
         objects.Add(surroundBox);
         objects.Add(scoreLabel);
+        objects.Add(submitButton);
+        objects.Add(resetQuestionButton);
+        objects.Add(questionLabel);
+        objects.Add(mathematical);
 
         NewQuestion();
-
     }
     #endregion Initialisation
 
@@ -109,6 +124,7 @@ public class QuestionHandler : Handler
             {
                 objects[i].Draw(_spriteBatch);
             }
+            multipleChoice.Draw(_spriteBatch);
         }
     }
 
@@ -120,13 +136,18 @@ public class QuestionHandler : Handler
             {
                 objects[i].Update(gameTime);
             }
+            multipleChoice.Update(gameTime);
         }
     }
     #endregion Drawing and Updating
 
     public override void ChangePenColour()
     {
-
+        multipleChoice.ChangePenColour(PenColour);
+        scoreLabel.PenColour = PenColour;
+        mathematical.PenColour = PenColour;
+        multipleChoice.ChangePenColour(PenColour);
+        questionLabel.PenColour = PenColour;
     }
 
     public void NewQuestion()
@@ -143,7 +164,7 @@ public class QuestionHandler : Handler
         {
             multipleChoice.Enabled = true;
             mathematical.Enabled = false;
-            // More logic here
+
             string[] listQuestions = {
                 questions.CurrentQuestion.Answer,
                 questions.CurrentQuestion.first,
@@ -205,7 +226,10 @@ public class QuestionHandler : Handler
 
     public void ResetButton_Click(object sender, EventArgs e)
     {
+        correctMCQIndex = 0;
+        multipleChoice.ChangeIndex(correctMCQIndex);
         NewQuestion();
+        surroundBox.ChangeColourMask(Color.White);
     }
     #endregion Events
     #endregion Methods

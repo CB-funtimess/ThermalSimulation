@@ -195,7 +195,12 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/runtimes/win-x64/native/e_sqlite3.dll
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/runtimes/win-x86/native/e_sqlite3.dll
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/QuestionAssets/File.xnb
-/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/QuestionAssets/SmallArial.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/QuestionAssets/ScoreBox.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/DownButton_Box.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/TickButton.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/LargeTextInputBox.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/Switch_Left.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/Switch_Right.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/SmallArial.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/Switch_GreenLeft.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/Switch_RedRight.xnb

@@ -93,5 +93,12 @@ public class RadioButtons : ObjectCollection
             labels[i].Text = text[i];
         }
     }
+
+    public void ChangeIndex(int index)
+    {
+        buttons[checkedIndex].Uncheck();
+        checkedIndex = index;
+        buttons[checkedIndex].Check();
+    }
     #endregion
 }

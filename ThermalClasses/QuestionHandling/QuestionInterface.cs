@@ -20,6 +20,7 @@ public class QuestionInterface
     #region Methods
     public QuestionInterface()
     {
+        rnd = new Random();
         correctQuestions = questionsAnswered = 0;
         correctStreak = incorrectStreak = 0;
         difficulty = 0.4d;
@@ -54,24 +55,25 @@ public class QuestionInterface
         {
             if (keyWords[i].Contains("___"))
             {
-                keyWords[i] = keyWords[i].Where(x => x != '_').ToString();
+                keyWords[i] = keyWords[i].Remove(0, 3);
                 double currentNum = Math.Round(rnd.Next(1, 250) * (1 + rnd.NextDouble()), 2);
                 numbers.Add(currentNum);
                 keyWords[i] = currentNum.ToString() + keyWords[i];
             }
         }
 
+        // ALL EQUATIONS USED NEED MODIFYING TO USE n NOT N
         if (CurrentQuestion.questionType.Contains("Volume"))
         {
-            CurrentQuestion.SetAnswer(PhysicsEquations.CalcVolume(numbers[0], (int)numbers[2], numbers[1]).ToString());
+            CurrentQuestion.SetAnswer(PhysicsEquations.CalcVolume(numbers[0], numbers[2], numbers[1]).ToString());
         }
         else if (CurrentQuestion.questionType.Contains("Temperature"))
         {
-            CurrentQuestion.SetAnswer(PhysicsEquations.CalcTemperature(numbers[1], numbers[0], (int)numbers[2]).ToString());
+            CurrentQuestion.SetAnswer(PhysicsEquations.CalcTemperature(numbers[1], numbers[0], numbers[2]).ToString());
         }
         else if (CurrentQuestion.questionType.Contains("Pressure"))
         {
-            CurrentQuestion.SetAnswer(PhysicsEquations.CalcPressure(numbers[0], (int)numbers[2], numbers[1], 4).ToString());
+            CurrentQuestion.SetAnswer(PhysicsEquations.CalcPressure(numbers[0], numbers[2], numbers[1]).ToString());
         }
         else if (CurrentQuestion.questionType.Contains("Moles"))
         {
@@ -100,7 +102,7 @@ public class QuestionInterface
         {
             if (CurrentQuestion.questionType.Contains('1'))
             {
-                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVRMS(numbers[1], numbers[0], (int)numbers[2], numbers[3] * 0.001).ToString());
+                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVRMS(numbers[1], numbers[0], numbers[2], numbers[3] * 0.001).ToString());
             }
             else if (CurrentQuestion.questionType.Contains('2'))
             {
@@ -111,11 +113,11 @@ public class QuestionInterface
         {
             if (numbers.Count == 2)
             {
-                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVolume(numbers[0], numbers[1]).ToString());
+                CurrentQuestion.SetAnswer(PhysicsEquations.CalcCylinderVolume(numbers[0], numbers[1]).ToString());
             }
             else
             {
-                CurrentQuestion.SetAnswer(PhysicsEquations.CalcVolume(numbers[0], numbers[1], numbers[2]).ToString());
+                CurrentQuestion.SetAnswer(PhysicsEquations.CalcBoxVolume(numbers[0], numbers[1], numbers[2]).ToString());
             }
         }
         else if (CurrentQuestion.questionType.Contains("BasicM"))

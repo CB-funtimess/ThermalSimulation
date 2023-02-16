@@ -152,6 +152,18 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/LabelBox1.png
 
+#begin GeneralAssets/LargeTextInputBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/LargeTextInputBox.png
+
 #begin GeneralAssets/PauseButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -236,6 +248,61 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/SliderFrame2.png
 
+#begin GeneralAssets/SmallArial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:GeneralAssets/SmallArial.spritefont
+
+#begin GeneralAssets/Switch_GreenLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_GreenLeft.png
+
+#begin GeneralAssets/Switch_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_Left.png
+
+#begin GeneralAssets/Switch_RedRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_RedRight.png
+
+#begin GeneralAssets/Switch_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_Right.png
+
 #begin GeneralAssets/TextInputBox.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -283,13 +350,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/UpButton.png
-
-#begin QuestionAssets/File.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:QuestionAssets/File.spritefont;QuestionAssets/SmallArial.spritefont
 
 #begin QuestionAssets/ScoreBox.png
 /importer:TextureImporter

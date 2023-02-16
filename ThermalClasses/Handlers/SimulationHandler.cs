@@ -31,14 +31,14 @@ public class SimulationHandler : Handler
     private List<Button> buttonCollection;
     private List<UpDownButton> upDownCollection;
     private List<Label> labelCollection;
-    private CheckButton pauseButton;
+    private CheckButton pauseButton, enableCounter;
     private Button resetButton;
     private UpDownButton smallParticleControl;
     private UpDownButton largeParticleControl;
     private UpDownButton temperatureControl;
     private Button add50Small, add50Large, remove50Small, remove50Large;
     private Slider volumeSlider;
-    private Label dataBox, volumeDisp, temperatureDisp, pressureDisp, numParticlesDisp, constantLabel;
+    private Label dataBox, volumeDisp, temperatureDisp, pressureDisp, numParticlesDisp, constantLabel, toggleCounterLabel;
     private RadioButtons keepConstant;
     private CollisionCounter counter;
     private NumInput temperatureInput;
@@ -142,6 +142,8 @@ public class SimulationHandler : Handler
     public override void LoadContent()
     {
         SpriteFont font = content.Load<SpriteFont>("GeneralAssets/Arial");
+        SpriteFont smallFont = content.Load<SpriteFont>("GeneralAssets/SmallArial");
+
         Texture2D upTexture = content.Load<Texture2D>("GeneralAssets/UpButton");
         Texture2D downTexture = content.Load<Texture2D>("GeneralAssets/DownButton");
         Texture2D upDownLabelTexture = content.Load<Texture2D>("GeneralAssets/LabelBox1");
@@ -157,6 +159,8 @@ public class SimulationHandler : Handler
         Texture2D textInputTexture = content.Load<Texture2D>("GeneralAssets/TextInputBox");
         Texture2D upTextureBox = content.Load<Texture2D>("GeneralAssets/UpButton_Box");
         Texture2D downTextureBox = content.Load<Texture2D>("GeneralAssets/DownButton_Box");
+        Texture2D toggleLeft = content.Load<Texture2D>("GeneralAssets/Switch_GreenLeft");
+        Texture2D toggleRight = content.Load<Texture2D>("GeneralAssets/Switch_RedRight");
 
         Color unclickedColour = Color.White;
         // Particle Initialisation
@@ -277,11 +281,27 @@ public class SimulationHandler : Handler
         volumeSlider.sliderButton.Click.Invoke(new object(), EventArgs.Empty);
 
         // Collision counter
-        Rectangle counterPos = new Rectangle(new Point(300, 0), new Point(126, 100));
-        counter = new CollisionCounter(counterPos, upDownLabelTexture, upDownLabelTexture, pauseTexture, playTexture, resetTexture, unclickedColour, HoverColour, PenColour, font);
+        Rectangle counterRect = new Rectangle(new Point(300, 0), new Point(126, 100));
+        counter = new CollisionCounter(counterRect, upDownLabelTexture, upDownLabelTexture, pauseTexture, playTexture, resetTexture, unclickedColour, HoverColour, PenColour, font);
+        // Label to tell user to toggle counter
+        Point labelSize = new Point(125, 15);
+        Rectangle counterLabelRect = new Rectangle(new Point(counterRect.Center.X - (labelSize.X / 2), counterRect.Bottom + 10), labelSize);
+        toggleCounterLabel = new Label(upDownLabelTexture, unclickedColour, counterLabelRect, smallFont, PenColour)
+        {
+            Text = "Toggle Collision Counter"
+        };
+        // Collision counter toggle
+        Point toggleSize = new Point(40, 20);
+        Rectangle toggleRect = new Rectangle(new Point(counterRect.Center.X - (toggleSize.X / 2), counterLabelRect.Bottom + 5), toggleSize);
+        enableCounter = new CheckButton(toggleLeft, toggleRight, font, toggleRect, unclickedColour, PenColour)
+        {
+            HoverColour = HoverColour
+        };
+        enableCounter.Click += ToggleCounter_Click;
 
         // Putting most objects into a list for easier updating and drawing (some must be updated manually)
         buttonCollection.Add(pauseButton);
+        buttonCollection.Add(enableCounter);
         buttonCollection.Add(resetButton);
         buttonCollection.Add(remove50Small);
         buttonCollection.Add(remove50Large);
@@ -297,6 +317,7 @@ public class SimulationHandler : Handler
         labelCollection.Add(temperatureDisp);
         labelCollection.Add(pressureDisp);
         labelCollection.Add(numParticlesDisp);
+        labelCollection.Add(toggleCounterLabel);
     }
     #endregion Initialisation
 
@@ -539,6 +560,10 @@ public class SimulationHandler : Handler
     #endregion Updating & Drawing
 
     #region Events
+    private void ToggleCounter_Click(object sender, EventArgs e)
+    {
+        counter.Enabled = !counter.Enabled;
+    }
     #region Adding Particles
     private void AddSmallParticles_Click(object sender, EventArgs e)
     {

@@ -84,6 +84,43 @@ public static class DatabaseConnection
         InputMathQuestions(questions);
     }
 
+    public static void FillTableMCQ()
+    {
+        string[] mcqs = {
+            "A gas occupies a volume V. Its particles have a root mean square speed (crms) of u. The gas is compressed at constant temperature to a volume 0.5V. What is the root mean square speed of the gas particles after compression?",
+            "Which is not an assumption about gas particles in the kinetic theory model for a gas?",
+            "Two flasks X and Y are filled with an ideal gas and are connected by a tube of negligible volume compared to that of the flasks. The volume of X is twice the volume of Y. X is held at a temperature of 150 K and Y is held at a temperature of 300 K. What is the ratio (mass of gas in X) / (mass of gas in Y)?",
+            "The average mass of an air molecule is 4.8 x 10^-26 kg. What is the mean square speed of an air molecule at 750 K?",
+            "What assumptions are made about the size of molecules in the kinetic theory model?",
+            "What is the formula to convert a temperature from degrees, C, to kelvin, K?",
+            "Which value is the correct representation of absolute 0?",
+            "What is the correct formula for the work done on a gas to change its volume under constant pressure?",
+            "What is the change in momentum for a particle of mass m colliding with a wall with a velocity of u?",
+            "What does the kinetic theory model assume about the internal energy of particles?",
+            "Why is the root mean square value of speed used in kinetic theory equations, as opposed to the mean?"
+        };
+        string[,] answers = new string[,]{
+            {"u", "u/2", "2u", "4u"},
+            {"They travel between the container walls in negligibly short times.", "They collide elastically with the container walls", "They have negligible size compared to the distance between the container walls.", "They collide with the container walls in negligibly short times."},
+            {"4", "8", "0.125", "0.25"},
+            {"6.5x10^5 m2 s-2", "3.3x10^5 m2 s-2", "4.3x10^5 m2 s-2", "8.7x10^5 m2 s-2"},
+            {"The size is negligible.", "The size is massive.", "The size doesn't matter.", "Molecules are as large as the container"},
+            {"K = C + 273", "K = C - 273", "K = C", "K = (C - 32) * 5/9"},
+            {"-273 degrees C", "-273K", "0 degrees C", "273K"},
+            {"Work done = pressure * change in volume", "Work done = temperature", "Work done = pressure * change in temperature", "Work done = volume * temperature"},
+            {"2mu", "mu", "-mu", "-2mu"},
+            {"There is no potential energy.", "There is no kinetic energy.", "Kinetic energy = potential energy.", "There is no internal energy."},
+            {"Components of velocity could be negative so mean would not be representative.", "Root mean square is more accurate.", "Root mean square gives a negative answer", "Root mean square is more useful for random motion."}
+        };
+        double[] difficulties = {0.5, 0.5, 0.8, 0.3, 0.0, 0.0, 0.0, 0.4, 0.5, 0.5, 0.9};
+        Question[] questions = new Question[mcqs.Length];
+        for (var i = 0; i < questions.Length; i++)
+        {
+            questions[i] = new Question(mcqs[i], "Kinetic Theory", QuestionType.MCQ, difficulties[i], answers[i,0], answers[i,1], answers[i,2], answers[i,3]);
+        }
+        InputMCQuestions(questions);
+    }
+
     public static void InputMathQuestion(Question question)
     {
         string connectionString = new SqliteConnectionStringBuilder(connection)
@@ -285,7 +322,7 @@ public static class DatabaseConnection
             command.CommandText =
             @"SELECT * FROM questions
             WHERE difficulty <= $maxdifficulty
-            AD type = 'MCQ'";
+            AND type = 'MCQ'";
             command.Parameters.AddWithValue("$maxdifficulty", maxDifficulty);
 
             using (var reader = command.ExecuteReader())

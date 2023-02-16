@@ -23,6 +23,19 @@ public static class PhysicsEquations
     }
 
     /// <summary>
+    /// Calculates the root mean square velocity according to the pressure, volume, and number of particles
+    /// </summary>
+    /// <param name="p">Pressure</param>
+    /// <param name="V">Volume</param>
+    /// <param name="n">Number of moles</param>
+    /// <param name="avgMass">Average mass of particles</param>
+    /// <returns>The root mean square velocity</returns>
+    public static double CalcVRMS(double p, double V, double n, double avgMass)
+    {
+        return Math.Sqrt(3 * p * V / (n * r / k * avgMass));
+    }
+
+    /// <summary>
     /// Calculates the root mean square velocity according to the temperature
     /// </summary>
     /// <param name="T">Temperature</param>
@@ -47,6 +60,18 @@ public static class PhysicsEquations
     }
 
     /// <summary>
+    /// Calculates the volume using V = nRT/p
+    /// </summary>
+    /// <param name="p">Pressure</param>
+    /// <param name="n">Number of moles</param>
+    /// <param name="T"></param>
+    /// <returns></returns>
+    public static double CalcVolume(double p, double n, double T)
+    {
+        return n * r * T / p;
+    }
+
+    /// <summary>
     /// Calculates the pressure using p = NkT/V
     /// </summary>
     /// <param name="V">Volume</param>
@@ -59,6 +84,18 @@ public static class PhysicsEquations
     }
 
     /// <summary>
+    /// Calculates the pressure using p = nRT/V
+    /// </summary>
+    /// <param name="V">Volume</param>
+    /// <param name="n">Number of moles</param>
+    /// <param name="T">Temperature</param>
+    /// <returns>The pressure of the simulation</returns>
+    public static double CalcPressure(double V, double n, double T)
+    {
+        return n * r * T / V;
+    }
+
+    /// <summary>
     /// Calculates the temperature using T = pV/Nk
     /// </summary>
     /// <param name="p">Pressure</param>
@@ -68,6 +105,18 @@ public static class PhysicsEquations
     public static double CalcTemperature(double p, double V, int N)
     {
         return p * V / (N * k);
+    }
+
+    /// <summary>
+    /// Calculates the temperature using T = pV/nR
+    /// </summary>
+    /// <param name="p">Pressure</param>
+    /// <param name="V">Volume</param>
+    /// <param name="n">Number of moles</param>
+    /// <returns>The temperature of the simulation</returns>
+    public static double CalcTemperature(double p, double V, double n)
+    {
+        return p * V / (n * r);
     }
 
     /// <summary>
@@ -90,7 +139,7 @@ public static class PhysicsEquations
     /// <returns>The number of moles in the simulation</returns>
     public static double CalcMoles(int V, double T, double p)
     {
-        return p*V/(r*T);
+        return p * V / (r * T);
     }
 
     /// <summary>
@@ -102,7 +151,7 @@ public static class PhysicsEquations
     /// <returns>The number of particles in the simulation</returns>
     public static double CalcParticles(int V, double T, double p)
     {
-        return p*V/(k*T);
+        return p * V / (k * T);
     }
 
     /// <summary>
@@ -115,6 +164,11 @@ public static class PhysicsEquations
         return RoundDouble(N * k / r, roundTo);
     }
 
+    /// <summary>
+    /// Returns the number of moles from a given number of particles using n = Nk/R
+    /// </summary>
+    /// <param name="N">Number of particles</param>
+    /// <returns>The number of moles</returns>
     public static double NumberToMoles(int N)
     {
         return N * k / r;
@@ -148,7 +202,7 @@ public static class PhysicsEquations
     /// <param name="height"></param>
     /// <param name="length"></param>
     /// <returns>The volume of the box</returns>
-    public static double CalcVolume(double width, double height, double length)
+    public static double CalcBoxVolume(double width, double height, double length)
     {
         return width * height * length;
     }
@@ -159,7 +213,7 @@ public static class PhysicsEquations
     /// <param name="length"></param>
     /// <param name="area"></param>
     /// <returns>The volume of the cylinder.</returns>
-    public static double CalcVolume(double length, double radius)
+    public static double CalcCylinderVolume(double length, double radius)
     {
         return length * (Math.Pow(radius, 2) * Math.PI);
     }
