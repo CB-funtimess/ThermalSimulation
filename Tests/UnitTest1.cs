@@ -3,7 +3,7 @@ using ThermalClasses.PhysicsLaws;
 using Xunit;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ThermalClasses.QuestionHandling;
+using ThermalClasses.QuestionClasses;
 
 namespace Tests;
 

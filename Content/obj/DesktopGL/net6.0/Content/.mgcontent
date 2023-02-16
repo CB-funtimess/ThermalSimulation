@@ -33,6 +33,8 @@
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/TickButton.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/UpButton_Box.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GeneralAssets/UpButton.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GraphAssets/GraphCross.png</File>
+    <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/GraphAssets/GraphFrame.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/QuestionAssets/ScoreBox.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/BlueParticle.png</File>
     <File>/home/kayla/Documents/GitHub/ThermalSimulation/Content/SimulationAssets/FixedBox.png</File>
@@ -51,6 +53,8 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>GeneralAssets/Arial.spritefont</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

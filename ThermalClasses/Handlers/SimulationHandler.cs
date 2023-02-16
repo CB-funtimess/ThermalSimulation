@@ -127,7 +127,7 @@ public class SimulationHandler : Handler
 
     public override void Initialize()
     {
-        const int listSize = 500;
+        const int listSize = 250;
         smallParticles = new Polygon[listSize];
         largeParticles = new Polygon[listSize];
         buttonCollection = new List<Button>();

@@ -1,6 +1,6 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
-namespace ThermalClasses.QuestionHandling;
+namespace ThermalClasses.QuestionClasses;
 
 public static class DatabaseConnection
 {

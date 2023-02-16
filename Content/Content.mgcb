@@ -351,6 +351,30 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/UpButton.png
 
+#begin GraphAssets/GraphCross.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GraphAssets/GraphCross.png
+
+#begin GraphAssets/GraphFrame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GraphAssets/GraphFrame.png
+
 #begin QuestionAssets/ScoreBox.png
 /importer:TextureImporter
 /processor:TextureProcessor

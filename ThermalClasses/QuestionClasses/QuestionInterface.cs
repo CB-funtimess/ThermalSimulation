@@ -1,6 +1,6 @@
 using ThermalClasses.PhysicsLaws;
 
-namespace ThermalClasses.QuestionHandling;
+namespace ThermalClasses.QuestionClasses;
 
 public class QuestionInterface
 {

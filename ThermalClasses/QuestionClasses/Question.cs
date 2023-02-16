@@ -1,4 +1,4 @@
-namespace ThermalClasses.QuestionHandling;
+namespace ThermalClasses.QuestionClasses;
 
 public class Question
 {
