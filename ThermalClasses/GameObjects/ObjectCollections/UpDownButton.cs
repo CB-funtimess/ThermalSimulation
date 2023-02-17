@@ -17,12 +17,14 @@ public class UpDownButton : ObjectCollection
     #region Methods
     public UpDownButton(Button upButton, Button downButton, Label textLabel)
     {
+        Enabled = true;
         UpButton = upButton;
         DownButton = downButton;
         this.textLabel = textLabel;
     }
     public UpDownButton(Texture2D upTexture, Texture2D downTexture, Texture2D labelTexture, Rectangle size, string labelText, SpriteFont font, Color penColour, Color baseColour, Color hoverColour)
     {
+        Enabled = true;
         Point buttonSize = new Point(size.Height, size.Height); // Buttons are square textures
         DownButton = new Button(downTexture, font, new Vector2(size.X + (buttonSize.X / 2), size.Y + (buttonSize.Y / 2)), baseColour, Color.White, buttonSize)
         {
@@ -43,15 +45,21 @@ public class UpDownButton : ObjectCollection
 
     public override void Draw(SpriteBatch _spriteBatch)
     {
-        DownButton.Draw(_spriteBatch);
-        textLabel.Draw(_spriteBatch);
-        UpButton.Draw(_spriteBatch);
+        if (Enabled)
+        {
+            DownButton.Draw(_spriteBatch);
+            textLabel.Draw(_spriteBatch);
+            UpButton.Draw(_spriteBatch);
+        }
     }
 
     public override void Update(GameTime gameTime)
     {
-        UpButton.Update(gameTime);
-        DownButton.Update(gameTime);
+        if (Enabled)
+        {
+            UpButton.Update(gameTime);
+            DownButton.Update(gameTime);
+        }
     }
 
     public override void ChangePenColour(Color colour)

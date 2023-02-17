@@ -21,12 +21,13 @@ public class CollisionCounter : ObjectCollection
     #region Methods
     public CollisionCounter(Rectangle position, Texture2D containerTexture, Texture2D textLabelTexture, Texture2D uncheckedStartTexture, Texture2D checkedStartTexture, Texture2D resetTexture, Color backgroundColour, Color hoverColour, Color penColour, SpriteFont font)
     {
+        Enabled = true;
         NoCollisions = 0;
         isCounting = true;
         containerLabel = new Label(containerTexture, backgroundColour, position, font, penColour);
-        Point textDimensions = new Point(position.Width * 3/4, (int)(position.Height * 0.35));
-        Point buttonDimensions = new Point(36,36);
-        Rectangle textRect = new Rectangle(new Point(position.Center.X - (textDimensions.X / 2), position.Y * 1/4), textDimensions);
+        Point textDimensions = new Point(position.Width * 3 / 4, (int)(position.Height * 0.35));
+        Point buttonDimensions = new Point(36, 36);
+        Rectangle textRect = new Rectangle(new Point(position.Center.X - (textDimensions.X / 2), position.Y * 1 / 4), textDimensions);
         textLabel = new Label(textLabelTexture, backgroundColour, textRect, font, penColour)
         {
             Text = $"{NoCollisions}",
@@ -47,20 +48,26 @@ public class CollisionCounter : ObjectCollection
 
     public override void Draw(SpriteBatch _spriteBatch)
     {
-        containerLabel.Draw(_spriteBatch);
-        textLabel.Draw(_spriteBatch);
-        startCount.Draw(_spriteBatch);
-        resetButton.Draw(_spriteBatch);
+        if (Enabled)
+        {
+            containerLabel.Draw(_spriteBatch);
+            textLabel.Draw(_spriteBatch);
+            startCount.Draw(_spriteBatch);
+            resetButton.Draw(_spriteBatch);
+        }
     }
 
     public override void Update(GameTime gameTime)
     {
-        if (isCounting)
+        if (Enabled)
         {
-            textLabel.Text = $"{NoCollisions}";
+            if (isCounting)
+            {
+                textLabel.Text = $"{NoCollisions}";
+            }
+            resetButton.Update(gameTime);
+            startCount.Update(gameTime);
         }
-        resetButton.Update(gameTime);
-        startCount.Update(gameTime);
     }
 
     public override void ChangePenColour(Color penColour)

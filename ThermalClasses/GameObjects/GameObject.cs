@@ -67,5 +67,10 @@ public class GameObject
     {
         position.X = xValue;
     }
+
+    public void ChangeColourMask(Color colour)
+    {
+        this.colour = colour;
+    }
     #endregion
 }

@@ -1,0 +1,11 @@
+"A gas occupies a volume V. Its particles have a root mean square speed (crms) of u. The gas is compressed at constant temperature to a volume 0.5V. What is the root mean square speed of the gas particles after compression?" Ans: u (3) Difficulty: 0.5
+"Which is not an assumption about gas particles in the kinetic theory model for a gas?" Ans: "They travel between the container walls in negligibly short times." (11) Difficulty: 0.5
+"Two flasks X and Y are filled with an ideal gas and are connected by a tube of negligible volume compared to that of the flasks. The volume of X is twice the volume of Y. X is held at a temperature of 150 K and Y is held at a temperature of 300 K. What is the ratio (mass of gas in X) / (mass of gas in Y)?" Ans: 4 (14) Difficulty: 0.8
+"The average mass of an air molecule is 4.8 × 10–26 kg. What is the mean square speed of an air molecule at 750 K?" Ans: 6.5 × 105 m2 s–2 (15) Diffiulty: 0.3
+"What assumptions are made about the size of molecules in the kinetic theory model?" Ans: "The size is negligible" (17a) Difficulty: 0.0
+"What is the formula to convert a temperature from degrees, C, to kelvin, K?" Ans: "K = C + 273" Difficulty: 0.0
+"Which value is the correct representation of absolute 0?" Ans: -273 degrees C Difficulty: 0.0
+"What is the correct formula for the work done on a gas to change its volume under constant pressure?" Ans: Work done = p * change in V Difficulty: 0.4
+"What is the change in momentum for a particle of mass m colliding with a wall with a velocity of u?" Ans: 2mu Difficulty: 0.5
+"What does the kinetic theory model assume about the internal energy of particles?" Ans: "There is no potential energy" Difficulty: 0.5
+"Why is the root mean square value of speed used in kinetic theory equations, as opposed to the mean?" Ans: "Components of velocity could be negative so mean would not be representative" Difficulty: 0.9

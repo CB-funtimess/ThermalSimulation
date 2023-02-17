@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace ThermalClasses.GameObjects.Particles;
+namespace ThermalClasses.GameObjects;
 
 public class NumInput : GameObject
 {
@@ -13,6 +13,8 @@ public class NumInput : GameObject
     private MouseState mouseState;
     private SpriteFont font;
     private string text;
+    private Color drawnColour;
+    private Color selectedColour;
     #endregion
 
     #region Properties
@@ -24,8 +26,9 @@ public class NumInput : GameObject
     #endregion
 
     #region Methods
-    public NumInput(Texture2D texture, Rectangle position, SpriteFont font, Color colour, Color penColour, string defaultText) : base(texture, colour, position)
+    public NumInput(Texture2D texture, Rectangle position, SpriteFont font, Color colour, Color penColour, string defaultText, Color selectedColour) : base(texture, colour, position)
     {
+        this.selectedColour = selectedColour;
         DefaultText = defaultText;
         PenColour = penColour;
         text = defaultText;
@@ -39,12 +42,17 @@ public class NumInput : GameObject
         {
             if (isHovering)
             {
-                _spriteBatch.Draw(texture, ObjectRectangle, HoverColour);
+                drawnColour = HoverColour;
+            }
+            else if(selected)
+            {
+                drawnColour = selectedColour;
             }
             else
             {
-                _spriteBatch.Draw(texture, ObjectRectangle, colour);
+                drawnColour = colour;
             }
+            _spriteBatch.Draw(texture, ObjectRectangle, drawnColour);
 
             if (String.IsNullOrEmpty(text) && !selected)
             {
@@ -146,8 +154,14 @@ public class NumInput : GameObject
             Keys.D9 => '9',
             Keys.Decimal => '.',
             Keys.E => 'E',
+            Keys.OemMinus => '-',
             _ => 'A',
         };
+    }
+
+    public void ClearText()
+    {
+        text = "";
     }
     #endregion
 }

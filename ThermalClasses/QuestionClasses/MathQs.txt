@@ -1,0 +1,14 @@
+Volume: A box under a pressure of ___Pa has a temperature of ___K and is filled with ___mol of gas. Calculate the volume.
+Temperature: A box of volume ___m^3 under a pressure of ___Pa contains ___mol of gas. Calculate the temperature.
+Pressure: A box of volume ___m^3 under a temperature of ___K contains ___mol of gas. Calculate the pressure.
+Moles: A box of volume ___m^3 under a temperature of ___K has a pressure of ___Pa. Calculate the number of moles of gas in the box.
+Particles: A box of volume ___m^3 under a temperature of ___K has a pressure of ___Pa. Calculate the number gas particles in the box.
+Proportion1: A box with a constant volume of ___m^3 has a pressure of ___Pa has an initial temperature of ___K. It is heated to ___K. What is the new pressure?
+Proportion2: A box with a variable volume of ___m^3 has a constant pressure of ___Pa and an initial temperature of ___K. The volume is changed to ___m^3. What is the new temperature?
+Proportion3: A box with an initial volume of ___m^3 and pressure of ___Pa is kept under a constant temperature of ___K. The volume is slowly changed to ___m^3. What is the new pressure?
+VRMS1: A box with a volume of ___m^3 has a pressure of ___Pa. It contains ___mol of gas, each with a mass of ___g. Calculate the root mean square velocity of the particles.
+VRMS2: A box is kept at a temperature of ___K, and each particle has a mass of ___g. Calculate the root mean square velocity of the particles.
+BasicV: A box has a length of ___m , a width of ___m and a height of ___m. Calculate the volume of the box.
+BasicV: A cylinder has a length of ___m and a circular radius of ___m. Calculate the volume of the cylinder.
+BasicM: Convert ___mol of gas into the number of particles.
+BasicP: Convert ___ particles into the number of moles.

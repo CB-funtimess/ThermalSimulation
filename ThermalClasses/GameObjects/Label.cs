@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace ThermalClasses.GameObjects;
 public class Label : GameObject // This class is a label with a box texture
@@ -27,8 +28,25 @@ public class Label : GameObject // This class is a label with a box texture
         // Drawing Text centred to the box
         if (!String.IsNullOrEmpty(Text))
         {
-            var x = ObjectRectangle.X + (ObjectRectangle.Width / 2) - (font.MeasureString(Text).X / 2);
-            var y = ObjectRectangle.Y + (ObjectRectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
+            // Position text correctly so that it does not overrun x bounds
+            for (int i = 0; i < Text.Length; i++)
+            {
+                if (font.MeasureString(Text[..i]).X >= ObjectRectangle.Width - 2)
+                {
+                    // Backtrack to make the closest space a new line
+                    for (int j = i-1; j > 0; j--)
+                    {
+                        if (Text[j].Equals(' '))
+                        {
+                            Text = string.Concat(Text.AsSpan(0,j), "\n", Text.AsSpan(j+1));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            float x = ObjectRectangle.X + (ObjectRectangle.Width / 2) - (font.MeasureString(Text).X / 2);
+            float y = ObjectRectangle.Y + (ObjectRectangle.Height / 2) - (font.MeasureString(Text).Y / 2);
 
             _spriteBatch.DrawString(font, Text, new Vector2(x, y), PenColour);
         }

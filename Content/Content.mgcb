@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:../../../../Downloads/DataBox.png;GeneralAssets/DataBox.png
 
+#begin ../Assets/GeneralAssets/DownButton_Box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Assets/GeneralAssets/DownButton_Box.png;GeneralAssets/DownButton_Box.png
+
 #begin Colours/CyanColour.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -109,18 +121,6 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/Button_Unchecked.png
 
-#begin GeneralAssets/DownButton_Box.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:GeneralAssets/DownButton_Box.png
-
 #begin GeneralAssets/DownButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -151,6 +151,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/LabelBox1.png
+
+#begin GeneralAssets/LargeTextInputBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/LargeTextInputBox.png
 
 #begin GeneralAssets/PauseButton.png
 /importer:TextureImporter
@@ -236,6 +248,61 @@
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/SliderFrame2.png
 
+#begin GeneralAssets/SmallArial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:GeneralAssets/SmallArial.spritefont
+
+#begin GeneralAssets/Switch_GreenLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_GreenLeft.png
+
+#begin GeneralAssets/Switch_Left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_Left.png
+
+#begin GeneralAssets/Switch_RedRight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_RedRight.png
+
+#begin GeneralAssets/Switch_Right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/Switch_Right.png
+
 #begin GeneralAssets/TextInputBox.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -247,6 +314,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/TextInputBox.png
+
+#begin GeneralAssets/TickButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GeneralAssets/TickButton.png
 
 #begin GeneralAssets/UpButton_Box.png
 /importer:TextureImporter
@@ -271,6 +350,54 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GeneralAssets/UpButton.png
+
+#begin GraphAssets/GraphCross.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GraphAssets/GraphCross.png
+
+#begin GraphAssets/GraphFrame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GraphAssets/GraphFrame.png
+
+#begin GraphAssets/PlusButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GraphAssets/PlusButton.png
+
+#begin QuestionAssets/ScoreBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:QuestionAssets/ScoreBox.png
 
 #begin SimulationAssets/BlueParticle.png
 /importer:TextureImporter
