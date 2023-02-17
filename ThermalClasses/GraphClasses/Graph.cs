@@ -11,58 +11,96 @@ public class Graph : ObjectCollection
     #region Fields
     private GameObject graphFrame;
     private List<GameObject> crosses;
-    private List<Vector2> relativeCrossPositions;
+    private List<Vector2> crossPositions;
     private double minX, maxX, minY, maxY;
     private Texture2D lineTexture, crossTexture;
+    private Color unclickedColour;
+    private string xName, yName;
+    private Vector2 xNameStart, yNameStart;
+    private SpriteFont font;
     #endregion Fields
 
     #region Properties
+    public Color PenColour;
     #endregion Properties
 
     #region Methods
-    public Graph(Texture2D graphTexture, Texture2D crossTexture, Rectangle graphRect, Color unclickedColour)
+    public Graph(Texture2D graphTexture, Texture2D crossTexture, Rectangle graphRect, Color unclickedColour, Vector2 maxCrossPos, Vector2 minCrossPos, string xName, string yName, SpriteFont font)
     {
+        Enabled = true;
         graphFrame = new GameObject(graphTexture, unclickedColour, graphRect);
 
         this.crossTexture = crossTexture;
+        this.unclickedColour = unclickedColour;
+
+        minX = minCrossPos.X;
+        minY = minCrossPos.Y;
+        maxX = maxCrossPos.X;
+        maxY = maxCrossPos.Y;
+
+        this.xName = xName;
+        this.yName = yName;
+
+        this.font = font;
 
         crosses = new List<GameObject>();
-        relativeCrossPositions = new List<Vector2>();
+        crossPositions = new List<Vector2>();
+
+        xNameStart = new Vector2(graphRect.Center.X - (font.MeasureString(xName).X / 2), graphRect.Bottom);
+        yNameStart = new Vector2(graphRect.Left - 10, graphRect.Center.Y - (font.MeasureString(yName).Y / 2));
     }
 
     public override void Draw(SpriteBatch _spriteBatch)
     {
-        graphFrame.Draw(_spriteBatch);
-        for (int i = 0; i < crosses.Count; i++)
+        if (Enabled)
         {
-            crosses[i].Draw(_spriteBatch);
-        }
-        if (crosses.Count > 1)
-        {
-            Vector2[] minMax = CalcLOBF();
-            DrawLOBF(_spriteBatch, minMax[0], minMax[1]);
+            _spriteBatch.DrawString(font, xName, xNameStart, PenColour);
+            Vector2 yOrigin = new Vector2(font.MeasureString(yName).X / 2, font.MeasureString(yName).Y / 2);//yNameStart.X, yNameStart.Y + (font.MeasureString(yName).Y / 2));
+            _spriteBatch.DrawString(font, yName, yNameStart, PenColour, (float)(Math.PI / 2), yOrigin, 1.0f, SpriteEffects.None, 1.0f);
+
+            graphFrame.Draw(_spriteBatch);
+            for (int i = 0; i < crosses.Count; i++)
+            {
+                crosses[i].Draw(_spriteBatch);
+            }
+            if (crosses.Count > 1)
+            {
+                Vector2[] minMax = CalcLOBF();
+                DrawLOBF(_spriteBatch, minMax[0], minMax[1]);
+            }
         }
     }
 
     public override void Update(GameTime gameTime)
     {
-        graphFrame.Update(gameTime);
-        for (int i = 0; i < crosses.Count; i++)
+        if (Enabled)
         {
-            crosses[i].Update(gameTime);
+            graphFrame.Update(gameTime);
+            for (int i = 0; i < crosses.Count; i++)
+            {
+                crosses[i].Update(gameTime);
+            }
         }
     }
 
-    public override void ChangePenColour(Color penColour)
-    {
-        throw new NotImplementedException();
-    }
+    public override void ChangePenColour(Color penColour) { }
 
-    public void AddPoint(Vector2 values)
+    public void AddPoint(Vector2 value)
     {
-        // Scale values appropriate to size of frame
+        // Add value to relative list provided it is within the conditions
+        if (value.X >= minX && value.X <= maxX && value.Y >= minY && value.Y <= maxY && !crossPositions.Contains(value))
+        {
+            // Scale value appropriate to size of frame
+            Vector2 scaledValue = new Vector2((float)(graphFrame.ObjectRectangle.Width / (maxX - minX) * (value.X - minX)), (float)(graphFrame.ObjectRectangle.Height / (maxY - minY) * (value.Y - minY)));
 
-        // Add leftbottom point to value to make sure it's 
+            // Add leftbottom point to value to make sure it's drawn in the correct position
+            Vector2 actualPosition = new Vector2(scaledValue.X + graphFrame.ObjectRectangle.Left, graphFrame.ObjectRectangle.Bottom - scaledValue.Y);
+
+            // Creating new cross
+            GameObject cross = new GameObject(crossTexture, actualPosition, Color.Red, new Point(10, 10));
+            crosses.Add(cross);
+            crossPositions.Add(actualPosition);
+        }
     }
 
     // Calculates the line of best fit using the least square method
@@ -73,8 +111,8 @@ public class Graph : ObjectCollection
         xMean = yMean = 0;
         for (int i = 0; i < crosses.Count; i++)
         {
-            xMean += relativeCrossPositions[i].X;
-            yMean += relativeCrossPositions[i].Y;
+            xMean += crossPositions[i].X;
+            yMean += crossPositions[i].Y;
         }
         xMean /= crosses.Count;
         yMean /= crosses.Count;
@@ -84,58 +122,67 @@ public class Graph : ObjectCollection
         double bottomSum = 0;
         for (int i = 0; i < crosses.Count; i++)
         {
-            topSum += (relativeCrossPositions[i].X - xMean) * (relativeCrossPositions[i].Y - yMean);
-            bottomSum += Math.Pow((relativeCrossPositions[i].X - xMean), 2);
+            topSum += (crossPositions[i].X - xMean) * (crossPositions[i].Y - yMean);
+            bottomSum += Math.Pow(crossPositions[i].X - xMean, 2);
         }
         double gradient = topSum / bottomSum;
         Vector2 yIntercept = new Vector2(0, (float)(yMean - (gradient * xMean)));
 
         // Finding minimum and maximum x points
-        float minX = float.MaxValue;
-        float maxX = float.MinValue;
+        float pointMinX = float.MaxValue;
+        float pointMaxX = float.MinValue;
         for (int i = 0; i < crosses.Count; i++)
         {
-            if (relativeCrossPositions[i].X > maxX)
+            if (crossPositions[i].X > pointMaxX)
             {
-                maxX = relativeCrossPositions[i].X;
+                pointMaxX = crossPositions[i].X;
             }
-            if (relativeCrossPositions[i].X < minX)
+            if (crossPositions[i].X < pointMinX)
             {
-                minX = relativeCrossPositions[i].X;
+                pointMinX = crossPositions[i].X;
             }
         }
 
         // Finding corresponding y positions
-        Vector2 minPosition = new Vector2(minX, (float)((gradient * minX) + yIntercept.Y));
-        Vector2 maxPosition = new Vector2(minX, (float)((gradient * maxX) + yIntercept.Y));
+        Vector2 minCrossPos = new Vector2(pointMinX, (float)((gradient * pointMinX) + yIntercept.Y));
+        Vector2 maxCrossPos = new Vector2(pointMaxX, (float)((gradient * pointMaxX) + yIntercept.Y));
 
-        return new Vector2[]{minPosition, maxPosition};
+        return new Vector2[] { minCrossPos, maxCrossPos };
     }
 
     public void DrawLOBF(SpriteBatch _spriteBatch, Vector2 startPoint, Vector2 endPoint)
     {
-        const int thickness = 5;
+        const int thickness = 2;
 
         int distance = (int)Vector2.Distance(startPoint, endPoint);
-        lineTexture = new Texture2D(_spriteBatch.GraphicsDevice, distance, thickness);
-
-        var data = new Color[distance * thickness];
-        for (int i = 0; i < data.Length; i++)
+        if (distance > 0)
         {
-            data[i] = Color.White;
+            lineTexture = new Texture2D(_spriteBatch.GraphicsDevice, distance, thickness);
+
+            var data = new Color[distance * thickness];
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = Color.White;
+            }
+            lineTexture.SetData(data);
+
+            // Rotate about middle of line
+            float rotation = (float)Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X);
+            Vector2 origin = new Vector2(0, thickness / 2);
+
+            _spriteBatch.Draw(lineTexture, startPoint, null, Color.White, rotation, origin, 1.0f, SpriteEffects.None, 1.0f);
         }
-        lineTexture.SetData(data);
+    }
 
-        // Rotate about middle of line
-        float rotation = (float)Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X);
-        Vector2 origin = new Vector2(0, thickness / 2);
-
-        _spriteBatch.Draw(lineTexture, startPoint, null, Color.White, rotation, origin, 1.0f, SpriteEffects.None, 1.0f);
+    public void ClearPoints()
+    {
+        crosses.Clear();
+        crossPositions.Clear();
     }
 
     public void Dispose()
     {
-        lineTexture.Dispose();
+        lineTexture?.Dispose();
     }
     #endregion Methods
 }

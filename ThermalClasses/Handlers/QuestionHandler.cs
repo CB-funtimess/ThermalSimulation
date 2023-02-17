@@ -44,8 +44,6 @@ public class QuestionHandler : Handler
 
     public override void LoadContent()
     {
-        Color unclickedColour = Color.White;
-
         SpriteFont smallFont = content.Load<SpriteFont>("GeneralAssets/SmallArial");
         SpriteFont font = content.Load<SpriteFont>("GeneralAssets/Arial");
 
@@ -60,11 +58,11 @@ public class QuestionHandler : Handler
 
         // Surrounding box
         Rectangle surroundRect = new Rectangle(new Point((int)(renderRectangle.Width * 0.73), 0), new Point((int)(renderRectangle.Width * 0.27), (int)(renderRectangle.Height * 0.6)));
-        surroundBox = new GameObject(surroundTexture, unclickedColour, surroundRect);
+        surroundBox = new GameObject(surroundTexture, UnclickedColour, surroundRect);
 
         // Score label - needs insetting
-        Rectangle scoreRect = new Rectangle(new Point(surroundRect.Right - (int)(surroundRect.Width * 0.1)-1, 0), new Point((int)(surroundRect.Width * 0.1) + 1, 21));
-        scoreLabel = new Label(scoreTexture, unclickedColour, scoreRect, font, PenColour)
+        Rectangle scoreRect = new Rectangle(new Point(surroundRect.Right - (int)(surroundRect.Width * 0.1)-10, 0), new Point((int)(surroundRect.Width * 0.1) + 10, 21));
+        scoreLabel = new Label(scoreTexture, UnclickedColour, scoreRect, font, PenColour)
         {
             Text = $"{questions.CorrectQuestions}/{questions.QuestionsAnswered}"
         };
@@ -72,7 +70,7 @@ public class QuestionHandler : Handler
         // Submit button - used to mark a question
         Point buttonSize = new Point(40, 40);
         Rectangle submitRect = new Rectangle(new Point(surroundRect.Right - 20 - buttonSize.X, surroundRect.Bottom - 20 - buttonSize.Y), buttonSize);
-        submitButton = new Button(tickboxTexture, font, submitRect, unclickedColour, PenColour)
+        submitButton = new Button(tickboxTexture, font, submitRect, UnclickedColour, PenColour)
         {
             HoverColour = HoverColour
         };
@@ -80,7 +78,7 @@ public class QuestionHandler : Handler
 
         // Reset button - used to generate a new question
         Rectangle resetRect = new Rectangle(new Point(submitRect.X - 20 - buttonSize.X, submitRect.Y), buttonSize);
-        resetQuestionButton = new Button(resetTexture, font, resetRect, unclickedColour, PenColour)
+        resetQuestionButton = new Button(resetTexture, font, resetRect, UnclickedColour, PenColour)
         {
             HoverColour = HoverColour
         };
@@ -89,12 +87,12 @@ public class QuestionHandler : Handler
         // Question label
         Point questionSize = new Point((int)(surroundRect.Width * 0.85), 80);
         Rectangle questionRect = new Rectangle(new Point(surroundRect.Center.X - (questionSize.X / 2), surroundRect.Top + 40), questionSize);
-        questionLabel = new Label(labelTexture, unclickedColour, questionRect, font, PenColour);
+        questionLabel = new Label(labelTexture, UnclickedColour, questionRect, font, PenColour);
 
         // Input for mathematical questions
         Point mathsSize = new Point(questionSize.X, (int)(surroundRect.Height * 0.5));
         Rectangle mathsRect = new Rectangle(new Point(surroundRect.Center.X - (mathsSize.X / 2), questionRect.Bottom + 20), mathsSize);
-        mathematical = new NumInput(largeTextInputTexture, mathsRect, font, unclickedColour, PenColour, "Enter text here...")
+        mathematical = new NumInput(largeTextInputTexture, mathsRect, font, UnclickedColour, PenColour, "Enter text here...", Color.Gold)
         {
             HoverColour = HoverColour
         };
@@ -102,7 +100,7 @@ public class QuestionHandler : Handler
         // Input for MCQ
         Rectangle mcqRect = mathsRect;
         correctMCQIndex = 0;
-        multipleChoice = new RadioButtons(buttonUnchecked, buttonChecked, labelTexture, surroundTexture, mcqRect, new Vector2(mcqRect.Left + 20, mcqRect.Top + 20), new string[]{"", "", "", ""}, font, unclickedColour, HoverColour, PenColour, 0);
+        multipleChoice = new RadioButtons(buttonUnchecked, buttonChecked, labelTexture, surroundTexture, mcqRect, new Vector2(mcqRect.Left + 20, mcqRect.Top + 20), new string[]{"", "", "", ""}, font, UnclickedColour, HoverColour, PenColour, 0);
 
         objects.Add(surroundBox);
         objects.Add(scoreLabel);

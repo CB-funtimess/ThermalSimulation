@@ -206,3 +206,4 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GeneralAssets/Switch_RedRight.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GraphAssets/GraphCross.xnb
 /home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GraphAssets/GraphFrame.xnb
+/home/kayla/Documents/GitHub/ThermalSimulation/bin/Debug/net6.0/Content/GraphAssets/PlusButton.xnb

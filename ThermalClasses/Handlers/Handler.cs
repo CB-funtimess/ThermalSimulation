@@ -14,8 +14,9 @@ public abstract class Handler
 
     #region Properties
     public Color BackgroundColour { get; set; }
+    public Color UnclickedColour { get; set; }
     public Color HoverColour { get; set; }
-    public Color PenColour { get; set;}
+    public Color PenColour { get; set; }
     public bool Enabled;
     #endregion
 

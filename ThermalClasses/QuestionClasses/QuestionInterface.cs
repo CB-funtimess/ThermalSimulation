@@ -129,7 +129,6 @@ public class QuestionInterface
             CurrentQuestion.SetAnswer(PhysicsEquations.NumberToMoles((int)numbers[0]).ToString());
         }
 
-        keyWords[0] = "";
         CurrentQuestion.question = ListToString(keyWords);
     }
 
@@ -152,22 +151,30 @@ public class QuestionInterface
         double lowerDifficulty = difficulty * (1 / 4d);
         double upperDifficulty = difficulty - (difficulty * (1 / 4d));
 
+        List<Question> modifiedList = new(input);
         if (Streak < -3) // Pick lower quarter of questions
         {
-            input = input.Where(x => x.difficulty <= lowerDifficulty).ToList();
+            modifiedList = modifiedList.Where(x => x.difficulty <= lowerDifficulty).ToList();
         }
         else if (Streak > 3) // Pick upper quarter of questions
         {
-            input = input.Where(x => x.difficulty >= upperDifficulty).ToList();
+            modifiedList = modifiedList.Where(x => x.difficulty >= upperDifficulty).ToList();
         }
         else // Choose middle 50% of questions
         {
-            input = input.Where(x => x.difficulty > lowerDifficulty && x.difficulty < upperDifficulty).ToList();
+            modifiedList = modifiedList.Where(x => x.difficulty > lowerDifficulty && x.difficulty < upperDifficulty).ToList();
         }
 
         // Choose a random question from the resulting list
         Random rnd = new Random();
-        return input[rnd.Next(input.Count)];
+        if (modifiedList.Count > 0)
+        {
+            return modifiedList[rnd.Next(modifiedList.Count)];
+        }
+        else
+        {
+            return input[rnd.Next(input.Count)];
+        }
     }
 
     public bool AnswerMathematicalQuestion(double answer)
