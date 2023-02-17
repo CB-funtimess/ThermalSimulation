@@ -268,7 +268,7 @@ public class SimulationHandler : Handler
         temperatureControl.UpButton.Click += IncreaseTemperature_Click;
 
         Rectangle temperatureInputRect = new Rectangle(new Point(temperatureButtonRect.X - particleControlSize.X, temperatureButtonRect.Y), particleControlSize);
-        temperatureInput = new NumInput(textInputTexture, temperatureInputRect, font, UnclickedColour, PenColour, "Enter a temperature in Kelvin:", Color.Gold)
+        temperatureInput = new NumInput(textInputTexture, temperatureInputRect, font, UnclickedColour, PenColour, "Enter a temperature (K):", Color.Gold)
         {
             HoverColour = HoverColour
         };
