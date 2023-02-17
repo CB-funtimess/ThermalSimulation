@@ -1,0 +1,55 @@
+Date : 2023-02-17 16:10:34
+Directory : /home/kayla/Documents/GitHub/ThermalSimulation
+Total : 19 files,  566 codes, 65 comments, 69 blanks, all 700 lines
+
+Languages
++--------------------------+------------+------------+------------+------------+------------+
+| language                 | files      | code       | comment    | blank      | total      |
++--------------------------+------------+------------+------------+------------+------------+
+| C#                       |         18 |        486 |         57 |         61 |        604 |
+| MonoGame Content Builder |          1 |         80 |          8 |          8 |         96 |
++--------------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                           |         19 |        566 |         65 |         69 |        700 |
+| . (Files)                                                                                                   |          1 |         59 |          0 |          6 |         65 |
+| Content                                                                                                     |          1 |         80 |          8 |          8 |         96 |
+| ThermalClasses                                                                                              |         17 |        427 |         57 |         55 |        539 |
+| ThermalClasses/GameObjects                                                                                  |          3 |         29 |          2 |          2 |         33 |
+| ThermalClasses/GameObjects (Files)                                                                          |          2 |         23 |          2 |          1 |         26 |
+| ThermalClasses/GameObjects/ObjectCollections                                                                |          1 |          6 |          0 |          1 |          7 |
+| ThermalClasses/GraphClasses                                                                                 |          1 |        150 |         10 |         29 |        189 |
+| ThermalClasses/Handlers                                                                                     |          4 |        188 |         10 |         19 |        217 |
+| ThermalClasses/PhysicsLaws                                                                                  |          1 |         16 |         34 |          4 |         54 |
+| ThermalClasses/QuestionClasses                                                                              |          4 |        559 |         32 |         64 |        655 |
+| ThermalClasses/QuestionHandling                                                                             |          4 |       -515 |        -31 |        -63 |       -609 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------+--------------------------+------------+------------+------------+------------+
+| filename                                                                                                    | language                 | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+--------------------------+------------+------------+------------+------------+
+| /home/kayla/Documents/GitHub/ThermalSimulation/Content/Content.mgcb                                         | MonoGame Content Builder |         80 |          8 |          8 |         96 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs                                                     | C#                       |         59 |          0 |          6 |         65 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Label.cs                          | C#                       |         15 |          2 |          1 |         18 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/NumInput.cs                       | C#                       |          8 |          0 |          0 |          8 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/ObjectCollections/RadioButtons.cs | C#                       |          6 |          0 |          1 |          7 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GraphClasses/Graph.cs                         | C#                       |        150 |         10 |         29 |        189 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/GraphHandler.cs                      | C#                       |        139 |          8 |         20 |        167 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/Handler.cs                           | C#                       |          1 |          0 |          0 |          1 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/QuestionHandler.cs                   | C#                       |         24 |          0 |         -2 |         22 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs                 | C#                       |         24 |          2 |          1 |         27 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/Physics.cs                        | C#                       |         16 |         34 |          4 |         54 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/Question.cs                   | C#                       |         45 |         28 |          7 |         80 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionDatabase.cs           | C#                       |        304 |          1 |         37 |        342 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionInterface.cs          | C#                       |        204 |          3 |         19 |        226 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionType.cs               | C#                       |          6 |          0 |          1 |          7 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/Question.cs                  | C#                       |        -45 |        -28 |         -7 |        -80 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionDatabase.cs          | C#                       |       -268 |         -1 |        -36 |       -305 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionInterface.cs         | C#                       |       -196 |         -2 |        -19 |       -217 |
+| /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionType.cs              | C#                       |         -6 |          0 |         -1 |         -7 |
+| Total                                                                                                       |                          |        566 |         65 |         69 |        700 |
++-------------------------------------------------------------------------------------------------------------+--------------------------+------------+------------+------------+------------+

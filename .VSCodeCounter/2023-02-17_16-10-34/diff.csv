@@ -1,0 +1,21 @@
+"filename", "language", "MonoGame Content Builder", "C#", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/Content/Content.mgcb", "MonoGame Content Builder", 80, 0, 8, 8, 96
+"/home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs", "C#", 0, 59, 0, 6, 65
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/Label.cs", "C#", 0, 15, 2, 1, 18
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/NumInput.cs", "C#", 0, 8, 0, 0, 8
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/ObjectCollections/RadioButtons.cs", "C#", 0, 6, 0, 1, 7
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GraphClasses/Graph.cs", "C#", 0, 150, 10, 29, 189
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/GraphHandler.cs", "C#", 0, 139, 8, 20, 167
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/Handler.cs", "C#", 0, 1, 0, 0, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/QuestionHandler.cs", "C#", 0, 24, 0, -2, 22
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs", "C#", 0, 24, 2, 1, 27
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/Physics.cs", "C#", 0, 16, 34, 4, 54
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/Question.cs", "C#", 0, 45, 28, 7, 80
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionDatabase.cs", "C#", 0, 304, 1, 37, 342
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionInterface.cs", "C#", 0, 204, 3, 19, 226
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionType.cs", "C#", 0, 6, 0, 1, 7
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/Question.cs", "C#", 0, -45, -28, -7, -80
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionDatabase.cs", "C#", 0, -268, -1, -36, -305
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionInterface.cs", "C#", 0, -196, -2, -19, -217
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionHandling/QuestionType.cs", "C#", 0, -6, 0, -1, -7
+"Total", "-", 80, 486, 65, 69, 700
