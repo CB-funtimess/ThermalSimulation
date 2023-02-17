@@ -137,7 +137,7 @@ public static class PhysicsEquations
     /// <param name="T">Temperature</param>
     /// <param name="p">Pressure</param>
     /// <returns>The number of moles in the simulation</returns>
-    public static double CalcMoles(int V, double T, double p)
+    public static double CalcMoles(double V, double T, double p)
     {
         return p * V / (r * T);
     }
@@ -149,7 +149,7 @@ public static class PhysicsEquations
     /// <param name="T">Temperature</param>
     /// <param name="p">Pressure</param>
     /// <returns>The number of particles in the simulation</returns>
-    public static double CalcParticles(int V, double T, double p)
+    public static double CalcParticles(double V, double T, double p)
     {
         return p * V / (k * T);
     }
@@ -227,7 +227,7 @@ public static class PhysicsEquations
     /// <param name="V2">Final volume</param>
     /// <param name="T2">Final temperature</param>
     /// <returns>The final pressure</returns>
-    public static double ProportionPressure(double p1, int V1, double T1, int V2, double T2)
+    public static double ProportionPressure(double p1, double V1, double T1, double V2, double T2)
     {
         return p1 * V1 * T2 / (T1 * V2);
     }
@@ -241,23 +241,9 @@ public static class PhysicsEquations
     /// <param name="p2">Final pressure</param>
     /// <param name="V2">Final volume</param>
     /// <returns>The final temperature</returns>
-    public static double ProportionTemperature(double p1, int V1, double T1, double p2, int V2)
+    public static double ProportionTemperature(double p1, double V1, double T1, double p2, double V2)
     {
         return p2 * V2 * T1 / (p1 * V1);
-    }
-
-    /// <summary>
-    /// Calculates the change in volume for changing conditions.
-    /// </summary>
-    /// <param name="p1">Initial pressure</param>
-    /// <param name="V1">Initial volume</param>
-    /// <param name="T1">Initial temperature</param>
-    /// <param name="p2">Final pressure</param>
-    /// <param name="T2">Final pressure</param>
-    /// <returns>The final volume</returns>
-    public static double ProportionVolume(double p1, int V1, double T1, double p2, int T2)
-    {
-        return p1 * V1 * T2 / (T1 * p2);
     }
     #endregion
 }

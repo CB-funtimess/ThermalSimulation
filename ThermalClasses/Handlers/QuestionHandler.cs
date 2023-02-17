@@ -22,9 +22,6 @@ public class QuestionHandler : Handler
     private int correctMCQIndex;
     #endregion
 
-    #region Properties
-    #endregion
-
     #region Methods
     public QuestionHandler(Game game, Rectangle renderRectangle)
     {

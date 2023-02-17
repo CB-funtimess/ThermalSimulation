@@ -77,25 +77,25 @@ public class QuestionInterface
         }
         else if (CurrentQuestion.questionType.Contains("Moles"))
         {
-            CurrentQuestion.SetAnswer(PhysicsEquations.CalcMoles((int)numbers[0], numbers[1], numbers[2]).ToString());
+            CurrentQuestion.SetAnswer(PhysicsEquations.CalcMoles(numbers[0], numbers[1], numbers[2]).ToString());
         }
         else if (CurrentQuestion.questionType.Contains("Particles"))
         {
-            CurrentQuestion.SetAnswer(PhysicsEquations.CalcParticles((int)numbers[0], numbers[1], numbers[2]).ToString());
+            CurrentQuestion.SetAnswer(PhysicsEquations.CalcParticles(numbers[0], numbers[1], numbers[2]).ToString());
         }
         else if (CurrentQuestion.questionType.Contains("Proportion"))
         {
             if (CurrentQuestion.questionType.Contains('1'))
             {
-                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionPressure(numbers[1], (int)numbers[0], numbers[2], (int)numbers[0], numbers[3]).ToString());
+                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionPressure(numbers[1], numbers[0], numbers[2], numbers[0], numbers[3]).ToString());
             }
             else if (CurrentQuestion.questionType.Contains('2'))
             {
-                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionTemperature(numbers[1], (int)numbers[0], numbers[2], numbers[1], (int)numbers[3]).ToString());
+                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionTemperature(numbers[1], numbers[0], numbers[2], numbers[1], numbers[3]).ToString());
             }
             else if (CurrentQuestion.questionType.Contains('3'))
             {
-                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionPressure(numbers[1], (int)numbers[0], numbers[2], (int)numbers[3], numbers[2]).ToString());
+                CurrentQuestion.SetAnswer(PhysicsEquations.ProportionPressure(numbers[1], numbers[0], numbers[2], numbers[3], numbers[2]).ToString());
             }
         }
         else if (CurrentQuestion.questionType.Contains("VRMS"))
