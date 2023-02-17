@@ -85,8 +85,8 @@ public class ThermalSim : Game
     private void InitializeRenderTarget()
     {
         // My preferred screen ratio: 16:9
-        windowWidth = 1920;//GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-        windowHeight = 1080;//GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        windowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+        windowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         _graphics.PreferredBackBufferHeight = windowHeight; // Values laptop screen: 1200, monitor: 1080
         _graphics.PreferredBackBufferWidth = windowWidth; // Values laptop screen: 1920, monitor: 1920
         _graphics.ApplyChanges();
