@@ -126,7 +126,7 @@ public class Graph : ObjectCollection
             bottomSum += Math.Pow(crossPositions[i].X - xMean, 2);
         }
         double gradient = topSum / bottomSum;
-        Vector2 yIntercept = new Vector2(0, (float)(yMean - (gradient * xMean)));
+        float yIntercept = (float)(yMean - (gradient * xMean));
 
         // Finding minimum and maximum x points
         float pointMinX = float.MaxValue;
@@ -144,8 +144,8 @@ public class Graph : ObjectCollection
         }
 
         // Finding corresponding y positions
-        Vector2 minCrossPos = new Vector2(pointMinX, (float)((gradient * pointMinX) + yIntercept.Y));
-        Vector2 maxCrossPos = new Vector2(pointMaxX, (float)((gradient * pointMaxX) + yIntercept.Y));
+        Vector2 minCrossPos = new Vector2(pointMinX, (float)((gradient * pointMinX) + yIntercept));
+        Vector2 maxCrossPos = new Vector2(pointMaxX, (float)((gradient * pointMaxX) + yIntercept));
 
         return new Vector2[] { minCrossPos, maxCrossPos };
     }

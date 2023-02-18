@@ -43,7 +43,7 @@ public class ThermalSim : Game
     protected override void Initialize()
     {
         Window.Title = "Thermal Simulation";
-        
+
         InitializeRenderTarget();
         objectList = new List<GameObject>();
         colourList = new List<Color>();

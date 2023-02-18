@@ -179,7 +179,6 @@ public class QuestionInterface
 
     public bool AnswerMathematicalQuestion(double answer)
     {
-        questionsAnswered++;
         bool isCorrect = CurrentQuestion.CheckAnswer(answer, answer * 0.05); // 5% uncertainty
         AnswerQuestion(isCorrect);
         return isCorrect;
@@ -187,7 +186,6 @@ public class QuestionInterface
 
     public bool AnswerMultipleChoiceQuestion(int index, int correctIndex)
     {
-        questionsAnswered++;
         bool isCorrect = correctIndex == index;
         AnswerQuestion(isCorrect);
         return isCorrect;
@@ -195,6 +193,7 @@ public class QuestionInterface
 
     private void AnswerQuestion(bool isCorrect)
     {
+        questionsAnswered++;
         if (isCorrect)
         {
             incorrectStreak = 0;

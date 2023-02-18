@@ -204,7 +204,6 @@ public class QuestionHandler : Handler
         }
         else if (questions.CurrentQuestion.type == QuestionType.MCQ)
         {
-            // Do something here
             correct = questions.AnswerMultipleChoiceQuestion(multipleChoice.CheckedIndex, correctMCQIndex);
         }
         scoreLabel.Text = $"{questions.CorrectQuestions}/{questions.QuestionsAnswered}";
