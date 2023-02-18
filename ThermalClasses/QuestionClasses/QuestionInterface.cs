@@ -41,12 +41,12 @@ public class QuestionInterface
 
     private void GenerateMCQ()
     {
-        CurrentQuestion = GenerateQuestion(DatabaseConnection.GetMCQs(difficulty));
+        CurrentQuestion = GetQuestion(DatabaseConnection.GetMCQs(difficulty));
     }
 
     private void GenerateMathematicalQuestion()
     {
-        CurrentQuestion = GenerateQuestion(DatabaseConnection.GetMathematicalQs(difficulty));
+        CurrentQuestion = GetQuestion(DatabaseConnection.GetMathematicalQs(difficulty));
         // Assign random values to question
 
         List<double> numbers = new();
@@ -146,7 +146,7 @@ public class QuestionInterface
         return output;
     }
 
-    private Question GenerateQuestion(List<Question> input)
+    private Question GetQuestion(List<Question> input)
     {
         double lowerDifficulty = difficulty * (1 / 4d);
         double upperDifficulty = difficulty - (difficulty * (1 / 4d));
