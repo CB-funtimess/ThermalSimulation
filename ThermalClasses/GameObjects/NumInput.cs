@@ -56,7 +56,10 @@ public class NumInput : GameObject
 
             if (String.IsNullOrEmpty(text) && !selected)
             {
-                text = DefaultText;
+                if (!String.IsNullOrEmpty(DefaultText))
+                {
+                    text = DefaultText;
+                }
             }
 
             if (!String.IsNullOrEmpty(text))
