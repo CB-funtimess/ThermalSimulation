@@ -29,7 +29,7 @@ public class ThermalSim : Game
     private List<Color> colourList;
     private Label penColourLabel, colourLabel, graphToggleLabel, questionsToggleLabel;
     private CheckButton graphQuestionsToggle;
-    Color unclickedColour = Color.White;
+    private Color unclickedColour = Color.White;
     #endregion
 
     #region Methods

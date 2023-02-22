@@ -148,14 +148,14 @@ public class GraphHandler : Handler
     }
 
     #region Events
-    public void AddPoint_Click(object sender, EventArgs e)
+    private void AddPoint_Click(object sender, EventArgs e)
     {
         pressureTemp.AddPoint(new Vector2((float)Temperature, (float)Pressure));
         pressureInvVolume.AddPoint(new Vector2((float)(1/Volume), (float)Pressure));
         volumeTemp.AddPoint(new Vector2((float)Temperature, (float)Volume));
     }
 
-    public void ResetGraphs_Click(object sender, EventArgs e)
+    private void ResetGraphs_Click(object sender, EventArgs e)
     {
         for (int i = 0; i < graphList.Count; i++)
         {

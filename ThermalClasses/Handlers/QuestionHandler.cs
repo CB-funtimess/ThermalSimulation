@@ -145,7 +145,7 @@ public class QuestionHandler : Handler
         questionLabel.PenColour = PenColour;
     }
 
-    public void NewQuestion()
+    private void NewQuestion()
     {
         questions.GenerateQuestion();
         questionLabel.Text = questions.CurrentQuestion.question;
@@ -188,7 +188,7 @@ public class QuestionHandler : Handler
     }
 
     #region Events
-    public void SubmitButton_Click(object sender, EventArgs e)
+    private void SubmitButton_Click(object sender, EventArgs e)
     {
         bool correct = false;
         if (questions.CurrentQuestion.type == QuestionType.Mathematical)
@@ -218,7 +218,7 @@ public class QuestionHandler : Handler
         }
     }
 
-    public void ResetButton_Click(object sender, EventArgs e)
+    private void ResetButton_Click(object sender, EventArgs e)
     {
         correctMCQIndex = 0;
         multipleChoice.ChangeIndex(correctMCQIndex);
