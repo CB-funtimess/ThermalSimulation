@@ -104,7 +104,7 @@ public class Graph : ObjectCollection
     }
 
     // Calculates the line of best fit using the least square method
-    public Vector2[] CalcLOBF()
+    private Vector2[] CalcLOBF()
     {
         // Calculate means
         double xMean, yMean;
@@ -150,7 +150,7 @@ public class Graph : ObjectCollection
         return new Vector2[] { minCrossPos, maxCrossPos };
     }
 
-    public void DrawLOBF(SpriteBatch _spriteBatch, Vector2 startPoint, Vector2 endPoint)
+    private void DrawLOBF(SpriteBatch _spriteBatch, Vector2 startPoint, Vector2 endPoint)
     {
         const int thickness = 2;
 

@@ -8,8 +8,8 @@ namespace ThermalClasses.GameObjects.Particles;
 public class Polygon : Particle
 {
     #region Fields
-    protected int sides;
-    protected Vector2[] unitPoints; // Vectors of vertices if the centre was at (0,0)
+    private int sides;
+    private Vector2[] unitPoints; // Vectors of vertices if the centre was at (0,0)
     #endregion
 
     #region Properties

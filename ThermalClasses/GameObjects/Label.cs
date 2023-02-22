@@ -6,7 +6,7 @@ namespace ThermalClasses.GameObjects;
 public class Label : GameObject // This class is a label with a box texture
 {
     #region Methods
-    public SpriteFont font;
+    private SpriteFont font;
 
     #endregion
 
