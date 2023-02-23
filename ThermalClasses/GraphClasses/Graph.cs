@@ -87,7 +87,7 @@ public class Graph : ObjectCollection
 
     public void AddPoint(Vector2 value)
     {
-        // Add value to relative list provided it is within the conditions
+        // Add value to relative list provided it is within the x and y values
         if (value.X >= minX && value.X <= maxX && value.Y >= minY && value.Y <= maxY && !crossPositions.Contains(value))
         {
             // Scale value appropriate to size of frame
