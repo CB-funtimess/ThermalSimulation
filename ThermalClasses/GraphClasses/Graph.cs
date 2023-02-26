@@ -137,7 +137,7 @@ public class Graph : ObjectCollection
             {
                 pointMaxX = crossPositions[i].X;
             }
-            else if (crossPositions[i].X < pointMinX)
+            if (crossPositions[i].X < pointMinX)
             {
                 pointMinX = crossPositions[i].X;
             }

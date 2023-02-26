@@ -333,21 +333,19 @@ public class SimulationHandler : Handler
 
             timeSinceDequeue += gameTime.ElapsedGameTime.TotalSeconds;
             // Adding particles according to the queue and the time since last dequeue
-            if (addParticlesQueue.Count > 0)
+            // If the last dequeue was greater than 1 second ago, add particles
+            if (addParticlesQueue.Count > 0 && timeSinceDequeue > 1)
             {
-                if (timeSinceDequeue > 1) // If the last dequeue was greater than 1 second ago, add particles
+                ParticleType typeToAdd = addParticlesQueue.Dequeue();
+                if (typeToAdd == ParticleType.Small)
                 {
-                    ParticleType typeToAdd = addParticlesQueue.Dequeue();
-                    if (typeToAdd == ParticleType.Small)
-                    {
-                        AddParticles(20, ref smallParticles, ref indexSmall);
-                    }
-                    else if (typeToAdd == ParticleType.Large)
-                    {
-                        AddParticles(20, ref largeParticles, ref indexLarge);
-                    }
-                    timeSinceDequeue = 0;
+                    AddParticles(20, ref smallParticles, ref indexSmall);
                 }
+                else if (typeToAdd == ParticleType.Large)
+                {
+                    AddParticles(20, ref largeParticles, ref indexLarge);
+                }
+                timeSinceDequeue = 0;
             }
 
             pauseButton.Update(gameTime);
@@ -618,7 +616,7 @@ public class SimulationHandler : Handler
                 particleType[index].SetPreviousPosition(new Vector2(simulationBox.BoxRect.Right, insertPosition.Y));
                 particleType[index].SetVelocity(insertionVelocity);
                 activeParticles.Add(particleType[index]);
-                insertPosition.Y += particleType[0].YRadius * 4; // Inserts next particle into a space below previous particle
+                insertPosition.Y += particleType[i].YRadius * 4; // Inserts next particle into a space below previous particle
                 theta += (float)((Math.PI / 2 / amount) + rnd.NextDouble()); // Modifies angle at which the magnitude of the velocity acts in
                 index++;
             }
