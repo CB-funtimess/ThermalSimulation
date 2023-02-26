@@ -368,7 +368,7 @@ public class SimulationHandler : Handler
             }
             if (!constants.Volume && !constants.PressureVol)
             {
-                if ((NumParticles > 0 && constants.PressureTemp) || !constants.PressureTemp)
+                if (((NumParticles > 0 && constants.PressureTemp) || !constants.PressureTemp) && !paused)
                 {
                     volumeSlider.Update(gameTime);
                 }
@@ -569,43 +569,34 @@ public class SimulationHandler : Handler
     #region Adding Particles
     private void AddSmallParticles_Click(object sender, EventArgs e)
     {
-        if (!paused)
-        {
-            EnqueueParticle(ParticleType.Small, ref indexSmall, 1);
-        }
+        EnqueueParticle(ParticleType.Small, ref indexSmall, 1);
     }
 
     private void Add50SmallParticles_Click(object sender, EventArgs e)
     {
-        if (!paused)
-        {
-            EnqueueParticle(ParticleType.Small, ref indexSmall, 5);
-        }
+        EnqueueParticle(ParticleType.Small, ref indexSmall, 5);
     }
 
     private void AddLargeParticles_Click(object sender, EventArgs e)
     {
-        if (!paused)
-        {
-            EnqueueParticle(ParticleType.Large, ref indexLarge, 1);
-        }
+        EnqueueParticle(ParticleType.Large, ref indexLarge, 1);
     }
 
     private void Add50LargeParticles_Click(object sender, EventArgs e)
     {
-        if (!paused)
-        {
-            EnqueueParticle(ParticleType.Large, ref indexLarge, 5);
-        }
+        EnqueueParticle(ParticleType.Large, ref indexLarge, 5);
     }
 
     private void EnqueueParticle(ParticleType type, ref int index, int numEnqueue)
     {
-        for (int i = 1; i <= numEnqueue; i++)
+        if (!paused)
         {
-            if (index + (i * 10) <= listSize)
+            for (int i = 1; i <= numEnqueue; i++)
             {
-                addParticlesQueue.Enqueue(type);
+                if (index + (i * 10) <= listSize)
+                {
+                    addParticlesQueue.Enqueue(type);
+                }
             }
         }
     }
@@ -659,16 +650,19 @@ public class SimulationHandler : Handler
 
     private void RemoveParticles(int amount, ref Polygon[] particleType, ref int index, ParticleType type)
     {
-        if (index - amount >= 0)
+        if (!paused)
         {
-            for (var i = 0; i < amount; i++)
+            if (index - amount >= 0)
             {
-                index--;
-                activeParticles.RemoveAt(GetIndex(type, index));
-                particleType[index].Enabled = false;
+                for (var i = 0; i < amount; i++)
+                {
+                    index--;
+                    activeParticles.RemoveAt(GetIndex(type, index));
+                    particleType[index].Enabled = false;
+                }
             }
+            constants.ChangeParticles = true;
         }
-        constants.ChangeParticles = true;
     }
     #endregion Removing Particles
 
@@ -710,10 +704,13 @@ public class SimulationHandler : Handler
     #region Changing Volume
     private void ChangeVolume_Click(object sender, EventArgs e)
     {
-        if ((NumParticles > 0 && constants.PressureTemp) || !constants.PressureTemp)
+        if (!paused)
         {
-            simulationBox.SetVolume(volumeSlider.sliderButton.Position.X);
-            volume = ScaleVolume(volumeSlider.sliderButton.Position.X);
+            if ((NumParticles > 0 && constants.PressureTemp) || !constants.PressureTemp)
+            {
+                simulationBox.SetVolume(volumeSlider.sliderButton.Position.X);
+                volume = ScaleVolume(volumeSlider.sliderButton.Position.X);
+            }
         }
     }
 
@@ -745,24 +742,30 @@ public class SimulationHandler : Handler
     #region Changing Temperature
     private void IncreaseTemperature_Click(object sender, EventArgs e)
     {
-        if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature + 10) <= maxVolume) || (constants.Volume && temperature + 10 <= maxTemperature))
+        if (!paused)
         {
-            temperature += 10;
-            if (!constants.PressureTemp && !constants.PressureVol)
+            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature + 10) <= maxVolume) || (constants.Volume && temperature + 10 <= maxTemperature))
             {
-                ChangeVRMS();
+                temperature += 10;
+                if (!constants.PressureTemp && !constants.PressureVol)
+                {
+                    ChangeVRMS();
+                }
             }
         }
     }
 
     private void DecreaseTemperature_Click(object sender, EventArgs e)
     {
-        if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature - 10) >= minVolume) || (constants.Volume && temperature - 10 >= minTemperature))
+        if (!paused)
         {
-            temperature -= 10;
-            if (!constants.PressureTemp && !constants.PressureVol)
+            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature - 10) >= minVolume) || (constants.Volume && temperature - 10 >= minTemperature))
             {
-                ChangeVRMS();
+                temperature -= 10;
+                if (!constants.PressureTemp && !constants.PressureVol)
+                {
+                    ChangeVRMS();
+                }
             }
         }
     }
@@ -785,22 +788,25 @@ public class SimulationHandler : Handler
 
     private void ChangeTemperatureText_Enter(object sender, EventArgs e)
     {
-        double newTemperature;
-        try
+        if (!paused)
         {
-            newTemperature = Convert.ToDouble(temperatureInput.Text);
-        }
-        catch (FormatException)
-        {
-            newTemperature = temperature;
-        }
-
-        if (newTemperature <= maxTemperature && newTemperature >= minTemperature)
-        {
-            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) >= minVolume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) <= maxVolume) || constants.Volume)
+            double newTemperature;
+            try
             {
-                temperature = newTemperature;
-                ChangeVRMS();
+                newTemperature = Convert.ToDouble(temperatureInput.Text);
+            }
+            catch (FormatException)
+            {
+                newTemperature = temperature;
+            }
+    
+            if (newTemperature <= maxTemperature && newTemperature >= minTemperature)
+            {
+                if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) >= minVolume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) <= maxVolume) || constants.Volume)
+                {
+                    temperature = newTemperature;
+                    ChangeVRMS();
+                }
             }
         }
     }
