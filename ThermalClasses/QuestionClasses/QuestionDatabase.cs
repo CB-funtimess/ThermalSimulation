@@ -6,13 +6,13 @@ public static class DatabaseConnection
 {
     #region Fields
     private static string connection = "Data Source=Questions.db";
-    //private static string filename = "Questions.db";
     #endregion
 
     #region Properties
     #endregion
 
     #region Methods
+    // Creates the table
     public static void InitialiseTable()
     {
         string connectionString = new SqliteConnectionStringBuilder(connection)
@@ -142,6 +142,7 @@ public static class DatabaseConnection
                 $difficulty,
                 $answer
             )";
+            // AddWithValue prevents SQL injection
             command.Parameters.AddWithValue("$question", question.question);
             command.Parameters.AddWithValue("$questiontype", question.questionType);
             command.Parameters.AddWithValue("$type", question.type.ToString());

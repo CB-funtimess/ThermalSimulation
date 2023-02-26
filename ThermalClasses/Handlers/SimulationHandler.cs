@@ -21,6 +21,7 @@ public class SimulationHandler : Handler
     #region Particles
     private Polygon[] smallParticles, largeParticles; // Total particles present in simulation
     private int indexSmall, indexLarge; // The index of the next particle to add
+    private const int listSize = 300;
     private List<Polygon> activeParticles;
     private SHG spatialHashGrid;
     private Queue<ParticleType> addParticlesQueue;
@@ -130,7 +131,6 @@ public class SimulationHandler : Handler
 
     public override void Initialize()
     {
-        const int listSize = 250;
         smallParticles = new Polygon[listSize];
         largeParticles = new Polygon[listSize];
         buttonCollection = new List<Button>();
@@ -340,11 +340,11 @@ public class SimulationHandler : Handler
                     ParticleType typeToAdd = addParticlesQueue.Dequeue();
                     if (typeToAdd == ParticleType.Small)
                     {
-                        AddParticles(10, ref smallParticles, ref indexSmall);
+                        AddParticles(20, ref smallParticles, ref indexSmall);
                     }
-                    else
+                    else if (typeToAdd == ParticleType.Large)
                     {
-                        AddParticles(10, ref largeParticles, ref indexLarge);
+                        AddParticles(20, ref largeParticles, ref indexLarge);
                     }
                     timeSinceDequeue = 0;
                 }
@@ -571,7 +571,7 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            addParticlesQueue.Enqueue(ParticleType.Small);
+            EnqueueParticle(ParticleType.Small, ref indexSmall, 1);
         }
     }
 
@@ -579,10 +579,7 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            for (var i = 0; i < 5; i++)
-            {
-                addParticlesQueue.Enqueue(ParticleType.Small);
-            }
+            EnqueueParticle(ParticleType.Small, ref indexSmall, 5);
         }
     }
 
@@ -590,7 +587,7 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            addParticlesQueue.Enqueue(ParticleType.Large);
+            EnqueueParticle(ParticleType.Large, ref indexLarge, 1);
         }
     }
 
@@ -598,9 +595,17 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            for (var i = 0; i < 5; i++)
+            EnqueueParticle(ParticleType.Large, ref indexLarge, 5);
+        }
+    }
+
+    private void EnqueueParticle(ParticleType type, ref int index, int numEnqueue)
+    {
+        for (int i = 1; i <= numEnqueue; i++)
+        {
+            if (index + (i * 10) <= listSize)
             {
-                addParticlesQueue.Enqueue(ParticleType.Large);
+                addParticlesQueue.Enqueue(type);
             }
         }
     }
@@ -634,22 +639,22 @@ public class SimulationHandler : Handler
     #region Removing Particles
     private void RemoveSmallParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(10, ref smallParticles, ref indexSmall, ParticleType.Small);
+        RemoveParticles(20, ref smallParticles, ref indexSmall, ParticleType.Small);
     }
 
     private void Remove50Small_Click(object sender, EventArgs e)
     {
-        RemoveParticles(50, ref smallParticles, ref indexSmall, ParticleType.Small);
+        RemoveParticles(100, ref smallParticles, ref indexSmall, ParticleType.Small);
     }
 
     private void RemoveLargeParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(10, ref largeParticles, ref indexLarge, ParticleType.Large);
+        RemoveParticles(20, ref largeParticles, ref indexLarge, ParticleType.Large);
     }
 
     private void Remove50Large_Click(object sender, EventArgs e)
     {
-        RemoveParticles(50, ref largeParticles, ref indexLarge, ParticleType.Large);
+        RemoveParticles(100, ref largeParticles, ref indexLarge, ParticleType.Large);
     }
 
     private void RemoveParticles(int amount, ref Polygon[] particleType, ref int index, ParticleType type)
@@ -697,6 +702,9 @@ public class SimulationHandler : Handler
             largeParticles[i].Enabled = false;
         }
         activeParticles.Clear();
+        indexLarge = 0;
+        indexSmall = 0;
+        addParticlesQueue.Clear();
     }
 
     #region Changing Volume

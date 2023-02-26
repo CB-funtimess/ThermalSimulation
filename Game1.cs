@@ -85,8 +85,8 @@ public class ThermalSim : Game
     private void InitializeRenderTarget()
     {
         // My preferred screen ratio: 16:9
-        windowHeight = 1080;//GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-        windowWidth = 1920;//GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+        windowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+        windowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = windowHeight; // Values laptop screen: 1200, monitor: 1080
         _graphics.PreferredBackBufferWidth = windowWidth; // Values laptop screen: 1920, monitor: 1920
         _graphics.ApplyChanges();
@@ -94,15 +94,13 @@ public class ThermalSim : Game
         {
             // Output is taller than it is wide (relative to screen ratio) so bars on top/bottom
             int outputHeight = (int)((windowWidth / (16 / (double)9)) + 0.5);
-            int barHeight = (windowHeight - outputHeight) / 4;
-            renderRectangle = new Rectangle(0, barHeight, windowWidth, outputHeight);
+            renderRectangle = new Rectangle(0, 0, windowWidth, outputHeight);
         }
         else if (windowWidth / (double)windowHeight > 16 / (double)9)
         {
             // Output is wider than it is tall (relative to screen ratio) so bars on left/right
             int outputWidth = (int)((windowHeight * (16 / (double)9)) + 0.5);
-            int barWidth = (windowWidth - outputWidth) / 2;
-            renderRectangle = new Rectangle(barWidth, 0, outputWidth, windowHeight);
+            renderRectangle = new Rectangle(0, 0, outputWidth, windowHeight);
         }
         else
         {
@@ -113,6 +111,7 @@ public class ThermalSim : Game
         // Resizing the touch panel to handle input correctly
         TouchPanel.DisplayHeight = renderRectangle.Height;
         TouchPanel.DisplayWidth = renderRectangle.Width;
+        // EnableMouseTouchPoint resizes the 
         TouchPanel.EnableMouseTouchPoint = true;
     }
 
