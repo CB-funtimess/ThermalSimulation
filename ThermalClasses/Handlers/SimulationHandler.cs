@@ -339,11 +339,11 @@ public class SimulationHandler : Handler
                 ParticleType typeToAdd = addParticlesQueue.Dequeue();
                 if (typeToAdd == ParticleType.Small)
                 {
-                    AddParticles(20, ref smallParticles, ref indexSmall);
+                    AddParticles(10, ref smallParticles, ref indexSmall);
                 }
                 else if (typeToAdd == ParticleType.Large)
                 {
-                    AddParticles(20, ref largeParticles, ref indexLarge);
+                    AddParticles(10, ref largeParticles, ref indexLarge);
                 }
                 timeSinceDequeue = 0;
             }
@@ -628,22 +628,22 @@ public class SimulationHandler : Handler
     #region Removing Particles
     private void RemoveSmallParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(20, ref smallParticles, ref indexSmall, ParticleType.Small);
+        RemoveParticles(10, ref smallParticles, ref indexSmall, ParticleType.Small);
     }
 
     private void Remove50Small_Click(object sender, EventArgs e)
     {
-        RemoveParticles(100, ref smallParticles, ref indexSmall, ParticleType.Small);
+        RemoveParticles(50, ref smallParticles, ref indexSmall, ParticleType.Small);
     }
 
     private void RemoveLargeParticles_Click(object sender, EventArgs e)
     {
-        RemoveParticles(20, ref largeParticles, ref indexLarge, ParticleType.Large);
+        RemoveParticles(10, ref largeParticles, ref indexLarge, ParticleType.Large);
     }
 
     private void Remove50Large_Click(object sender, EventArgs e)
     {
-        RemoveParticles(100, ref largeParticles, ref indexLarge, ParticleType.Large);
+        RemoveParticles(50, ref largeParticles, ref indexLarge, ParticleType.Large);
     }
 
     private void RemoveParticles(int amount, ref Polygon[] particleType, ref int index, ParticleType type)
