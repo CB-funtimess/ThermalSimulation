@@ -76,13 +76,18 @@ public class CollisionCounter : ObjectCollection
         textLabel.PenColour = penColour;
     }
 
-    public void ResetCount_Click(object sender, EventArgs e)
+    public void Reset()
     {
         NoCollisions = 0;
         textLabel.Text = $"{NoCollisions}";
     }
 
-    public void StartStopCount_Click(object sender, EventArgs e)
+    private void ResetCount_Click(object sender, EventArgs e)
+    {
+        Reset();
+    }
+
+    private void StartStopCount_Click(object sender, EventArgs e)
     {
         isCounting = !isCounting;
     }

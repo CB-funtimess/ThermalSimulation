@@ -680,6 +680,7 @@ public class SimulationHandler : Handler
         volumeSlider.sliderButton.SetPosition(new Vector2(InverseScale(volume), volumeSlider.sliderButton.Position.Y));
 
         RemoveAllParticles();
+        counter.Reset();
     }
 
     private void RemoveAllParticles()
@@ -742,7 +743,7 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature + 10) <= maxVolume) || (constants.Volume && temperature + 10 <= maxTemperature))
+            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature + 10) <= maxVolume && temperature + 10 <= maxTemperature) || (constants.Volume && temperature + 10 <= maxTemperature))
             {
                 temperature += 10;
                 if (!constants.PressureTemp && !constants.PressureVol)
@@ -757,7 +758,7 @@ public class SimulationHandler : Handler
     {
         if (!paused)
         {
-            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature - 10) >= minVolume) || (constants.Volume && temperature - 10 >= minTemperature))
+            if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, temperature - 10) >= minVolume && temperature-10 >= minTemperature) || (constants.Volume && temperature - 10 >= minTemperature))
             {
                 temperature -= 10;
                 if (!constants.PressureTemp && !constants.PressureVol)
@@ -797,7 +798,7 @@ public class SimulationHandler : Handler
             {
                 newTemperature = temperature;
             }
-    
+
             if (newTemperature <= maxTemperature && newTemperature >= minTemperature)
             {
                 if ((!constants.Volume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) >= minVolume && PhysicsEquations.CalcVolume(pressure, NumParticles, newTemperature) <= maxVolume) || constants.Volume)
