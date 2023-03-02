@@ -153,6 +153,11 @@ public class Graph : ObjectCollection
     private void DrawLOBF(SpriteBatch _spriteBatch, Vector2 startPoint, Vector2 endPoint)
     {
         const int thickness = 2;
+        // If line will be drawn below graph frame, set startPoint.Y to bottom
+        if (startPoint.Y > graphFrame.ObjectRectangle.Bottom)
+        {
+            startPoint = new Vector2(startPoint.X, graphFrame.ObjectRectangle.Bottom);
+        }
 
         int distance = (int)Vector2.Distance(startPoint, endPoint);
         if (distance > 0)
