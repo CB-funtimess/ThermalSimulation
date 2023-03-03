@@ -1,0 +1,11 @@
+"filename", "language", "C#", "comment", "blank", "total"
+"/home/kayla/Documents/GitHub/ThermalSimulation/Game1.cs", "C#", -2, 1, 0, -1
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/NumInput.cs", "C#", 3, 0, 0, 3
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GameObjects/ObjectCollections/CollisionCounter.cs", "C#", 4, 0, 1, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/GraphClasses/Graph.cs", "C#", 4, 1, 0, 5
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/QuestionHandler.cs", "C#", -2, -1, -1, -4
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/Handlers/SimulationHandler.cs", "C#", 11, 1, 1, 13
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/PhysicsLaws/Physics.cs", "C#", -4, -9, -1, -14
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionDatabase.cs", "C#", 0, 1, 0, 1
+"/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/QuestionClasses/QuestionInterface.cs", "C#", -1, 0, 0, -1
+"Total", "-", 13, -6, 0, 7

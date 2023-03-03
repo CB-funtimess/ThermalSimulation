@@ -127,6 +127,7 @@ public class ThermalSim : Game
         graphHandler.LoadContent();
     }
 
+    // Loads section to toggle between graphs and questions
     private void LoadToggle()
     {
         SpriteFont font = Content.Load<SpriteFont>("GeneralAssets/Arial");
@@ -164,6 +165,7 @@ public class ThermalSim : Game
         questionHandler.Enabled = !questionHandler.Enabled;
     }
 
+    // Loads all colour buttons
     private void LoadColours()
     {
         SpriteFont font = Content.Load<SpriteFont>("GeneralAssets/Arial");
