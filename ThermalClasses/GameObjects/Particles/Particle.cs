@@ -8,8 +8,6 @@ using ThermalClasses.Handlers;
 
 namespace ThermalClasses.GameObjects.Particles;
 
-// NEED TO ADD ACCOMMODATION FOR PROPERTIES OF SIMULATION TO BE CHANGED
-
 // Higher-level class for a particle that deals with the movement and position on-screen of a shape
 public class Particle : GameObject
 {
