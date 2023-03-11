@@ -4,7 +4,7 @@ namespace ThermalClasses.PhysicsLaws;
 public static class PhysicsEquations
 {
     #region Constants
-    private const double k = 1.23E-23;
+    private const double k = 1.38E-23;
     private const double r = 8.31;
     #endregion
 

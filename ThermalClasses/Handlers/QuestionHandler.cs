@@ -211,6 +211,7 @@ public class QuestionHandler : Handler
         if (correct)
         {
             surroundBox.ChangeColourMask(Color.Green);
+            submitButton.Enabled = false;
         }
         else
         {
@@ -224,6 +225,7 @@ public class QuestionHandler : Handler
         multipleChoice.ChangeIndex(correctMCQIndex);
         NewQuestion();
         surroundBox.ChangeColourMask(Color.White);
+        submitButton.Enabled = true;
     }
     #endregion Events
     #endregion Methods

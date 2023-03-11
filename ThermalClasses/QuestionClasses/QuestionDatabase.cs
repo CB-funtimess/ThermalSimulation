@@ -101,7 +101,7 @@ public static class DatabaseConnection
         };
         string[,] answers = new string[,]{
             {"u", "u/2", "2u", "4u"},
-            {"They travel between the container walls in negligibly short times.", "They collide elastically with the container walls", "They have negligible size compared to the distance between the container walls.", "They collide with the container walls in negligibly short times."},
+            {"They travel between the container walls in negligibly short times.", "They collide elastically with the container walls", "They have negligible size.", "They collide with the container walls in negligibly short times."},
             {"4", "8", "0.125", "0.25"},
             {"6.5x10^5 m2 s-2", "3.3x10^5 m2 s-2", "4.3x10^5 m2 s-2", "8.7x10^5 m2 s-2"},
             {"The size is negligible.", "The size is massive.", "The size doesn't matter.", "Molecules are as large as the container"},
@@ -110,7 +110,7 @@ public static class DatabaseConnection
             {"Work done = pressure * change in volume", "Work done = temperature", "Work done = pressure * change in temperature", "Work done = volume * temperature"},
             {"2mu", "mu", "-mu", "-2mu"},
             {"There is no potential energy.", "There is no kinetic energy.", "Kinetic energy = potential energy.", "There is no internal energy."},
-            {"Components of velocity could be negative so mean would not be representative.", "Root mean square is more accurate.", "Root mean square gives a negative answer", "Root mean square is more useful for random motion."}
+            {"Components of velocity could be negative.", "Root mean square is more accurate.", "Root mean square gives a negative answer", "Root mean square is more useful for random motion."}
         };
         double[] difficulties = {0.5, 0.5, 0.8, 0.3, 0.0, 0.0, 0.0, 0.4, 0.5, 0.5, 0.9};
         Question[] questions = new Question[mcqs.Length];
