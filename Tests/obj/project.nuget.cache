@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6B7eC0/uOOUJwsGifq4y05UzjO/9/WtQtt63vlcFk1PITV0ZCCyLtxlPQY2pcyt3Sei/oVI3zoTqg707zD8eIA==",
+  "dgSpecHash": "A08oAktK+6vSWJiHtXJj68UvvsFaKG3vKAbbF9Lo9uMFSV9lEooo7HLr0pmnOYbEJlymmSVljZdjpy3K/HVWhA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
+  "projectFilePath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gsleg\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\gsleg\\.nuget\\packages\\microsoft.codecoverage\\17.1.0\\microsoft.codecoverage.17.1.0.nupkg.sha512",
