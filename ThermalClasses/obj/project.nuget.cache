@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KuAkl47kDopOuFJDnXBtH+1icCVl4KfRZgCnXrL3MVk/kOnxp8M9KYGEuD6SUdqtpRlIZaUlFwN1z5vqGAkE5Q==",
+  "dgSpecHash": "+JPt6WKGuTPk8x6EvgitpH5TuvqxRxAWmeKueTxzGzCWbFKv0m+tev2qdtSdmSfyCHu+dKAXH7upLDHIVYSZqg==",
   "success": true,
-  "projectFilePath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
+  "projectFilePath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gsleg\\.nuget\\packages\\microsoft.data.sqlite\\7.0.2\\microsoft.data.sqlite.7.0.2.nupkg.sha512",
     "C:\\Users\\gsleg\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.2\\microsoft.data.sqlite.core.7.0.2.nupkg.sha512",
