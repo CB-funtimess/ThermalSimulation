@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj": {}
+    "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj": {
+    "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj",
+        "projectUniqueName": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj",
-        "packagesPath": "/home/kayla/.nuget/packages/",
-        "outputPath": "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/",
+        "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
+        "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/kayla/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,8 +26,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
-                "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj"
+              "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
+                "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj"
               }
             }
           }
@@ -69,7 +69,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -78,21 +79,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
+    "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
+        "projectUniqueName": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
         "projectName": "ThermalClasses",
-        "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
-        "packagesPath": "/home/kayla/.nuget/packages/",
-        "outputPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/obj/",
+        "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
+        "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/kayla/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -135,7 +136,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -144,7 +146,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     }

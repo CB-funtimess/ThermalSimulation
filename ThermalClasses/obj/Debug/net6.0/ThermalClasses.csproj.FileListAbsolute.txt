@@ -22,3 +22,15 @@
 /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ThermalClasses.pdb
 /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/obj/Debug/net6.0/ref/ThermalClasses.dll
 /home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/bin/Debug/net6.0/ref/ThermalClasses.dll
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\bin\Debug\net6.0\ThermalClasses.deps.json
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\bin\Debug\net6.0\ThermalClasses.dll
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\bin\Debug\net6.0\ThermalClasses.pdb
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ThermalClasses.csproj.AssemblyReference.cache
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ThermalClasses.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ThermalClasses.AssemblyInfoInputs.cache
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ThermalClasses.AssemblyInfo.cs
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ThermalClasses.csproj.CoreCompileInputs.cache
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ThermalClasses.dll
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\refint\ThermalClasses.dll
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ThermalClasses.pdb
+c:\Users\gsleg\Documents\GitHub\ThermalSimulation\ThermalClasses\obj\Debug\net6.0\ref\ThermalClasses.dll
