@@ -1,33 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {}
+    "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {
+    "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
+        "projectUniqueName": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
+        "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
         "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\obj\\",
+        "outputPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
-                "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj"
+              "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
+                "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj"
               }
             }
           }
@@ -79,26 +81,28 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
+    "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
+        "projectUniqueName": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
         "projectName": "ThermalClasses",
-        "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
+        "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
         "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\obj\\",
+        "outputPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -146,7 +150,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
