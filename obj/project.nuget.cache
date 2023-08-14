@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oPdBPU/c2kX2vius/5n8QFe/VoEbKuUhWIF7n+TLWg4M6Wppc49KqThoNAs+opHfZz+VqGSNRNbB+jrFERsVcw==",
+  "dgSpecHash": "6UCuFdMTqddQYVwwH6zBb7asZHxqoWvyihtQiSBqv7VvvG0Uqb/NZAFBnT210fAY1SfFEyvYOZ5FprrCHZI37w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
+  "projectFilePath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gsleg\\.nuget\\packages\\microsoft.codecoverage\\17.1.0\\microsoft.codecoverage.17.1.0.nupkg.sha512",
     "C:\\Users\\gsleg\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",

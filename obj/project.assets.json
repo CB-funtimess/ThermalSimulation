@@ -6462,11 +6462,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
+      "projectUniqueName": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
       "projectName": "ThermalSimulation",
-      "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
+      "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
       "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\obj\\",
+      "outputPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6486,8 +6486,8 @@
             "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {
               "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj"
             },
-            "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
-              "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj"
+            "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
+              "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj"
             }
           }
         }
