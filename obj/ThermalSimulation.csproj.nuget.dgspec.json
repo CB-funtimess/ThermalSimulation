@@ -1,35 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj": {}
+    "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalSimulation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {
+    "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
+        "projectUniqueName": "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj",
-        "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\obj\\",
+        "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj",
+        "packagesPath": "/home/kayla/.nuget/packages/",
+        "outputPath": "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/kayla/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
-                "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj"
+              "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
+                "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj"
               }
             }
           }
@@ -71,8 +69,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -81,28 +78,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.124/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
+    "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
+        "projectUniqueName": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
         "projectName": "ThermalClasses",
-        "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj",
-        "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\obj\\",
+        "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj",
+        "packagesPath": "/home/kayla/.nuget/packages/",
+        "outputPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/kayla/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -140,8 +135,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -150,39 +144,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.124/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj": {
+    "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalSimulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
+        "projectUniqueName": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalSimulation.csproj",
         "projectName": "ThermalSimulation",
-        "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalSimulation.csproj",
-        "packagesPath": "C:\\Users\\gsleg\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\obj\\",
+        "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalSimulation.csproj",
+        "packagesPath": "/home/kayla/.nuget/packages/",
+        "outputPath": "/home/kayla/Documents/GitHub/ThermalSimulation/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gsleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/kayla/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj": {
-                "projectPath": "C:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\Tests\\Tests.csproj"
+              "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj": {
+                "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/Tests/Tests.csproj"
               },
-              "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj": {
-                "projectPath": "c:\\Users\\gsleg\\Documents\\GitHub\\ThermalSimulation\\ThermalClasses\\ThermalClasses.csproj"
+              "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj": {
+                "projectPath": "/home/kayla/Documents/GitHub/ThermalSimulation/ThermalClasses/ThermalClasses.csproj"
               }
             }
           }
@@ -216,8 +208,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -226,7 +217,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.124/RuntimeIdentifierGraph.json"
         }
       }
     }
